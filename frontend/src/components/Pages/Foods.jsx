@@ -1,0 +1,163 @@
+import react, { useContext, useState, useEffect } from "react";
+import { AppContext } from "../../Providers/ContextProvider";
+import FoodDisplay from "../FoodDisplay";
+import CloseButton from "../CloseButton";
+import plusButton from "../../assets/addtolog.svg";
+import editButton from "../../assets/edit.svg";
+import trashButton from "../../assets/trash.svg";
+import createDateString from "../../createDateString";
+import SearchBar from "../SearchBar";
+import favorite from "../../assets/favorite.svg";
+
+export default function Foods() {
+  const { activePage, APIUrl } = useContext(AppContext);
+  const [foods, setFoods] = useState([]);
+  const [searchedFoods, setSearchedFoods] = useState([]);
+  const [favoriteFoods, setFavoriteFoods] = useState([]); //foods displayed
+  const [displayedFoods, setDisplayedFoods] = useState([]);
+  const [sortBy, setSortBy] = useState("alpha");
+  const [foodEdit, setFoodEdit] = useState({});
+  const [logDate, setLogDate] = useState(createDateString(new Date()));
+  const [filterFavorites, setFilterFavorites] = useState(false);
+  const [itemStates, setItemStates] = useState({
+    item: "",
+    option: "",
+  });
+
+  const handleFavorites = () => {
+    setFilterFavorites(!filterFavorites);
+    if (!filterFavorites === true) {
+      setFavoriteFoods(foods.filter((food) => food.favorite));
+    } else {
+      setFavoriteFoods(foods);
+    }
+  };
+
+  const stateReset = () => {
+    setItemStates({
+      item: "",
+      option: "",
+    });
+    setFoodEdit({});
+    setLogDate(createDateString(new Date()));
+  };
+
+  const fetchFoods = async () => {
+    const res = await fetch(APIUrl + "foods");
+    const data = await res.json();
+    setFoods(data.data);
+    setSearchedFoods(data.data);
+    setFavoriteFoods(data.data);
+  };
+
+  const [currentlyActive, setCurrentlyActive] = useState(0);
+  useEffect(() => {
+    if (activePage === "Foods") {
+      setCurrentlyActive(currentlyActive + 1);
+    }
+  }, [activePage]);
+
+  useEffect(() => {
+    fetchFoods();
+  }, [currentlyActive]);
+
+  useEffect(() => {
+    setDisplayedFoods(
+      foods
+        .filter(
+          (eachFood) =>
+            searchedFoods.map((f) => f._id).includes(eachFood._id) &&
+            favoriteFoods.map((f) => f._id).includes(eachFood._id)
+        )
+        .sort(
+          sortBy === "alpha"
+            ? (a, b) => a.name.localeCompare(b.name)
+            : (a, b) => b.lastLogged.localeCompare(a.lastLogged)
+        )
+    );
+  }, [favoriteFoods, searchedFoods, foods, sortBy]);
+
+  return (
+    <div
+      style={{}}
+      className={
+        "container-box main-page " +
+        (activePage === "Foods" ? "active" : "inactive")
+      }
+    >
+      <CloseButton
+        functionList={[
+          stateReset,
+          () => document.getElementById("foods-div").scroll(0, "smooth"),
+          () =>
+            Array.from(document.getElementsByClassName("search-bar")).forEach(
+              (e) => (e.value = "")
+            ),
+        ]}
+      />
+      <h1>
+        Saved Foods
+        <hr />
+      </h1>
+      <SearchBar
+        itemList={foods}
+        setItemList={setSearchedFoods}
+      />
+      <form
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: "1px",
+        }}
+      >
+        <label>
+          Alphabetical
+          <input
+            name="sort"
+            type="radio"
+            defaultChecked={true}
+            onChange={() => setSortBy("alpha")}
+          />
+        </label>
+
+        <label>
+          Recently Logged
+          <input
+            name="sort"
+            type="radio"
+            onChange={() => setSortBy("recent")}
+          />
+        </label>
+
+        <label>
+          <img src={favorite} />
+          <input
+            type="checkbox"
+            value={filterFavorites}
+            onChange={handleFavorites}
+          />
+        </label>
+      </form>
+
+      <div
+        id="foods-div"
+        style={{ height: "calc(100% - 92px)", overflow: "auto" }}
+      >
+        {displayedFoods.map((food, i) => (
+          <div key={i}>
+            <FoodDisplay
+              food={food}
+              itemState={itemStates}
+              setItemState={setItemStates}
+              allFoods={foods}
+              setAllFoods={setFoods}
+              buttons={[plusButton, editButton, trashButton]}
+              link="foods"
+              favoritable={true}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
