@@ -1,5 +1,8 @@
 import react, { createContext, useState } from "react";
 
+
+const IP = import.meta.env.VITE_IP;
+
 const AppContext = createContext();
 
 const ContextProvider = ({ children }) => {
@@ -8,7 +11,9 @@ const ContextProvider = ({ children }) => {
   const updateActivePage = (ActivePage) => setActivePage(ActivePage);
 
   // API link provider
-  const [APIUrl, ] = useState("http://192.168.1.110:8080/api/");
+  const [APIUrl, ] = useState(`${IP}:8080/api/`);
+  console.log(APIUrl)
+
 
   //Today's Macro Info
   const [macroTotals, setMacroTotals] = useState({

@@ -5,7 +5,8 @@
   "description": "Fitness tracker",
   "main": "index.js",
   "scripts": {
-    "dev": "node --watch --env-file=.env backend/server.js"
+    "dev": "node --watch --env-file=.env backend/server.js",
+    "frontend": "npm --prefix ./frontend run dev"
   },
   "type": "module",
   "author": "matt",
