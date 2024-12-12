@@ -72,7 +72,6 @@ export default function MealDisplay({
     });
     res = await res.json();
     const data = res.data;
-    console.dir(data);
     setMealStatus({ id: "", expanded: false, option: "" });
     updateMeals([data, ...mealEdits.slice(1)]);
   };

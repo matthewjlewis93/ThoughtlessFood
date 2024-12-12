@@ -16,6 +16,10 @@ export default function Meals() {
     option: "",
   });
 
+  const editVisibleMeals = () => {
+    
+  }
+
   const handleAddMeal = (e) => {
     e.preventDefault();
     if (meals[0]._id !== 'new') {
@@ -44,6 +48,10 @@ export default function Meals() {
   useEffect(() => {
     fetchMeals();
   }, []);
+
+  useEffect(() => {
+    
+  },[meals, mealStatus])
 
   useEffect(() => {
     if (mealStatus.option !== "new") {
