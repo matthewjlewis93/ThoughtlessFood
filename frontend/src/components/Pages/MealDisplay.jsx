@@ -65,13 +65,16 @@ export default function MealDisplay({
     let mealToSend = structuredClone(mealEdits[0]);
     delete mealToSend.complete;
     delete mealToSend._id;
-    fetch(`${APIUrl}meals`, {
+    let res = await fetch(`${APIUrl}meals`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(mealToSend),
     });
+    res = await res.json();
+    const data = res.data;
+    console.dir(data);
     setMealStatus({ id: "", expanded: false, option: "" });
-    updateMeals([mealToSend, ...mealEdits.slice(1)]);
+    updateMeals([data, ...mealEdits.slice(1)]);
   };
 
   const logMeal = async (loggedMeal) => {

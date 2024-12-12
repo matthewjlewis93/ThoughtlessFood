@@ -5,7 +5,7 @@ import foodRouter from "./routes/food.routes.js";
 import logRouter from "./routes/log.routes.js";
 import mealRouter from "./routes/meal.routes.js";
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8080;
 const app = express();
 
 app.use(express.json());

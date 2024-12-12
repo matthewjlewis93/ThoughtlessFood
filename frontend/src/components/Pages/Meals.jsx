@@ -8,7 +8,7 @@ import createDateString from "../../createDateString";
 export default function Meals() {
   const { activePage, APIUrl } = useContext(AppContext);
   const [meals, setMeals] = useState([]);
-  // const [visibleMeals, setVisibleMeals] = useState([])
+  const [visibleMeals, setVisibleMeals] = useState([])
   const [mealEdits, setMealEdits] = useState({});
   const [mealStatus, setMealStatus] = useState({
     id: "",
