@@ -10,6 +10,7 @@ export default function Meals() {
   const [meals, setMeals] = useState([]);
   const [visibleMeals, setVisibleMeals] = useState([])
   const [mealEdits, setMealEdits] = useState({});
+  const [sortBy, setSortBy] = useState('alpha');
   const [mealStatus, setMealStatus] = useState({
     id: "",
     expanded: false,
@@ -17,7 +18,13 @@ export default function Meals() {
   });
 
   const editVisibleMeals = () => {
-    
+    let mealsToShow = structuredClone(meals);
+    mealsToShow.sort(
+      sortBy === "alpha"
+        ? (a, b) => a.name.localeCompare(b.name)
+        : (a, b) => b.lastLogged.localeCompare(a.lastLogged)
+    );
+    setVisibleMeals(mealsToShow);
   }
 
   const handleAddMeal = (e) => {
@@ -50,8 +57,8 @@ export default function Meals() {
   }, []);
 
   useEffect(() => {
-    
-  },[meals, mealStatus])
+    editVisibleMeals()
+  },[meals, mealStatus, sortBy])
 
   useEffect(() => {
     if (mealStatus.option !== "new") {
@@ -113,7 +120,7 @@ export default function Meals() {
         id={"meal-div"}
         style={{ overflow: "auto", height: "calc(100svh - 120px)" }}
       >
-        {meals.map((e, i) => (
+        {visibleMeals.map((e, i) => (
           <div key={e._id}>
             <MealDisplay
               meal={e}

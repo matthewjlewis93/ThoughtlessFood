@@ -14,7 +14,7 @@ app.use("/api/foods", foodRouter);
 app.use("/api/log", logRouter);
 app.use("/api/meals", mealRouter);
 
-app.get("/", (req,res) => {res.json({m:"Hello!"})})
+app.get("/", (req,res) => {res.json({m:"live"})})
 
 app.listen(PORT, () => {
     connectDB();
