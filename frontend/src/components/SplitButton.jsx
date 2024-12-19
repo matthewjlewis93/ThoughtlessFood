@@ -1,10 +1,10 @@
 import react, { useContext } from "react";
 import { AppContext } from "../Providers/ContextProvider";
 
-export default function SplitButton({ title1, title2 }) {
+export default function SplitButton({ title1, title2, icon1, icon2 }) {
   const { updateActivePage } = useContext(AppContext);
   return (
-    <div style={{ display: "inline-block", maxWidth:"165px" }}>
+    <div style={{ display: "flex", maxWidth: "165px" }}>
       <button
         onClick={() => updateActivePage(title1)}
         className="blue-button"
@@ -16,10 +16,14 @@ export default function SplitButton({ title1, title2 }) {
           borderTopLeftRadius: "5px",
           borderBottomLeftRadius: "5px",
           width: "50%",
-          height:"34px"
+          height: "34px",
+          display: "flex",
+          alignItems: "center",
+          gap: "6px",
         }}
       >
-        {title1}
+        <img src={icon1} />
+        <span>{title1}</span>
       </button>
       <button
         onClick={() => updateActivePage(title2)}
@@ -32,10 +36,14 @@ export default function SplitButton({ title1, title2 }) {
           borderTopRightRadius: "5px",
           borderBottomRightRadius: "5px",
           width: "50%",
-          height:"34px"
+          height: "34px",
+          display: "flex",
+          alignItems: "center",
+          gap: "6px",
         }}
       >
-        {title2}
+        <img src={icon2}/>
+        <span>{title2}</span>
       </button>
     </div>
   );
