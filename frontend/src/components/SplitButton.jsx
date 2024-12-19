@@ -4,7 +4,7 @@ import { AppContext } from "../Providers/ContextProvider";
 export default function SplitButton({ title1, title2 }) {
   const { updateActivePage } = useContext(AppContext);
   return (
-    <div style={{ display: "inline-block" }}>
+    <div style={{ display: "inline-block", maxWidth:"165px" }}>
       <button
         onClick={() => updateActivePage(title1)}
         className="blue-button"
@@ -16,6 +16,7 @@ export default function SplitButton({ title1, title2 }) {
           borderTopLeftRadius: "5px",
           borderBottomLeftRadius: "5px",
           width: "50%",
+          height:"34px"
         }}
       >
         {title1}
@@ -31,6 +32,7 @@ export default function SplitButton({ title1, title2 }) {
           borderTopRightRadius: "5px",
           borderBottomRightRadius: "5px",
           width: "50%",
+          height:"34px"
         }}
       >
         {title2}

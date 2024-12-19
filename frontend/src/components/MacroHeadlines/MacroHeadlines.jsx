@@ -44,7 +44,7 @@ export default function MacroHeadlines() {
   },[activePage])
 
   return (
-    <div className="container-box">
+    <div className="container-box" style={{maxWidth:"950px", marginLeft:"auto", marginRight: "auto"}}>
       <MacroChart calorieValue={macroTotals.calories} />
       <div
         style={{
