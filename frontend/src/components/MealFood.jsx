@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import Trash from "../assets/trash.svg";
+import Check from "../assets/check.svg";
 import X from "../assets/x.svg";
 import { AppContext } from "../Providers/ContextProvider";
 
@@ -13,8 +14,9 @@ export default function MealFood({
   mealFoodAmount,
   setMealFoodAmount,
 }) {
-  const {APIUrl} = useContext(AppContext);
-  // const [edits, setEdits] = useState();
+  const { APIUrl } = useContext(AppContext);
+  const [visible, setVisible] = useState(true);
+  const [deleteItem, setDeleteItem] = useState(false);
   const editMeal = (property, value) => {
     if (Boolean(Number(value)) || value == 0) {
       value = Number(value);
@@ -32,20 +34,45 @@ export default function MealFood({
 
   const deleteFood = () => {
     let updatedMealToSend = structuredClone(mealEdits);
-    updatedMealToSend[mealIndex].ingredients = updatedMealToSend[mealIndex].ingredients.filter((x,i) => i !== index);
+    updatedMealToSend[mealIndex].ingredients = updatedMealToSend[
+      mealIndex
+    ].ingredients.filter((x, i) => i !== index);
     setMealEdits(updatedMealToSend);
-    console.log(updatedMealToSend)
-    // fetch(`${APIUrl}meals/${meal._id}`, {
-    //   method: "PATCH",
-    //   headers: {"Content-Type" : "application/json"},
-    //   body: JSON.stringify(updatedMealToSend)
-    // })
-  }
+    setVisible(false);
+    setDeleteItem(false);
+  };
 
   switch (status) {
     case "edit":
-      return (
-        <div className="item-container meal-food">
+      return deleteItem ? (
+        <div
+          className={"item-container meal-food "}
+          style={{ display: visible ? "" : "none" }}
+        >
+          <div
+            style={{
+              gridRow: "span 4",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              padding: "5px",
+            }}
+          >
+            <h3>Delete {food.name}?</h3>
+          </div>
+          <div className="grid-buttons" style={{gridRow: "span 4", borderBottom:"0px", borderLeft: "1px solid"}}>
+            <img src={Check} onClick={deleteFood} />
+            <img
+              src={X}
+              onClick={() => setDeleteItem(false)}
+            />
+          </div>
+        </div>
+      ) : (
+        <div
+          className={"item-container meal-food "}
+          style={{ display: visible ? "" : "none" }}
+        >
           <div
             style={{
               gridRow: "span 4",
@@ -87,7 +114,7 @@ export default function MealFood({
                   border: "1px solid #0c335a",
                   borderRadius: "5px",
                 }}
-                onClick={deleteFood}
+                onClick={() => setDeleteItem(true)}
               />
             </div>
           </div>
@@ -219,7 +246,7 @@ export default function MealFood({
               onChange={(e) => editMeal("calories", e.target.value)}
               style={{
                 width: "2.2em",
-                fontSize:"12px"
+                fontSize: "12px",
               }}
               placeholder={food.calories}
             />{" "}
@@ -239,7 +266,7 @@ export default function MealFood({
               onChange={(e) => editMeal("fat", e.target.value)}
               style={{
                 width: "2.2em",
-                fontSize:"12px"
+                fontSize: "12px",
               }}
               placeholder={food.fat}
             />
@@ -259,7 +286,7 @@ export default function MealFood({
               onChange={(e) => editMeal("carbs", e.target.value)}
               style={{
                 width: "2.2em",
-                fontSize:"12px"
+                fontSize: "12px",
               }}
               placeholder={food.carbs}
             />
@@ -278,7 +305,7 @@ export default function MealFood({
               onChange={(e) => editMeal("protein", e.target.value)}
               style={{
                 width: "2.2em",
-                fontSize:"12px"
+                fontSize: "12px",
               }}
               placeholder={food.protein}
             />
@@ -302,8 +329,19 @@ export default function MealFood({
             <h1>{food.name}</h1>
             <label>
               Amount to log: <br />
-              <input type="number" style={{ width: "2.5em" }} placeholder={food.amount}
-              onChange={(e) => setMealFoodAmount({...mealFoodAmount, [index]: e.target.value === '' ? food.amount : Number(e.target.value)})}
+              <input
+                type="number"
+                style={{ width: "2.5em" }}
+                placeholder={food.amount}
+                onChange={(e) =>
+                  setMealFoodAmount({
+                    ...mealFoodAmount,
+                    [index]:
+                      e.target.value === ""
+                        ? food.amount
+                        : Number(e.target.value),
+                  })
+                }
               />
               {" " + food.unit}{" "}
             </label>

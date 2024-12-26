@@ -25,6 +25,7 @@ export default function Meals() {
         : (a, b) => b.lastLogged.localeCompare(a.lastLogged)
     );
     setVisibleMeals(mealsToShow);
+    setMealEdits(mealsToShow);
   }
 
   const handleAddMeal = (e) => {

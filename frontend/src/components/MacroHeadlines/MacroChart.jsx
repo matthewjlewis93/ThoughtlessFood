@@ -50,7 +50,7 @@ export default function MacroChart({ calorieValue }) {
       newData: { widthFactor: 0.6 },
       oldData: { color: "#eee" },
     },
-    title: `${goal - calorieValue} calories remaining`,
+    // title: `${goal - calorieValue} calories remaining`,
     titlePosition: "out",
     enableInteractivity: false,
     colors: ["#38E5BA"],
