@@ -278,6 +278,22 @@ export default function MealDisplay({
                       updateMeals={updateMeals}
                     />
                   ))}
+                  <div
+                    onClick={handleAddIngredient}
+                    style={{
+                      width: "calc(100% - 16px)",
+                      height: "22px",
+                      margin: "3px auto 3px auto",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#eee",
+                      borderRadius: "5px",
+                      border: "1px solid",
+                    }}
+                  >
+                    <img src={Plus} />
+                  </div>
                 </div>
               )}
 
