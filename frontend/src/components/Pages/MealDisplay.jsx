@@ -57,9 +57,8 @@ export default function MealDisplay({
     fetch(`${APIUrl}meals/${meal._id}`, {
       method: "DELETE",
     });
-    updateMeals(mealEdits.filter((m) => m._id !== meal._id))
+    updateMeals(mealEdits.filter((m) => m._id !== meal._id));
   };
-
 
   const sendNewMeal = async () => {
     let mealToSend = structuredClone(mealEdits[0]);

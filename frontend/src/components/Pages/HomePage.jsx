@@ -10,8 +10,8 @@ import { AppContext } from "../../Providers/ContextProvider.jsx";
 import { useContext } from "react";
 
 export default function HomePage() {
-  const {activePage, updateActivePage} = useContext(AppContext);
-  
+  const { activePage, updateActivePage } = useContext(AppContext);
+
   return (
     <div
       className={
@@ -27,12 +27,17 @@ export default function HomePage() {
           gridTemplateColumns: "165px 165px",
           gap: "10px",
           marginTop: "15px",
-          justifyContent:"center"
+          justifyContent: "center",
         }}
       >
-        <SplitButton title1={"Log Food"} icon1={AddToLog} title2={"View Log"} icon2={ViewLog} />
         <AddButton title={"Foods"} icon={Food} />
-        <AddButton title={"Meals"} icon={Meal}/>
+        <AddButton title={"Meals"} icon={Meal} />
+        <SplitButton
+          title1={"Log Food"}
+          icon1={AddToLog}
+          title2={"View Log"}
+          icon2={ViewLog}
+        />
         <AddButton title={"See What Fits"} icon={SeeWhatFits} />
       </div>
     </div>
