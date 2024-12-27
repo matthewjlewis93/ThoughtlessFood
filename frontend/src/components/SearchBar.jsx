@@ -18,6 +18,7 @@ export default function SearchBar({ itemList, setItemList }) {
 
   return (
       <input
+      autoCorrect="false"
       className="search-bar"
       style={{width:"calc(100% - 4px)",padding:"0",margin:"0px 0px 5px 0px",display:"inline-block"}}
         onChange={(e) => handleSearch(e.target.value)}

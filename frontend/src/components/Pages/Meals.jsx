@@ -88,7 +88,7 @@ export default function Meals() {
         Saved Meals
         <hr />
       </h1>
-      <SearchBar />
+      <SearchBar itemList={mealEdits} setItemList={setVisibleMeals}/>
       <form
         style={{
           display: "flex",
