@@ -29,7 +29,7 @@ export default function SeeWhatFits() {
               style={{
                 textAlign: "center",
                 backgroundColor:
-                  activeTab == "Foods" ? "#00000025" : "#00000008",
+                  activeTab == "Foods" ? "#ffffff90" : "#00000025",
                 borderTopLeftRadius: "4px",
                 borderTopRightRadius: "4px",
                 padding: "6px",
@@ -48,7 +48,7 @@ export default function SeeWhatFits() {
               style={{
                 textAlign: "center",
                 backgroundColor:
-                  activeTab == "Meals" ? "#00000025" : "#00000008",
+                  activeTab == "Meals" ? "#ffffff90" : "#00000025",
                 borderTopLeftRadius: "4px",
                 borderTopRightRadius: "4px",
                 padding: "6px",

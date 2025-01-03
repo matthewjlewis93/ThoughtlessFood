@@ -292,7 +292,19 @@ export default function MealDisplay({
                       border: "1px solid",
                     }}
                   >
-                    <img src={Plus} />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="#000"
+                      class="bi bi-plus-lg"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
+                      />
+                    </svg>
                   </div>
                 </div>
               )}
@@ -432,7 +444,19 @@ export default function MealDisplay({
                       border: "1px solid",
                     }}
                   >
-                    <img src={Plus} />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="#000"
+                      class="bi bi-plus-lg"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
+                      />
+                    </svg>
                   </div>
                 </div>
               )}
@@ -475,8 +499,13 @@ export default function MealDisplay({
                 }
               >
                 <h4>{meal.name}</h4>
-                <img
-                  src={Minus}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="#000"
+                  class="bi bi-dash-lg"
+                  viewBox="0 0 16 16"
                   style={{
                     position: "absolute",
                     top: "5px",
@@ -484,7 +513,12 @@ export default function MealDisplay({
                     border: "1px solid",
                     borderRadius: "50%",
                   }}
-                />
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8"
+                  />
+                </svg>
               </div>
               <div className="grid-buttons" style={{ borderTop: "1px solid" }}>
                 <img
@@ -582,8 +616,13 @@ export default function MealDisplay({
             }
           >
             <h4>
-              <img
-                src={Plus}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="#000"
+                class="bi bi-plus-lg"
+                viewBox="0 0 16 16"
                 style={{
                   position: "absolute",
                   top: "5px",
@@ -591,7 +630,12 @@ export default function MealDisplay({
                   border: "1px solid",
                   borderRadius: "50%",
                 }}
-              />
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
+                />
+              </svg>
               {meal.name}
             </h4>
           </div>
