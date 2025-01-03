@@ -30,10 +30,12 @@ export default function SeeWhatFits() {
                 textAlign: "center",
                 backgroundColor:
                   activeTab == "Foods" ? "#00000025" : "#00000008",
-                borderRadius: "4px",
+                borderTopLeftRadius: "4px",
+                borderTopRightRadius: "4px",
                 padding: "6px",
                 margin: "0",
-                borderRight: activeTab == "Foods" ? "1px solid" : "0px",
+                borderRight:
+                  activeTab == "Foods" ? "1px solid" : "1px solid #00000005",
                 borderBottom: "1px solid",
               }}
             >
@@ -47,10 +49,12 @@ export default function SeeWhatFits() {
                 textAlign: "center",
                 backgroundColor:
                   activeTab == "Meals" ? "#00000025" : "#00000008",
-                borderRadius: "4px",
+                borderTopLeftRadius: "4px",
+                borderTopRightRadius: "4px",
                 padding: "6px",
                 margin: "0",
-                borderLeft: activeTab == "Meals" ? "1px solid" : "0px",
+                borderLeft:
+                  activeTab == "Meals" ? "1px solid" : "1px solid #00000005",
                 borderBottom: "1px solid",
               }}
             >
