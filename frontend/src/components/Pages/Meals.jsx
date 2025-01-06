@@ -1,7 +1,7 @@
 import react, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../Providers/ContextProvider";
 import CloseButton from "../CloseButton";
-import MealDisplay from "./MealDisplay";
+import MealDisplay from "../MealDisplay";
 import SearchBar from "../SearchBar";
 import createDateString from "../../createDateString";
 

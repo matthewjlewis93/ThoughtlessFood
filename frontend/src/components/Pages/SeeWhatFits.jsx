@@ -3,10 +3,18 @@ import { AppContext } from "../../Providers/ContextProvider";
 import CloseButton from "../CloseButton";
 
 export default function SeeWhatFits() {
-  const { activePage, macroTotals } = useContext(AppContext);
+  const { activePage, macroTotals, APIUrl } = useContext(AppContext);
   const [activeTab, setActiveTab] = useState("Foods");
+  const [whatFits, setWhatFits] = useState({});
 
-  useEffect(() => {}, [macroTotals]);
+  const getWhatFits = async () => {
+    let res = await fetch(APIUrl + "whatfits/" + (1850 - macroTotals.calories))
+    res = await res.json();
+    const data = res.data;
+    setWhatFits(data);
+  }
+
+  useEffect(() => {getWhatFits()}, [macroTotals]);
 
   return (
     <div

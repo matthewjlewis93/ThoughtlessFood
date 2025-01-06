@@ -1,15 +1,15 @@
-import AddToLog from "../../assets/addtolog.svg";
-import Edit from "../../assets/edit.svg";
-import Trash from "../../assets/trash.svg";
-import Plus from "../../assets/plus.svg";
-import Minus from "../../assets/minus.svg";
-import Check from "../../assets/check.svg";
-import X from "../../assets/x.svg";
+import AddToLog from "../assets/addtolog.svg";
+import Edit from "../assets/edit.svg";
+import Trash from "../assets/trash.svg";
+// import Plus from "../assets/plus.svg";
+// import Minus from "../assets/minus.svg";
+import Check from "../assets/check.svg";
+import X from "../assets/x.svg";
 import { useEffect, useState, useContext } from "react";
-import MealFood from "../MealFood";
-import { AppContext } from "../../Providers/ContextProvider";
-import DatePicker from "../DatePicker";
-import createDateString from "../../createDateString";
+import MealFood from "./MealFood";
+import { AppContext } from "../Providers/ContextProvider";
+import DatePicker from "./DatePicker";
+import createDateString from "../createDateString";
 
 export default function MealDisplay({
   meal,
