@@ -1,10 +1,12 @@
-import react, { useContext, useState } from "react";
+import react, { useEffect, useContext, useState } from "react";
 import { AppContext } from "../../Providers/ContextProvider";
 import CloseButton from "../CloseButton";
 
 export default function SeeWhatFits() {
-  const { activePage } = useContext(AppContext);
+  const { activePage, macroTotals } = useContext(AppContext);
   const [activeTab, setActiveTab] = useState("Foods");
+
+  useEffect(() => {}, [macroTotals]);
 
   return (
     <div
@@ -28,12 +30,12 @@ export default function SeeWhatFits() {
               onClick={() => setActiveTab("Foods")}
               style={{
                 textAlign: "center",
-                backgroundColor:
-                  activeTab == "Foods" ? "#ffffff90" : "#00000025",
+                backgroundColor: activeTab == "Foods" ? "#ffffff" : "#00000030",
                 borderTopLeftRadius: "4px",
                 borderTopRightRadius: "4px",
                 padding: "6px",
                 margin: "0",
+                borderLeft: "1px solid #00000080",
                 borderRight:
                   activeTab == "Foods" ? "1px solid" : "1px solid #00000005",
                 borderBottom: "1px solid",
@@ -47,12 +49,12 @@ export default function SeeWhatFits() {
               onClick={() => setActiveTab("Meals")}
               style={{
                 textAlign: "center",
-                backgroundColor:
-                  activeTab == "Meals" ? "#ffffff90" : "#00000025",
+                backgroundColor: activeTab == "Meals" ? "#ffffff" : "#00000030",
                 borderTopLeftRadius: "4px",
                 borderTopRightRadius: "4px",
                 padding: "6px",
                 margin: "0",
+                borderRight: "1px solid #00000080",
                 borderLeft:
                   activeTab == "Meals" ? "1px solid" : "1px solid #00000005",
                 borderBottom: "1px solid",
@@ -62,6 +64,7 @@ export default function SeeWhatFits() {
             </h4>
           </div>
         </div>
+        <div>{activeTab === "Foods" ? <p></p> : <p></p>}</div>
       </div>
     </div>
   );

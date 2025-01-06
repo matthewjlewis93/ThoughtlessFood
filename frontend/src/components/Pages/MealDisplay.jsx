@@ -297,11 +297,11 @@ export default function MealDisplay({
                       width="16"
                       height="16"
                       fill="#000"
-                      class="bi bi-plus-lg"
+                      className="bi bi-plus-lg"
                       viewBox="0 0 16 16"
                     >
                       <path
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
                       />
                     </svg>
@@ -449,11 +449,11 @@ export default function MealDisplay({
                       width="16"
                       height="16"
                       fill="#000"
-                      class="bi bi-plus-lg"
+                      className="bi bi-plus-lg"
                       viewBox="0 0 16 16"
                     >
                       <path
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
                       />
                     </svg>
@@ -504,7 +504,7 @@ export default function MealDisplay({
                   width="16"
                   height="16"
                   fill="#000"
-                  class="bi bi-dash-lg"
+                  className="bi bi-dash-lg"
                   viewBox="0 0 16 16"
                   style={{
                     position: "absolute",
@@ -515,7 +515,7 @@ export default function MealDisplay({
                   }}
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8"
                   />
                 </svg>
@@ -621,7 +621,7 @@ export default function MealDisplay({
                 width="16"
                 height="16"
                 fill="#000"
-                class="bi bi-plus-lg"
+                className="bi bi-plus-lg"
                 viewBox="0 0 16 16"
                 style={{
                   position: "absolute",
@@ -632,7 +632,7 @@ export default function MealDisplay({
                 }}
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
                 />
               </svg>

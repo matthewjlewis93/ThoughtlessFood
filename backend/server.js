@@ -4,6 +4,7 @@ import { connectDB } from "./config/db.js";
 import foodRouter from "./routes/food.routes.js";
 import logRouter from "./routes/log.routes.js";
 import mealRouter from "./routes/meal.routes.js";
+import whatFitsRouter from "./routes/whatfits.routes.js";
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -13,6 +14,7 @@ app.use(cors());
 app.use("/api/foods", foodRouter);
 app.use("/api/log", logRouter);
 app.use("/api/meals", mealRouter);
+app.use("/api/whatfits", whatFitsRouter);
 
 app.get("/", (req,res) => {res.json({m:"live"})})
 
