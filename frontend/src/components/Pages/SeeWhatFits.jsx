@@ -1,20 +1,25 @@
 import react, { useEffect, useContext, useState } from "react";
 import { AppContext } from "../../Providers/ContextProvider";
 import CloseButton from "../CloseButton";
+import FoodDisplay from "../FoodDisplay";
+import plusButton from "../../assets/addtolog.svg";
 
 export default function SeeWhatFits() {
   const { activePage, macroTotals, APIUrl } = useContext(AppContext);
   const [activeTab, setActiveTab] = useState("Foods");
-  const [whatFits, setWhatFits] = useState({});
+  const [whatFits, setWhatFits] = useState({ foods: [], meals: [] });
+  const [itemState, setItemState] = useState({id: "", option: ""});
 
   const getWhatFits = async () => {
-    let res = await fetch(APIUrl + "whatfits/" + (1850 - macroTotals.calories))
+    let res = await fetch(APIUrl + "whatfits/" + (1850 - macroTotals.calories));
     res = await res.json();
     const data = res.data;
     setWhatFits(data);
-  }
+  };
 
-  useEffect(() => {getWhatFits()}, [macroTotals]);
+  useEffect(() => {
+    getWhatFits();
+  }, [macroTotals]);
 
   return (
     <div
@@ -32,7 +37,7 @@ export default function SeeWhatFits() {
       </h1>
 
       <div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", marginBottom:"2px" }}>
           <div>
             <h4
               onClick={() => setActiveTab("Foods")}
@@ -72,7 +77,23 @@ export default function SeeWhatFits() {
             </h4>
           </div>
         </div>
-        <div>{activeTab === "Foods" ? <p></p> : <p></p>}</div>
+        <div style={{overflow: "auto", height: "calc(100svh - 90px)"}}>
+          {activeTab === "Foods" ? (
+            whatFits.foods.map((food) => (
+              <FoodDisplay
+                key={food._id}
+                food={food}
+                allFoods={whatFits.foods}
+                setAllFoods={() => {}}
+                buttons={[plusButton]}
+                itemState={itemState}
+                setItemState={setItemState}
+              />
+            ))
+          ) : (
+            <p></p>
+          )}
+        </div>
       </div>
     </div>
   );
