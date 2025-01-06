@@ -36,7 +36,7 @@ export default function MealDisplay({
         ...mealEdits[0],
         ingredients: [
           ...mealEdits[0].ingredients,
-          { calories: 0, fat: 0, carbs: 0, protein: 0, unit: "grams" },
+          { calories: 0, fat: 0, carbs: 0, protein: 0, unit: "gram" },
         ],
       },
       ...mealEdits.slice(1),
@@ -46,7 +46,7 @@ export default function MealDisplay({
         ...mealEdits[0],
         ingredients: [
           ...mealEdits[0].ingredients,
-          { calories: 0, fat: 0, carbs: 0, protein: 0, unit: "grams" },
+          { calories: 0, fat: 0, carbs: 0, protein: 0, unit: "gram" },
         ],
       },
       ...mealEdits.slice(1),

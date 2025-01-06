@@ -143,19 +143,6 @@ export default function ViewLog() {
               );
               componentList = componentList.concat(
                 mealLog[m].map((food, i) => (
-                  // <div key={food._id} className="grid-container item-container">
-                  //   <div>
-                  //     <h4 className="grid-header">{food.name}</h4>
-                  //     <p className="food-amount">
-                  //       {food.amount} {food.unit}
-                  //     </p>
-                  //   </div>
-                  //   <p>{food.calories} calories</p>
-                  //   <div></div>
-                  //   <p>{food.fat}g fat</p>
-                  //   <p>{food.carbs}g carbs</p>
-                  //   <p>{food.protein}g protein</p>
-                  // </div>
                   <div key={i}>
                     <FoodDisplay
                       food={food}

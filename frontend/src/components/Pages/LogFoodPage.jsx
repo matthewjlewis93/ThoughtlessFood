@@ -255,7 +255,7 @@ export default function LogFoodPage() {
                 setLog({ ...log, unit: e.target.value });
               }}
             >
-              <option value="grams">grams</option>
+              <option value="gram">grams</option>
               <option value="oz">oz</option>
               <option value="mL">mL</option>
               <option value="unit">Unit(s)</option>

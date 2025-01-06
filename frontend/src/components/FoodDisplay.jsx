@@ -148,6 +148,7 @@ export default function displayFoods({
                   type="number"
                 />
                 {" " + food.unit}
+                {food.unit === "unit" || food.unit === "gram" ? "(s)" : ""}
               </label>
               <br />
               <select
@@ -219,7 +220,7 @@ export default function displayFoods({
                     });
                   }}
                 >
-                  <option value="grams">grams</option>
+                  <option value="gram">grams</option>
                   <option value="oz">oz</option>
                   <option value="mL">mL</option>
                   <option value="unit">Unit(s)</option>
@@ -334,6 +335,9 @@ export default function displayFoods({
           <h4 className="grid-header">{food.name}</h4>
           <p className="food-amount">
             {food.amount} {food.unit}
+            {food.amount != 1 && (food.unit === "unit" || food.unit === "gram")
+              ? "s"
+              : ""}
           </p>
         </div>
         <p>{food.calories} calories</p>{" "}

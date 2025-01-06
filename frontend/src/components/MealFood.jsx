@@ -98,7 +98,7 @@ export default function MealFood({
                 style={{ marginLeft: "3px", width: "5em" }}
                 defaultValue={food.unit}
               >
-                <option value="grams">grams</option>
+                <option value="gram">grams</option>
                 <option value="oz">oz</option>
                 <option value="mL">mL</option>
                 <option value="unit">Unit(s)</option>
@@ -121,6 +121,7 @@ export default function MealFood({
 
           <label
             style={{
+              fontSize: "14px",
               alignContent: "center",
               paddingLeft: "2px",
               borderLeft: "1px solid",
@@ -140,6 +141,7 @@ export default function MealFood({
 
           <label
             style={{
+              fontSize: "14px",
               alignContent: "center",
               paddingLeft: "2px",
               borderLeft: "1px solid",
@@ -159,6 +161,7 @@ export default function MealFood({
 
           <label
             style={{
+              fontSize: "14px",
               alignContent: "center",
               paddingLeft: "2px",
               borderLeft: "1px solid",
@@ -178,6 +181,7 @@ export default function MealFood({
 
           <label
             style={{
+              fontSize: "14px",
               alignContent: "center",
               paddingLeft: "2px",
               borderLeft: "1px solid",
@@ -225,7 +229,7 @@ export default function MealFood({
                 style={{ marginLeft: "3px", width: "5em" }}
                 defaultValue={food.unit}
               >
-                <option value="grams">grams</option>
+                <option value="gram">grams</option>
                 <option value="oz">oz</option>
                 <option value="mL">mL</option>
                 <option value="unit">Unit(s)</option>
@@ -343,7 +347,7 @@ export default function MealFood({
                   })
                 }
               />
-              {" " + food.unit}{" "}
+              {" " + food.unit}{food.unit === "unit" || food.unit === "gram" ? "(s)" : ""}
             </label>
           </div>
 
@@ -394,7 +398,10 @@ export default function MealFood({
           >
             <h1>{food.name}</h1>
             <p>
-              {food.amount} {food.unit}
+              {food.amount} {food.unit}{food.amount != 1 &&
+              (food.unit === "unit" || food.unit === "gram")
+                ? "s"
+                : ""}
             </p>
           </div>
 
