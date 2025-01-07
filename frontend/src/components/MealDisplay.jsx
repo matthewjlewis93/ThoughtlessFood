@@ -1,8 +1,3 @@
-import AddToLog from "../assets/addtolog.svg";
-import Edit from "../assets/edit.svg";
-import Trash from "../assets/trash.svg";
-// import Plus from "../assets/plus.svg";
-// import Minus from "../assets/minus.svg";
 import Check from "../assets/check.svg";
 import X from "../assets/x.svg";
 import { useEffect, useState, useContext } from "react";
@@ -20,6 +15,7 @@ export default function MealDisplay({
   mealIndex,
   setMealStatus,
   setMeals,
+  buttons,
 }) {
   const [macros, setMacros] = useState({});
   const [mealDate, setMealDate] = useState(createDateString(new Date()));
@@ -521,36 +517,25 @@ export default function MealDisplay({
                 </svg>
               </div>
               <div className="grid-buttons" style={{ borderTop: "1px solid" }}>
-                <img
-                  src={AddToLog}
-                  onClick={() =>
-                    setMealStatus({
-                      id: meal._id,
-                      expanded: true,
-                      option: "log",
-                    })
-                  }
-                />
-                <img
-                  src={Edit}
-                  onClick={() =>
-                    setMealStatus({
-                      id: meal._id,
-                      expanded: true,
-                      option: "edit",
-                    })
-                  }
-                />
-                <img
-                  src={Trash}
-                  onClick={() =>
-                    setMealStatus({
-                      id: meal._id,
-                      expanded: false,
-                      option: "delete",
-                    })
-                  }
-                />
+                {buttons.map((button, i) => {
+                  return (
+                    <img
+                      key={i}
+                      src={button}
+                      onClick={() =>
+                        setMealStatus({
+                          id: meal._id,
+                          expanded: true,
+                          option: button.includes("addtolog")
+                            ? "log"
+                            : button.includes("edit")
+                            ? "edit"
+                            : "delete",
+                        })
+                      }
+                    />
+                  );
+                })}
               </div>
               {mealStatus.id === meal._id && mealStatus.expanded && (
                 <div
@@ -640,32 +625,25 @@ export default function MealDisplay({
             </h4>
           </div>
           <div className="grid-buttons" style={{ borderTop: "1px solid" }}>
-            <img
-              src={AddToLog}
-              onClick={() =>
-                setMealStatus({ id: meal._id, expanded: true, option: "log" })
-              }
-            />
-            <img
-              src={Edit}
-              onClick={() =>
-                setMealStatus({
-                  id: meal._id,
-                  expanded: true,
-                  option: "edit",
-                })
-              }
-            />
-            <img
-              src={Trash}
-              onClick={() =>
-                setMealStatus({
-                  id: meal._id,
-                  expanded: false,
-                  option: "delete",
-                })
-              }
-            />
+            {buttons.map((button, i) => {
+              return (
+                <img
+                  key={i}
+                  src={button}
+                  onClick={() =>
+                    setMealStatus({
+                      id: meal._id,
+                      expanded: true,
+                      option: button.includes("addtolog")
+                        ? "log"
+                        : button.includes("edit")
+                        ? "edit"
+                        : "delete",
+                    })
+                  }
+                />
+              );
+            })}
           </div>
 
           <div className="meal-macro" style={{ borderRight: "1px solid" }}>

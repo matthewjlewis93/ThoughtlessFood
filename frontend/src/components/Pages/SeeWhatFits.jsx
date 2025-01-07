@@ -1,14 +1,21 @@
 import react, { useEffect, useContext, useState } from "react";
 import { AppContext } from "../../Providers/ContextProvider";
+import AddToLog from "../../assets/addtolog.svg";
 import CloseButton from "../CloseButton";
 import FoodDisplay from "../FoodDisplay";
 import plusButton from "../../assets/addtolog.svg";
+import MealDisplay from "../MealDisplay";
 
 export default function SeeWhatFits() {
   const { activePage, macroTotals, APIUrl } = useContext(AppContext);
   const [activeTab, setActiveTab] = useState("Foods");
   const [whatFits, setWhatFits] = useState({ foods: [], meals: [] });
-  const [itemState, setItemState] = useState({id: "", option: ""});
+  const [itemState, setItemState] = useState({ id: "", option: "" });
+  const [mealStatus, setMealStatus] = useState({
+    id: "",
+    expanded: false,
+    option: "",
+  });
 
   const getWhatFits = async () => {
     let res = await fetch(APIUrl + "whatfits/" + (1850 - macroTotals.calories));
@@ -29,7 +36,13 @@ export default function SeeWhatFits() {
         (activePage === "See What Fits" ? "active" : "inactive")
       }
     >
-      <CloseButton functionList={[() => {}]} />
+      <CloseButton
+        functionList={[
+          () => {
+            setItemState({ id: "", option: "" });
+          },
+        ]}
+      />
 
       <h1>
         See What Fits
@@ -37,7 +50,13 @@ export default function SeeWhatFits() {
       </h1>
 
       <div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", marginBottom:"2px" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            marginBottom: "2px",
+          }}
+        >
           <div>
             <h4
               onClick={() => setActiveTab("Foods")}
@@ -77,22 +96,29 @@ export default function SeeWhatFits() {
             </h4>
           </div>
         </div>
-        <div style={{overflow: "auto", height: "calc(100svh - 90px)"}}>
-          {activeTab === "Foods" ? (
-            whatFits.foods.map((food) => (
-              <FoodDisplay
-                key={food._id}
-                food={food}
-                allFoods={whatFits.foods}
-                setAllFoods={() => {}}
-                buttons={[plusButton]}
-                itemState={itemState}
-                setItemState={setItemState}
-              />
-            ))
-          ) : (
-            <p></p>
-          )}
+        <div style={{ overflow: "auto", height: "calc(100svh - 100px)" }}>
+          {activeTab === "Foods"
+            ? whatFits.foods.map((food) => (
+                <FoodDisplay
+                  key={food._id}
+                  food={food}
+                  allFoods={whatFits.foods}
+                  setAllFoods={() => {}}
+                  buttons={[plusButton]}
+                  itemState={itemState}
+                  setItemState={setItemState}
+                />
+              ))
+            : whatFits.meals.map((meal, i) => (
+                <MealDisplay
+                  key={meal._id}
+                  meal={meal}
+                  mealIndex={i}
+                  mealStatus={mealStatus}
+                  setMealStatus={setMealStatus}
+                  buttons={[AddToLog]}
+                />
+              ))}
         </div>
       </div>
     </div>

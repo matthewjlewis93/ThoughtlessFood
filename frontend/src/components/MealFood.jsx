@@ -60,12 +60,16 @@ export default function MealFood({
           >
             <h3>Delete {food.name}?</h3>
           </div>
-          <div className="grid-buttons" style={{gridRow: "span 4", borderBottom:"0px", borderLeft: "1px solid"}}>
+          <div
+            className="grid-buttons"
+            style={{
+              gridRow: "span 4",
+              borderBottom: "0px",
+              borderLeft: "1px solid",
+            }}
+          >
             <img src={Check} onClick={deleteFood} />
-            <img
-              src={X}
-              onClick={() => setDeleteItem(false)}
-            />
+            <img src={X} onClick={() => setDeleteItem(false)} />
           </div>
         </div>
       ) : (
@@ -347,7 +351,8 @@ export default function MealFood({
                   })
                 }
               />
-              {" " + food.unit}{food.unit === "unit" || food.unit === "gram" ? "(s)" : ""}
+              {" " + food.unit}
+              {food.unit === "unit" || food.unit === "gram" ? "(s)" : ""}
             </label>
           </div>
 
@@ -398,7 +403,8 @@ export default function MealFood({
           >
             <h1>{food.name}</h1>
             <p>
-              {food.amount} {food.unit}{food.amount != 1 &&
+              {food.amount} {food.unit}
+              {food.amount != 1 &&
               (food.unit === "unit" || food.unit === "gram")
                 ? "s"
                 : ""}

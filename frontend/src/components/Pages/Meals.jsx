@@ -4,6 +4,9 @@ import CloseButton from "../CloseButton";
 import MealDisplay from "../MealDisplay";
 import SearchBar from "../SearchBar";
 import createDateString from "../../createDateString";
+import AddToLog from "../../assets/addtolog.svg";
+import Edit from "../../assets/edit.svg";
+import Trash from "../../assets/trash.svg";
 
 export default function Meals() {
   const { activePage, APIUrl } = useContext(AppContext);
@@ -132,6 +135,7 @@ export default function Meals() {
               setMealStatus={setMealStatus}
               mealStatus={mealStatus}
               setMeals={setMeals}
+              buttons={[AddToLog, Edit, Trash]}
             />
           </div>
         ))}
