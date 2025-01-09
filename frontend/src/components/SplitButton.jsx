@@ -1,12 +1,23 @@
 import react, { useContext } from "react";
 import { AppContext } from "../Providers/ContextProvider";
+import transitionControl from "../transitionControl";
 
-export default function SplitButton({ title1, title2, icon1, icon2 }) {
+export default function SplitButton({
+  title1,
+  title2,
+  icon1,
+  icon2,
+  pageID1,
+  pageID2,
+}) {
   const { updateActivePage } = useContext(AppContext);
   return (
     <div style={{ display: "flex", maxWidth: "165px" }}>
       <button
-        onClick={() => updateActivePage(title1)}
+        onClick={() => {
+          updateActivePage(title1);
+          transitionControl(pageID1);
+        }}
         className="blue-button"
         style={{
           borderTop: "2px solid",
@@ -26,7 +37,10 @@ export default function SplitButton({ title1, title2, icon1, icon2 }) {
         <span>{title1}</span>
       </button>
       <button
-        onClick={() => updateActivePage(title2)}
+        onClick={() => {
+          updateActivePage(title2);
+          transitionControl(pageID2);
+        }}
         className="blue-button"
         style={{
           borderTop: "2px solid",
@@ -42,7 +56,7 @@ export default function SplitButton({ title1, title2, icon1, icon2 }) {
           gap: "6px",
         }}
       >
-        <img src={icon2}/>
+        <img src={icon2} />
         <span>{title2}</span>
       </button>
     </div>

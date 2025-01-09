@@ -31,90 +31,34 @@ body {
 
 .main-page {
   position: absolute;
-  transition: display 1s;
-  transition-behavior: allow-discrete;
-  /* height: calc(100svh - 39px); */
+  transition-duration: 150ms;
+  transition-property: right, left, opacity;
   height: calc(100svh - 12px);
   top: 0px;
 }
 
-.active-home {
-  display: block;
+#homepage {
   right: 0vw;
   left: 0vw;
-  animation: become-active-home 0.3s;
   z-index: 1;
+  display: block;
 }
-.inactive-home {
-  animation: become-inactive-home 0.3s;
-  display: none;
+#homepage.transition {  
+  right: 100vw;
+  left: -100vw;
   z-index: 0;
   opacity: 0;
 }
-
-.active {
-  display: block;
+.subpage {  
   right: 0vw;
   left: 0vw;
-  animation: become-active 0.3s;
   z-index: 1;
 }
-.inactive {
-  animation: become-inactive 0.3s;
-  display: none;
+.subpage.transition {
+  right: -100vw;
+  left: 100vw;
   z-index: 0;
   opacity: 0;
-}
-@keyframes become-inactive-home {
-  from {
-    left: 0vw;
-    right: 0vw;
-    opacity: 1;
-  }
-  to {
-    left: -100vw;
-    right: 100vw;
-    opacity: 0;
-  }
-}
-
-@keyframes become-active-home {
-  from {
-    right: 100vw;
-    left: -100vw;
-    opacity: 0;
-  }
-  to {
-    right: 0vw;
-    left: 0vw;
-    opacity: 1;
-  }
-}
-
-@keyframes become-inactive {
-  from {
-    left: 0vw;
-    right: 0vw;
-    opacity: 1;
-  }
-  to {
-    left: 100vw;
-    right: -100vw;
-    opacity: 0;
-  }
-}
-
-@keyframes become-active {
-  from {
-    right: -100vw;
-    left: 100vw;
-    opacity: 0;
-  }
-  to {
-    right: 0vw;
-    left: 0vw;
-    opacity: 1;
-  }
 }
 
 p {

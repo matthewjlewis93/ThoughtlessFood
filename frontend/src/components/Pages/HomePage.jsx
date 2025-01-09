@@ -14,9 +14,9 @@ export default function HomePage() {
 
   return (
     <div
+      id="homepage"
       className={
-        "container-box main-page " +
-        (activePage === "HomePage" ? "active-home" : "inactive-home")
+        "container-box main-page " + "active-home"
       }
     >
       <MacroHeadlines />
@@ -30,15 +30,17 @@ export default function HomePage() {
           justifyContent: "center",
         }}
       >
-        <AddButton title={"Foods"} icon={Food} />
-        <AddButton title={"Meals"} icon={Meal} />
+        <AddButton title={"Foods"} icon={Food} pageID="foods" />
+        <AddButton title={"Meals"} icon={Meal} pageID="meals"/>
         <SplitButton
           title1={"Log Food"}
           icon1={AddToLog}
           title2={"View Log"}
           icon2={ViewLog}
+          pageID1={"log-food"}
+          pageID2={"view-log"}
         />
-        <AddButton title={"See What Fits"} icon={SeeWhatFits} />
+        <AddButton title={"See What Fits"} icon={SeeWhatFits} pageID="see-what-fits" />
       </div>
     </div>
   );

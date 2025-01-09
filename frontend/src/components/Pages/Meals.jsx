@@ -11,9 +11,9 @@ import Trash from "../../assets/trash.svg";
 export default function Meals() {
   const { activePage, APIUrl } = useContext(AppContext);
   const [meals, setMeals] = useState([]);
-  const [visibleMeals, setVisibleMeals] = useState([])
+  const [visibleMeals, setVisibleMeals] = useState([]);
   const [mealEdits, setMealEdits] = useState({});
-  const [sortBy, setSortBy] = useState('alpha');
+  const [sortBy, setSortBy] = useState("alpha");
   const [mealStatus, setMealStatus] = useState({
     id: "",
     expanded: false,
@@ -29,26 +29,26 @@ export default function Meals() {
     );
     setVisibleMeals(mealsToShow);
     setMealEdits(mealsToShow);
-  }
+  };
 
   const handleAddMeal = (e) => {
     e.preventDefault();
-    if (meals[0]._id !== 'new') {
-    setMeals([
-      {
-        _id: "new",
-        name: "",
-        complete: false,
-        lastLogged: createDateString(new Date('1900-1-1')),
-        ingredients: [
-          { calories: 0, fat: 0, carbs: 0, protein: 0, unit: "grams" },
-        ],
-      },
-      ...meals,
-    ]);
-    setMealStatus({ id: "new", expanded: true, option: "new" });
+    if (meals[0]._id !== "new") {
+      setMeals([
+        {
+          _id: "new",
+          name: "",
+          complete: false,
+          lastLogged: createDateString(new Date("1900-1-1")),
+          ingredients: [
+            { calories: 0, fat: 0, carbs: 0, protein: 0, unit: "grams" },
+          ],
+        },
+        ...meals,
+      ]);
+      setMealStatus({ id: "new", expanded: true, option: "new" });
+    }
   };
-}
 
   const fetchMeals = async () => {
     const res = await fetch(APIUrl + "meals");
@@ -61,8 +61,8 @@ export default function Meals() {
   }, []);
 
   useEffect(() => {
-    editVisibleMeals()
-  },[meals, mealStatus, sortBy])
+    editVisibleMeals();
+  }, [meals, mealStatus, sortBy]);
 
   useEffect(() => {
     if (mealStatus.option !== "new") {
@@ -75,12 +75,13 @@ export default function Meals() {
 
   return (
     <div
+      id="meals"
       className={
-        "container-box main-page " +
-        (activePage === "Meals" ? "active" : "inactive")
+        "container-box main-page " +"subpage transition"//        (activePage === "Meals" ? "subpage transition" : "inactive")
       }
     >
       <CloseButton
+        pageID="meals"
         functionList={[
           () => {
             setMealStatus({ id: "", expanded: false, option: "" });
@@ -91,7 +92,7 @@ export default function Meals() {
         Saved Meals
         <hr />
       </h1>
-      <SearchBar itemList={mealEdits} setItemList={setVisibleMeals}/>
+      <SearchBar itemList={mealEdits} setItemList={setVisibleMeals} />
       <form
         style={{
           display: "flex",

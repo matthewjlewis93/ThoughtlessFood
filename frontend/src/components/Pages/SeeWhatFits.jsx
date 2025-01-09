@@ -30,13 +30,14 @@ export default function SeeWhatFits() {
 
   return (
     <div
+      id="see-what-fits"
       style={{}}
       className={
-        "container-box main-page " +
-        (activePage === "See What Fits" ? "active" : "inactive")
+        "container-box main-page " + "subpage transition"//        (activePage === "See What Fits" ? "subpage transition" : "inactive")
       }
     >
       <CloseButton
+        pageID="see-what-fits"
         functionList={[
           () => {
             setItemState({ id: "", option: "" });

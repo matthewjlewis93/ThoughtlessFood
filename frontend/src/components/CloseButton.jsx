@@ -1,11 +1,13 @@
 import closeButton from "../assets/close.svg";
 import { useContext } from "react";
 import { AppContext } from "../Providers/ContextProvider";
+import transitionControl from "../transitionControl";
 
-export default function CloseButton({ functionList }) {
+export default function CloseButton({ functionList, pageID }) {
   const { updateActivePage } = useContext(AppContext);
   const handleClick = () => {
     updateActivePage("HomePage");
+    transitionControl(pageID)
     functionList.forEach((func) => func());
   };
   return (

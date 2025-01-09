@@ -79,10 +79,9 @@ export default function Foods() {
 
   return (
     <div
-      style={{}}
+      id="foods"
       className={
-        "container-box main-page " +
-        (activePage === "Foods" ? "active" : "inactive")
+        "container-box main-page " + "subpage transition"//        (activePage === "Foods" ? "subpage transition" : "inactive")
       }
     >
       <CloseButton
@@ -94,6 +93,7 @@ export default function Foods() {
               (e) => (e.value = "")
             ),
         ]}
+        pageID="foods"
       />
       <h1>
         Saved Foods

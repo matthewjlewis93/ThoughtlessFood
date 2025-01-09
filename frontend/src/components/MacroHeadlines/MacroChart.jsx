@@ -70,7 +70,7 @@ export default function MacroChart({ calorieValue }) {
   };
 
   return (
-    <>
+    <div style={{minHeight: "100px"}}>
       <Chart
         chartType="BarChart"
         diffdata={diffData}
@@ -78,6 +78,6 @@ export default function MacroChart({ calorieValue }) {
         width="100%"
         height="100px"
       />
-    </>
+    </div>
   );
 }

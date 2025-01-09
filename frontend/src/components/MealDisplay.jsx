@@ -57,6 +57,7 @@ export default function MealDisplay({
   };
 
   const sendNewMeal = async () => {
+    setMealStatus({ id: "", expanded: false, option: "" });
     let mealToSend = structuredClone(mealEdits[0]);
     delete mealToSend.complete;
     delete mealToSend._id;
@@ -67,11 +68,11 @@ export default function MealDisplay({
     });
     res = await res.json();
     const data = res.data;
-    setMealStatus({ id: "", expanded: false, option: "" });
     updateMeals([data, ...mealEdits.slice(1)]);
   };
 
   const logMeal = async (loggedMeal) => {
+    setMealStatus({ id: "", expanded: false, option: "" });    
     let logMacros = meal.ingredients.reduce(
       (acc, curr, i) => {
         if (Object.keys(mealFoodAmounts).includes(String(i))) {
@@ -117,7 +118,7 @@ export default function MealDisplay({
       },
       body: JSON.stringify({ lastLogged: createDateString(new Date()) }),
     });
-    setMealStatus({ id: "", expanded: false, option: "" });
+
   };
 
   const sumTotals = () => {
@@ -130,6 +131,7 @@ export default function MealDisplay({
   };
 
   const submitEdit = async () => {
+    setMealStatus({ id: meal._id, expanded: true, option: "" });    
     await fetch(`${APIUrl}meals/${meal._id}`, {
       method: "PATCH",
       headers: {
@@ -137,7 +139,6 @@ export default function MealDisplay({
       },
       body: JSON.stringify(mealEdits[mealIndex]),
     });
-    setMealStatus({ id: meal._id, expanded: true, option: "" });
     updateMeals(mealEdits);
   };
 

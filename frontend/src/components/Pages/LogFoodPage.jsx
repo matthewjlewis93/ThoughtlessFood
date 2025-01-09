@@ -38,7 +38,7 @@ export default function LogFoodPage() {
     }
     // setLog(formattedLog);
     // recordLog(formattedLog);
-    return formattedLog
+    return formattedLog;
   };
 
   const handleClear = () => {
@@ -70,7 +70,7 @@ export default function LogFoodPage() {
   };
 
   const saveFood = async (logData) => {
-    const foodToLog = {...logData}
+    const foodToLog = { ...logData };
     delete foodToLog.meal;
     foodToLog.category = "food";
     foodToLog.favorite = false;
@@ -82,7 +82,7 @@ export default function LogFoodPage() {
       },
       body: JSON.stringify(foodToLog),
     });
-  }
+  };
 
   const getDefaults = (date) => {
     const dateString = createDateString(date);
@@ -134,12 +134,12 @@ export default function LogFoodPage() {
 
   return (
     <div
+      id="log-food"
       className={
-        "container-box main-page " +
-        (activePage === "Log Food" ? "active" : "inactive")
+        "container-box main-page " +"subpage transition"//        (activePage === "Log Food" ? "subpage transition" : "inactive")
       }
     >
-      <CloseButton functionList={[handleClear]} />
+      <CloseButton functionList={[handleClear]} pageID="log-food" />
       <h1 style={{ paddingLeft: "10px", color: "#6798c0" }}>Add Log</h1>
       <form autoComplete="off">
         <div className="form-div">
@@ -273,13 +273,20 @@ export default function LogFoodPage() {
       <br />
       <button
         onClick={() => {
-          recordLog(setupLog(log)) //setupLog();
+          recordLog(setupLog(log)); //setupLog();
         }}
         className="blue-button"
       >
         Submit
       </button>
-      <button onClick={() => {saveFood(setupLog(log));recordLog(setupLog(log))}}>Submit and Save food</button>
+      <button
+        onClick={() => {
+          saveFood(setupLog(log));
+          recordLog(setupLog(log));
+        }}
+      >
+        Submit and Save food
+      </button>
 
       <br />
       <br />

@@ -61,13 +61,14 @@ export default function ViewLog() {
 
   return (
     <div
+      id="view-log"
       style={{}}
       className={
-        "container-box main-page " +
-        (activePage === "View Log" ? "active" : "inactive")
+        "container-box main-page " +"subpage transition"//        (activePage === "View Log" ? "subpage transition" : "inactive")
       }
     >
       <CloseButton
+        pageID="view-log"
         functionList={[() => setViewingDate(createDateString(new Date()))]}
       />
       <div style={{ height: "160px" }}>
