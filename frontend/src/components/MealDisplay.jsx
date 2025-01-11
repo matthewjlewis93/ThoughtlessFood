@@ -56,7 +56,7 @@ export default function MealDisplay({
     updateMeals(mealEdits.filter((m) => m._id !== meal._id));
     setToastInfo({
       toastActivated: true,
-      toastMessage: "Meal deleted!",
+      toastMessage: `${mealEdits[mealIndex].name} deleted!`,
       positive: true,
     });
   };
@@ -76,7 +76,7 @@ export default function MealDisplay({
     updateMeals([data, ...mealEdits.slice(1)]);
     setToastInfo({
       toastActivated: true,
-      toastMessage: "Meal created!",
+      toastMessage: `${mealEdits[mealIndex].name} created!`,
       positive: true,
     });
   };
@@ -130,7 +130,7 @@ export default function MealDisplay({
     });
     setToastInfo({
       toastActivated: true,
-      toastMessage: "Meal logged!",
+      toastMessage: `${mealEdits[mealIndex].name} logged!`,
       positive: true,
     });
   };
@@ -156,7 +156,7 @@ export default function MealDisplay({
     updateMeals(mealEdits);
     setToastInfo({
       toastActivated: true,
-      toastMessage: "Meal edited!",
+      toastMessage: `${mealEdits[mealIndex].name} edited!`,
       positive: true,
     });
   };

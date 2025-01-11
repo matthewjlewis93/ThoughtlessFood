@@ -67,7 +67,7 @@ export default function LogFoodPage() {
     handleClear();
     setToastInfo({
       toastActivated: true,
-      toastMessage: "Food logged!",
+      toastMessage: `${log.name} logged!`,
       positive: true,
     });
     transitionControl("log-food");
