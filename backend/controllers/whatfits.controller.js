@@ -20,6 +20,7 @@ export const getFoodsAndMeals = async (req, res) => {
         };
       }
     });
+    foods = foods.filter((f) => f !== undefined);
     let meals = await MealItem.find({});
     meals = meals.filter(
       (meal) =>

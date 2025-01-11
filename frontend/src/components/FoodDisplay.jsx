@@ -86,7 +86,7 @@ export default function displayFoods({
     stateReset();
     setToastInfo({
       toastActivated: true,
-      toastMessage: "Food logged!",
+      toastMessage: `${food.name} logged!`,
       positive: true,
     });
   };
@@ -99,7 +99,7 @@ export default function displayFoods({
     stateReset();
     setToastInfo({
       toastActivated: true,
-      toastMessage: "Food deleted!",
+      toastMessage: `${food.name} deleted!`,
       positive: true
     })
   };
@@ -124,7 +124,7 @@ export default function displayFoods({
     );
     setToastInfo({
       toastActivated: true,
-      toastMessage: "Food updated!",
+      toastMessage: `${food.name} updated!`,
       positive: true,
     });
   };

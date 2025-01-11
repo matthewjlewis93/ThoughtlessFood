@@ -32,9 +32,7 @@ export default function SeeWhatFits() {
     <div
       id="see-what-fits"
       style={{}}
-      className={
-        "container-box main-page " + "subpage transition"
-      }
+      className={"container-box main-page " + "subpage transition"}
     >
       <CloseButton
         pageID="see-what-fits"
