@@ -81,7 +81,7 @@ export default function Foods() {
     <div
       id="foods"
       className={
-        "container-box main-page " + "subpage transition"//        (activePage === "Foods" ? "subpage transition" : "inactive")
+        "container-box main-page " + "subpage transition"
       }
     >
       <CloseButton

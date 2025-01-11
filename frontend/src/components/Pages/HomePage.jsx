@@ -40,18 +40,6 @@ export default function HomePage() {
           icon={SeeWhatFits}
           pageID="see-what-fits"
         />
-        <button
-          onClick={() => {
-            let x = Math.floor(Math.random() * 10 +1)
-            setToastInfo({
-              toastActivated: true,
-              toastMessage: `Is ${x} greater than 5?`,
-              positive: x > 5,
-            });
-          }}
-        >
-          Toast Test
-        </button>
       </div>
     </div>
   );

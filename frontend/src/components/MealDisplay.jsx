@@ -19,7 +19,7 @@ export default function MealDisplay({
 }) {
   const [macros, setMacros] = useState({});
   const [mealDate, setMealDate] = useState(createDateString(new Date()));
-  const { APIUrl } = useContext(AppContext);
+  const { APIUrl, setToastInfo } = useContext(AppContext);
   const [mealFoodAmounts, setMealFoodAmounts] = useState({});
 
   useEffect(() => {
@@ -54,6 +54,11 @@ export default function MealDisplay({
       method: "DELETE",
     });
     updateMeals(mealEdits.filter((m) => m._id !== meal._id));
+    setToastInfo({
+      toastActivated: true,
+      toastMessage: "Meal deleted!",
+      positive: true,
+    });
   };
 
   const sendNewMeal = async () => {
@@ -69,10 +74,15 @@ export default function MealDisplay({
     res = await res.json();
     const data = res.data;
     updateMeals([data, ...mealEdits.slice(1)]);
+    setToastInfo({
+      toastActivated: true,
+      toastMessage: "Meal created!",
+      positive: true,
+    });
   };
 
   const logMeal = async (loggedMeal) => {
-    setMealStatus({ id: "", expanded: false, option: "" });    
+    setMealStatus({ id: "", expanded: false, option: "" });
     let logMacros = meal.ingredients.reduce(
       (acc, curr, i) => {
         if (Object.keys(mealFoodAmounts).includes(String(i))) {
@@ -118,7 +128,11 @@ export default function MealDisplay({
       },
       body: JSON.stringify({ lastLogged: createDateString(new Date()) }),
     });
-
+    setToastInfo({
+      toastActivated: true,
+      toastMessage: "Meal logged!",
+      positive: true,
+    });
   };
 
   const sumTotals = () => {
@@ -131,7 +145,7 @@ export default function MealDisplay({
   };
 
   const submitEdit = async () => {
-    setMealStatus({ id: meal._id, expanded: true, option: "" });    
+    setMealStatus({ id: meal._id, expanded: true, option: "" });
     await fetch(`${APIUrl}meals/${meal._id}`, {
       method: "PATCH",
       headers: {
@@ -140,6 +154,11 @@ export default function MealDisplay({
       body: JSON.stringify(mealEdits[mealIndex]),
     });
     updateMeals(mealEdits);
+    setToastInfo({
+      toastActivated: true,
+      toastMessage: "Meal edited!",
+      positive: true,
+    });
   };
 
   useEffect(() => {

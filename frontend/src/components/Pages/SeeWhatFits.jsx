@@ -33,7 +33,7 @@ export default function SeeWhatFits() {
       id="see-what-fits"
       style={{}}
       className={
-        "container-box main-page " + "subpage transition"//        (activePage === "See What Fits" ? "subpage transition" : "inactive")
+        "container-box main-page " + "subpage transition"
       }
     >
       <CloseButton

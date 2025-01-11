@@ -4,9 +4,10 @@ import Select from "react-select";
 import DatePicker from "../DatePicker";
 import createDateString from "../../createDateString";
 import CloseButton from "../CloseButton";
+import transitionControl from "../../transitionControl";
 
 export default function LogFoodPage() {
-  const { activePage, updateActivePage, addToMacros, APIUrl } =
+  const { activePage, updateActivePage, addToMacros, APIUrl, setToastInfo } =
     useContext(AppContext);
   const [selection, setSelection] = useState(0);
   const [defaultDate, setDefaultDate] = useState("");
@@ -36,8 +37,6 @@ export default function LogFoodPage() {
         formattedLog[macro] = 0;
       }
     }
-    // setLog(formattedLog);
-    // recordLog(formattedLog);
     return formattedLog;
   };
 
@@ -66,6 +65,12 @@ export default function LogFoodPage() {
     });
     addToMacros(log);
     handleClear();
+    setToastInfo({
+      toastActivated: true,
+      toastMessage: "Food logged!",
+      positive: true,
+    });
+    transitionControl("log-food");
     updateActivePage("HomePage");
   };
 
@@ -82,6 +87,7 @@ export default function LogFoodPage() {
       },
       body: JSON.stringify(foodToLog),
     });
+
   };
 
   const getDefaults = (date) => {
@@ -116,7 +122,6 @@ export default function LogFoodPage() {
       fat: Math.round((Number(log.fat) / Number(log.amount)) * newAmount),
       amount: newAmount,
     });
-    // console.log(newLog);
   };
 
   useEffect(() => {
@@ -135,12 +140,10 @@ export default function LogFoodPage() {
   return (
     <div
       id="log-food"
-      className={
-        "container-box main-page " +"subpage transition"//        (activePage === "Log Food" ? "subpage transition" : "inactive")
-      }
+      className={"container-box main-page " + "subpage transition"}
     >
       <CloseButton functionList={[handleClear]} pageID="log-food" />
-      <h1 style={{ paddingLeft: "10px", color: "#6798c0" }}>Add Log</h1>
+      <h1>Add Log</h1>
       <form autoComplete="off">
         <div className="form-div">
           <label htmlFor="food-name">Food: </label>

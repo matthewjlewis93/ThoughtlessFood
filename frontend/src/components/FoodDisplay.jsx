@@ -16,7 +16,7 @@ export default function displayFoods({
   link,
   favoritable = false,
 }) {
-  const { APIUrl } = useContext(AppContext);
+  const { APIUrl, setToastInfo } = useContext(AppContext);
   const [foodEdit, setFoodEdit] = useState({});
   const [logDate, setLogDate] = useState(createDateString(new Date()));
 
@@ -84,6 +84,11 @@ export default function displayFoods({
       })
     );
     stateReset();
+    setToastInfo({
+      toastActivated: true,
+      toastMessage: "Food logged!",
+      positive: true,
+    });
   };
 
   const deleteItem = async (foodID) => {
@@ -92,6 +97,11 @@ export default function displayFoods({
     });
     setAllFoods(allFoods.filter((food) => food._id !== foodID));
     stateReset();
+    setToastInfo({
+      toastActivated: true,
+      toastMessage: "Food deleted!",
+      positive: true
+    })
   };
 
   const updateFood = async () => {
@@ -112,6 +122,11 @@ export default function displayFoods({
         }
       })
     );
+    setToastInfo({
+      toastActivated: true,
+      toastMessage: "Food updated!",
+      positive: true,
+    });
   };
 
   if (itemState.item === food._id) {

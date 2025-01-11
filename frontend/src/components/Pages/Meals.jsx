@@ -9,7 +9,7 @@ import Edit from "../../assets/edit.svg";
 import Trash from "../../assets/trash.svg";
 
 export default function Meals() {
-  const { activePage, APIUrl } = useContext(AppContext);
+  const { APIUrl } = useContext(AppContext);
   const [meals, setMeals] = useState([]);
   const [visibleMeals, setVisibleMeals] = useState([]);
   const [mealEdits, setMealEdits] = useState({});
