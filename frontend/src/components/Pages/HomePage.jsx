@@ -10,15 +10,10 @@ import { AppContext } from "../../Providers/ContextProvider.jsx";
 import { useContext } from "react";
 
 export default function HomePage() {
-  const { activePage, updateActivePage } = useContext(AppContext);
+  const { activePage, updateActivePage, setToastInfo } = useContext(AppContext);
 
   return (
-    <div
-      id="homepage"
-      className={
-        "container-box main-page " + "active-home"
-      }
-    >
+    <div id="homepage" className={"container-box main-page " + "active-home"}>
       <MacroHeadlines />
       <div
         className="container-box"
@@ -31,7 +26,7 @@ export default function HomePage() {
         }}
       >
         <AddButton title={"Foods"} icon={Food} pageID="foods" />
-        <AddButton title={"Meals"} icon={Meal} pageID="meals"/>
+        <AddButton title={"Meals"} icon={Meal} pageID="meals" />
         <SplitButton
           title1={"Log Food"}
           icon1={AddToLog}
@@ -40,7 +35,23 @@ export default function HomePage() {
           pageID1={"log-food"}
           pageID2={"view-log"}
         />
-        <AddButton title={"See What Fits"} icon={SeeWhatFits} pageID="see-what-fits" />
+        <AddButton
+          title={"See What Fits"}
+          icon={SeeWhatFits}
+          pageID="see-what-fits"
+        />
+        <button
+          onClick={() => {
+            let x = Math.floor(Math.random() * 10 +1)
+            setToastInfo({
+              toastActivated: true,
+              toastMessage: `Is ${x} greater than 5?`,
+              positive: x > 5,
+            });
+          }}
+        >
+          Toast Test
+        </button>
       </div>
     </div>
   );

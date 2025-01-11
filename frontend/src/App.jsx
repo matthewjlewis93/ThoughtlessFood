@@ -7,6 +7,7 @@ import ViewLog from "./components/Pages/ViewLog";
 import Foods from "./components/Pages/Foods";
 import SeeWhatFits from "./components/Pages/SeeWhatFits";
 import Meals from "./components/Pages/Meals";
+import ToastDisplay from "./components/ToastDisplay";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
         <Foods />
         <Meals />
         <SeeWhatFits />
+        <ToastDisplay />
       </ContextProvider>
     </div>
   );

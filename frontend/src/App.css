@@ -43,13 +43,13 @@ body {
   z-index: 1;
   display: block;
 }
-#homepage.transition {  
+#homepage.transition {
   right: 100vw;
   left: -100vw;
   z-index: 0;
   opacity: 0;
 }
-.subpage {  
+.subpage {
   right: 0vw;
   left: 0vw;
   z-index: 1;
@@ -223,6 +223,17 @@ h2 {
 .meal-header h4 {
   margin: 0;
   font-size: 20px;
+}
+
+#toast {
+  transition-duration: 200ms;
+  transition-property: bottom, opacity;
+  bottom: -5%;
+  /* opacity: 0%; */
+}
+#toast.activated {
+  bottom: 5%;
+  opacity: 100% !important;
 }
 
 /* Chrome, Safari, Edge, Opera */
