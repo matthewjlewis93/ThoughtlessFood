@@ -11,6 +11,7 @@ export default function LogFoodPage() {
     useContext(AppContext);
   const [selection, setSelection] = useState(0);
   const [defaultDate, setDefaultDate] = useState("");
+  const [saveAsFood, setSaveAsFood] = useState(false);
   const [log, setLog] = useState({
     name: "",
     meal: "",
@@ -20,7 +21,7 @@ export default function LogFoodPage() {
     carbs: "",
     fat: "",
     amount: "",
-    unit: "grams",
+    unit: "gram",
   });
 
   const setupLog = () => {
@@ -65,11 +66,13 @@ export default function LogFoodPage() {
     });
     addToMacros(log);
     handleClear();
-    setToastInfo({
-      toastActivated: true,
-      toastMessage: `${log.name} logged!`,
-      positive: true,
-    });
+    if (!saveAsFood) {
+      setToastInfo({
+        toastActivated: true,
+        toastMessage: `${log.name} logged!`,
+        positive: true,
+      });
+    }
     transitionControl("log-food");
     updateActivePage("HomePage");
   };
@@ -87,7 +90,11 @@ export default function LogFoodPage() {
       },
       body: JSON.stringify(foodToLog),
     });
-
+    setToastInfo({
+      toastActivated: true,
+      toastMessage: `Logged and saved ${foodToLog.name} to Foods!`,
+      positive: true
+    })
   };
 
   const getDefaults = (date) => {
@@ -258,7 +265,7 @@ export default function LogFoodPage() {
                 setLog({ ...log, unit: e.target.value });
               }}
             >
-              <option value="gram">grams</option>
+              <option value="gram">gram(s)</option>
               <option value="oz">oz</option>
               <option value="mL">mL</option>
               <option value="unit">Unit(s)</option>
@@ -274,22 +281,38 @@ export default function LogFoodPage() {
       </form>
       <br />
       <br />
+      <label style={{ margin: "auto 0px" }}>
+        Save as food{" "}
+        <input
+          type="checkbox"
+          style={{ height: "14px" }}
+          value={saveAsFood}
+          onChange={(e) => {
+            setSaveAsFood(e.target.checked);
+          }}
+        />
+      </label>
+      <br />
+      <br />
       <button
         onClick={() => {
-          recordLog(setupLog(log)); //setupLog();
+          recordLog(setupLog(log));
+          if (saveAsFood) {
+            saveFood(setupLog(log));
+          }
         }}
         className="blue-button"
       >
         Submit
       </button>
-      <button
+      {/* <button
         onClick={() => {
           saveFood(setupLog(log));
           recordLog(setupLog(log));
         }}
       >
         Submit and Save food
-      </button>
+      </button> */}
 
       <br />
       <br />
