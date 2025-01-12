@@ -384,27 +384,6 @@ export default function MealDisplay({
                     })
                   }
                 />
-                {/* <img
-                  src={Check}
-                  onClick={() => {
-                    deleteMeal();
-                    setMealStatus({
-                      id: "",
-                      expanded: false,
-                      option: "",
-                    });
-                  }}
-                /> */}
-                {/* <img
-                  src={X}
-                  onClick={() =>
-                    setMealStatus({
-                      id: "",
-                      expanded: false,
-                      option: "",
-                    })
-                  }
-                /> */}
               </div>
 
               <div className="meal-macro" style={{ borderRight: "1px solid" }}>
@@ -436,7 +415,6 @@ export default function MealDisplay({
               <div className="meal-header">
                 <input
                   placeholder="Meal Name"
-                  // value={mealEdits[0].name}
                   onChange={(e) =>
                     setMealEdits(
                       mealEdits.toSpliced(0, 1, {
@@ -585,24 +563,6 @@ export default function MealDisplay({
                     />
                   );
                 })}
-                {/* return (
-                     <img
-                      key={i}
-                      src={button}
-                      onClick={() =>
-                        setMealStatus({
-                          id: meal._id,
-                          expanded: true,
-                          option: button.includes("addtolog")
-                            ? "log"
-                            : button.includes("edit")
-                            ? "edit"
-                            : "delete",
-                        })
-                      }
-                    />
-                  );
-                })} */}
               </div>
               {mealStatus.id === meal._id && mealStatus.expanded && (
                 <div

@@ -321,23 +321,20 @@ export default function displayFoods({
         return (
           <div
             key={food._id}
-            className="item-container"
-            style={{ border: "1px solid #DD1D1D" }}
+            className="grid-container item-container"
+            style={{ border: "1px solid #555" }}
           >
-            <div style={{ textAlign: "center", padding: "15px" }}>
-              <h4 className="grid-header" style={{ paddingBottom: "10px" }}>
-                Delete {food.name}?
-              </h4>
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-                <button
-                  onClick={() => {
-                    deleteItem(food._id);
-                  }}
-                >
-                  Yes
-                </button>
-                <button onClick={stateReset}>No</button>
-              </div>
+            <div style={{ gridColumn: "span 2" }}>
+              <h4 className="grid-header">Delete {food.name}?</h4>
+            </div>
+            <div className="grid-buttons">
+              <SquareButton
+                icon="check"
+                onClickFunction={() => {
+                  deleteItem(food._id);
+                }}
+              />
+              <SquareButton icon="x" onClickFunction={stateReset} />
             </div>
           </div>
         );
