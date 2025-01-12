@@ -1,9 +1,7 @@
 import react, { useEffect, useContext, useState } from "react";
 import { AppContext } from "../../Providers/ContextProvider";
-import AddToLog from "../../assets/addtolog.svg";
 import CloseButton from "../CloseButton";
 import FoodDisplay from "../FoodDisplay";
-import plusButton from "../../assets/addtolog.svg";
 import MealDisplay from "../MealDisplay";
 
 export default function SeeWhatFits() {
@@ -103,7 +101,7 @@ export default function SeeWhatFits() {
                   food={food}
                   allFoods={whatFits.foods}
                   setAllFoods={() => {}}
-                  buttons={[plusButton]}
+                  buttons={["addtolog"]}
                   itemState={itemState}
                   setItemState={setItemState}
                 />
@@ -115,7 +113,7 @@ export default function SeeWhatFits() {
                   mealIndex={i}
                   mealStatus={mealStatus}
                   setMealStatus={setMealStatus}
-                  buttons={[AddToLog]}
+                  buttons={['addtolog']}
                 />
               ))}
         </div>

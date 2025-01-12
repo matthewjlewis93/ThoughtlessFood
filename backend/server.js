@@ -19,18 +19,18 @@ app.use("/api/log", logRouter);
 app.use("/api/meals", mealRouter);
 app.use("/api/whatfits", whatFitsRouter);
 app.use("/api/auth", authRouter);
-// app.use(
-//   session({
-//     secret: process.env.SESSIONSECRET,
-//     resave: false,
-//     saveUninitialized: true,
-//   })
-// );
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(
+  session({
+    secret: process.env.SESSIONSECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get("/", (req, res) => {
-  res.json({ status: "live" });
+  res.json({ status: "live", loggedIn: req.isAuthenticated() });
 });
 
 app.listen(PORT, () => {

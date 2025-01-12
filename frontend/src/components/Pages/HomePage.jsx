@@ -8,6 +8,7 @@ import ViewLog from "../../assets/viewlog.svg";
 import SeeWhatFits from "../../assets/seewhatfits.svg";
 import { AppContext } from "../../Providers/ContextProvider.jsx";
 import { useContext } from "react";
+import SquareButton from "../SquareButton.jsx";
 
 export default function HomePage() {
   const { activePage, updateActivePage, setToastInfo } = useContext(AppContext);

@@ -4,8 +4,6 @@ import FoodDisplay from "../FoodDisplay";
 import CloseButton from "../CloseButton";
 import createDateString from "../../createDateString";
 import DatePicker from "../DatePicker";
-import editButton from "../../assets/edit.svg";
-import trashButton from "../../assets/trash.svg";
 
 export default function ViewLog() {
   const { activePage, APIUrl, macroTotals } =
@@ -148,7 +146,7 @@ export default function ViewLog() {
                       food={food}
                       allFoods={allFoods}
                       setAllFoods={setAllFoods}
-                      buttons={[editButton, trashButton]}
+                      buttons={['edit', 'trash']}
                       itemState={itemStates}
                       setItemState={setItemStates}
                       link={"log"}

@@ -140,12 +140,22 @@ h2 {
   justify-content: space-around;
 }
 
+.square-button {
+  cursor: pointer;
+  border: 1px solid var(--header);
+  border-radius: 30%;
+  background-color: var(--page-background);
+  width: 30px;
+  height: 30px;
+}
+
 .grid-buttons img {
   cursor: pointer;
   border: 1px solid var(--header);
   border-radius: 30%;
   background-color: var(--page-background);
   width: 30px;
+  height: 30px;
 }
 
 .meal-container {

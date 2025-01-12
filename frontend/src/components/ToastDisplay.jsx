@@ -1,18 +1,22 @@
 import { useContext, useEffect, useState } from "react";
-import Check from "../assets/check.svg";
-import X from "../assets/x.svg";
 import { AppContext } from "../Providers/ContextProvider";
+import SquareButton from "./SquareButton";
 
 export default function ToastDisplay() {
   const [toastWidth, setToastWidth] = useState(0);
-  const {setToastInfo} = useContext(AppContext);
-  const { toastActivated, toastMessage, positive } = useContext(AppContext).toastInfo;
+  const { setToastInfo } = useContext(AppContext);
+  const { toastActivated, toastMessage, positive } =
+    useContext(AppContext).toastInfo;
   useEffect(() => {
     if (toastActivated) {
       document.getElementById("toast").classList.toggle("activated");
       setTimeout(() => {
         document.getElementById("toast").classList.toggle("activated");
-        setToastInfo({toastActivated: false, toastMessage: toastMessage, positive: positive})
+        setToastInfo({
+          toastActivated: false,
+          toastMessage: toastMessage,
+          positive: positive,
+        });
       }, 2500);
     }
   }, [toastActivated]);
@@ -36,10 +40,24 @@ export default function ToastDisplay() {
         display: "grid",
         gridTemplateColumns: "20px 1fr",
         textAlign: "right",
-        opacity: "0%"
+        opacity: "0%",
       }}
     >
-      <img src={positive ? Check : X} />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="24px"
+        viewBox="0 -960 960 960"
+        width="24px"
+        fill={positive ? "#38E5BA" : "#DD1D1D"}
+      >
+        <path
+          d={
+            positive
+              ? "M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"
+              : "m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
+          }
+        />
+      </svg>
       <p style={{ margin: "3px 10px" }}>{toastMessage}</p>
     </div>
   );

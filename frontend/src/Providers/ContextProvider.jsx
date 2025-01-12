@@ -35,9 +35,10 @@ const ContextProvider = ({ children }) => {
   };
   const [toastInfo, setToastInfo] = useState({
     toastActivated: true,
-    toastMessage: "You Failed to Post the Log",
+    toastMessage: "",
     positive: false,
   });
+
   return (
     <AppContext.Provider
       value={{
@@ -48,7 +49,7 @@ const ContextProvider = ({ children }) => {
         updateMacros,
         addToMacros,
         toastInfo,
-        setToastInfo,
+        setToastInfo
       }}
     >
       {children}

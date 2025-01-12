@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import Trash from "../assets/trash.svg";
-import Check from "../assets/check.svg";
-import X from "../assets/x.svg";
 import { AppContext } from "../Providers/ContextProvider";
+import SquareButton from "./SquareButton";
 
 export default function MealFood({
   food,
@@ -68,8 +66,8 @@ export default function MealFood({
               borderLeft: "1px solid",
             }}
           >
-            <img src={Check} onClick={deleteFood} />
-            <img src={X} onClick={() => setDeleteItem(false)} />
+            <SquareButton icon="check" onClickFunction={deleteFood} />
+            <SquareButton icon='x' onClickFunction={() => setDeleteItem(false)} />
           </div>
         </div>
       ) : (
@@ -110,16 +108,7 @@ export default function MealFood({
             </div>
 
             <div style={{ display: "flex", justifyContent: "right" }}>
-              <img
-                src={Trash}
-                width={24}
-                style={{
-                  backgroundColor: "#eefded",
-                  border: "1px solid #0c335a",
-                  borderRadius: "5px",
-                }}
-                onClick={() => setDeleteItem(true)}
-              />
+              <SquareButton icon="trash" onClickFunction={() => setDeleteItem(true)} />
             </div>
           </div>
 

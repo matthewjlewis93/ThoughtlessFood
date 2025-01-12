@@ -1,10 +1,9 @@
-import Check from "../assets/check.svg";
-import X from "../assets/x.svg";
 import { useEffect, useState, useContext } from "react";
 import MealFood from "./MealFood";
 import { AppContext } from "../Providers/ContextProvider";
 import DatePicker from "./DatePicker";
 import createDateString from "../createDateString";
+import SquareButton from "./SquareButton";
 
 export default function MealDisplay({
   meal,
@@ -206,10 +205,15 @@ export default function MealDisplay({
                 />
               </div>
               <div className="grid-buttons" style={{ borderTop: "1px solid" }}>
-                <img src={Check} onClick={() => logMeal(loggedMeal)} />
-                <img
-                  src={X}
-                  onClick={() => setMealStatus({ ...mealStatus, option: "" })}
+                <SquareButton
+                  icon="check"
+                  onClickFunction={() => logMeal(loggedMeal)}
+                />
+                <SquareButton
+                  icon="x"
+                  onClickFunction={() =>
+                    setMealStatus({ ...mealStatus, option: "" })
+                  }
                 />
               </div>
               {mealStatus.id === meal._id && mealStatus.expanded && (
@@ -268,10 +272,12 @@ export default function MealDisplay({
                 <h4>{meal.name}</h4>
               </div>
               <div className="grid-buttons" style={{ borderTop: "1px solid" }}>
-                <img src={Check} onClick={submitEdit} />
-                <img
-                  src={X}
-                  onClick={() => setMealStatus({ ...mealStatus, option: "" })}
+                <SquareButton icon="check" onClickFunction={submitEdit} />
+                <SquareButton
+                  icon="x"
+                  onClickFunction={() =>
+                    setMealStatus({ ...mealStatus, option: "" })
+                  }
                 />
               </div>
               {mealStatus.id === meal._id && mealStatus.expanded && (
@@ -357,7 +363,28 @@ export default function MealDisplay({
                 <h4 style={{ color: "#DD1D1D" }}>Delete {meal.name}?</h4>
               </div>
               <div className="grid-buttons" style={{ borderTop: "1px solid" }}>
-                <img
+                <SquareButton
+                  icon="check"
+                  onClickFunction={() => {
+                    deleteMeal();
+                    setMealStatus({
+                      id: "",
+                      expanded: false,
+                      option: "",
+                    });
+                  }}
+                />
+                <SquareButton
+                  icon="x"
+                  onClickFunction={() =>
+                    setMealStatus({
+                      id: "",
+                      expanded: false,
+                      option: "",
+                    })
+                  }
+                />
+                {/* <img
                   src={Check}
                   onClick={() => {
                     deleteMeal();
@@ -367,8 +394,8 @@ export default function MealDisplay({
                       option: "",
                     });
                   }}
-                />
-                <img
+                /> */}
+                {/* <img
                   src={X}
                   onClick={() =>
                     setMealStatus({
@@ -377,7 +404,7 @@ export default function MealDisplay({
                       option: "",
                     })
                   }
-                />
+                /> */}
               </div>
 
               <div className="meal-macro" style={{ borderRight: "1px solid" }}>
@@ -541,7 +568,25 @@ export default function MealDisplay({
               <div className="grid-buttons" style={{ borderTop: "1px solid" }}>
                 {buttons.map((button, i) => {
                   return (
-                    <img
+                    <SquareButton
+                      key={i}
+                      icon={button}
+                      onClickFunction={() =>
+                        setMealStatus({
+                          id: meal._id,
+                          expanded: true,
+                          option: button.includes("addtolog")
+                            ? "log"
+                            : button.includes("edit")
+                            ? "edit"
+                            : "delete",
+                        })
+                      }
+                    />
+                  );
+                })}
+                {/* return (
+                     <img
                       key={i}
                       src={button}
                       onClick={() =>
@@ -557,7 +602,7 @@ export default function MealDisplay({
                       }
                     />
                   );
-                })}
+                })} */}
               </div>
               {mealStatus.id === meal._id && mealStatus.expanded && (
                 <div
@@ -649,10 +694,10 @@ export default function MealDisplay({
           <div className="grid-buttons" style={{ borderTop: "1px solid" }}>
             {buttons.map((button, i) => {
               return (
-                <img
+                <SquareButton
                   key={i}
-                  src={button}
-                  onClick={() =>
+                  icon={button}
+                  onClickFunction={() =>
                     setMealStatus({
                       id: meal._id,
                       expanded: true,

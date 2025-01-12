@@ -1,10 +1,9 @@
 import { useContext, useState } from "react";
 import createDateString from "../createDateString";
-import checkIcon from "./../assets/check.svg";
-import xIcon from "./../assets/x.svg";
 import DatePicker from "./DatePicker";
 import { AppContext } from "../Providers/ContextProvider";
 import FavoriteButton from "./FavoriteButton";
+import SquareButton from "./SquareButton";
 
 export default function displayFoods({
   food,
@@ -182,11 +181,13 @@ export default function displayFoods({
               <DatePicker defaultDate={logDate} setDefaultDate={setLogDate} />
             </div>
             <div className="grid-buttons">
-              <img
-                src={checkIcon}
-                onClick={() => submitFoodLog(food._id, logQuantity, logMeal)}
+              <SquareButton
+                icon="check"
+                onClickFunction={() =>
+                  submitFoodLog(food._id, logQuantity, logMeal)
+                }
               />
-              <img src={xIcon} onClick={stateReset} />
+              <SquareButton icon="x" onClickFunction={stateReset} />
             </div>
           </div>
         );
@@ -265,8 +266,8 @@ export default function displayFoods({
               calories
             </p>
             <div className="grid-buttons">
-              <img src={checkIcon} onClick={updateFood} />
-              <img src={xIcon} onClick={stateReset} />
+              <SquareButton icon="check" onClickFunction={updateFood} />
+              <SquareButton icon="x" onClickFunction={stateReset} />
             </div>
             <p>
               <input
@@ -365,10 +366,10 @@ export default function displayFoods({
         <div className="grid-buttons">
           {buttons.map((button, i) => {
             return (
-              <img
+              <SquareButton
                 key={i}
-                src={button}
-                onClick={() =>
+                icon={button}
+                onClickFunction={() =>
                   setItemState({
                     item: food._id,
                     option: button.includes("addtolog")

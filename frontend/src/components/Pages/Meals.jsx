@@ -4,9 +4,6 @@ import CloseButton from "../CloseButton";
 import MealDisplay from "../MealDisplay";
 import SearchBar from "../SearchBar";
 import createDateString from "../../createDateString";
-import AddToLog from "../../assets/addtolog.svg";
-import Edit from "../../assets/edit.svg";
-import Trash from "../../assets/trash.svg";
 
 export default function Meals() {
   const { APIUrl } = useContext(AppContext);
@@ -77,7 +74,7 @@ export default function Meals() {
     <div
       id="meals"
       className={
-        "container-box main-page " +"subpage transition"//        (activePage === "Meals" ? "subpage transition" : "inactive")
+        "container-box main-page " +"subpage transition"
       }
     >
       <CloseButton
@@ -136,7 +133,7 @@ export default function Meals() {
               setMealStatus={setMealStatus}
               mealStatus={mealStatus}
               setMeals={setMeals}
-              buttons={[AddToLog, Edit, Trash]}
+              buttons={['addtolog', 'edit', 'trash']}
             />
           </div>
         ))}

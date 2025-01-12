@@ -2,9 +2,6 @@ import react, { useContext, useState, useEffect } from "react";
 import { AppContext } from "../../Providers/ContextProvider";
 import FoodDisplay from "../FoodDisplay";
 import CloseButton from "../CloseButton";
-import plusButton from "../../assets/addtolog.svg";
-import editButton from "../../assets/edit.svg";
-import trashButton from "../../assets/trash.svg";
 import createDateString from "../../createDateString";
 import SearchBar from "../SearchBar";
 import favorite from "../../assets/favorite.svg";
@@ -80,9 +77,7 @@ export default function Foods() {
   return (
     <div
       id="foods"
-      className={
-        "container-box main-page " + "subpage transition"
-      }
+      className={"container-box main-page " + "subpage transition"}
     >
       <CloseButton
         functionList={[
@@ -99,10 +94,7 @@ export default function Foods() {
         Saved Foods
         <hr />
       </h1>
-      <SearchBar
-        itemList={foods}
-        setItemList={setSearchedFoods}
-      />
+      <SearchBar itemList={foods} setItemList={setSearchedFoods} />
       <form
         style={{
           display: "flex",
@@ -151,7 +143,7 @@ export default function Foods() {
               setItemState={setItemStates}
               allFoods={foods}
               setAllFoods={setFoods}
-              buttons={[plusButton, editButton, trashButton]}
+              buttons={["addtolog", "edit", "trash"]}
               link="foods"
               favoritable={true}
             />
