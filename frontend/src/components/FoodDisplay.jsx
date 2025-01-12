@@ -100,8 +100,8 @@ export default function displayFoods({
     setToastInfo({
       toastActivated: true,
       toastMessage: `${food.name} deleted!`,
-      positive: true
-    })
+      positive: true,
+    });
   };
 
   const updateFood = async () => {
@@ -212,34 +212,40 @@ export default function displayFoods({
                 />
               </h4>
               <p className="food-amount">
-                <input
-                  type="number"
-                  placeholder={food.amount}
-                  style={{ width: "3em" }}
-                  onChange={(e) =>
-                    setFoodEdit({
-                      ...foodEdit,
-                      id: food._id,
-                      amount: e.target.value,
-                    })
-                  }
-                />
-                <select
-                  style={{ marginLeft: "3px" }}
-                  defaultValue={food.unit}
-                  onChange={(e) => {
-                    setFoodEdit({
-                      ...foodEdit,
-                      id: food._id,
-                      unit: e.target.value,
-                    });
-                  }}
-                >
-                  <option value="gram">grams</option>
-                  <option value="oz">oz</option>
-                  <option value="mL">mL</option>
-                  <option value="unit">Unit(s)</option>
-                </select>
+                {food.unit !== "Meal" ? (
+                  <>
+                    <input
+                      type="number"
+                      placeholder={food.amount}
+                      style={{ width: "3em" }}
+                      onChange={(e) =>
+                        setFoodEdit({
+                          ...foodEdit,
+                          id: food._id,
+                          amount: e.target.value,
+                        })
+                      }
+                    />
+                    <select
+                      style={{ marginLeft: "3px" }}
+                      defaultValue={food.unit}
+                      onChange={(e) => {
+                        setFoodEdit({
+                          ...foodEdit,
+                          id: food._id,
+                          unit: e.target.value,
+                        });
+                      }}
+                    >
+                      <option value="gram">grams</option>
+                      <option value="oz">oz</option>
+                      <option value="mL">mL</option>
+                      <option value="unit">Unit(s)</option>
+                    </select>
+                  </>
+                ) : (
+                  "1 Meal"
+                )}
               </p>
             </div>
             <p>

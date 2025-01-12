@@ -16,6 +16,8 @@ export const addNewMeal = async (req, res) => {
     ...m,
     _id: i,
   }));
+  recievedMeal.unit = "Meal";
+  recievedMeal.amount = 1;
   const newMeal = new Meals(recievedMeal);
   try {
     await newMeal.save();

@@ -12,6 +12,14 @@ const mealSchema = new mongoose.Schema({
     lastLogged: {
         type: Date,
         required: true
+    },
+    amount: {
+        type: Number,
+        required: true
+    },
+    unit: {
+        type: String,
+        required: true
     }
 },{
     timestamps: true

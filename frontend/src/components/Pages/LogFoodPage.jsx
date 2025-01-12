@@ -51,7 +51,7 @@ export default function LogFoodPage() {
       carbs: "",
       fat: "",
       amount: "",
-      unit: "grams",
+      unit: "gram",
     });
   };
 

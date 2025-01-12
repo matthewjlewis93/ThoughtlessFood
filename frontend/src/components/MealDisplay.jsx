@@ -114,6 +114,8 @@ export default function MealDisplay({
     logMacros["name"] = meal.name;
     logMacros["meal"] = loggedMeal;
     logMacros["date"] = mealDate;
+    logMacros["unit"] = "Meal";
+    logMacros["amount"] = 1;
     await fetch(`${APIUrl}log`, {
       method: "POST",
       headers: {

@@ -62,9 +62,8 @@ export default function ViewLog() {
   return (
     <div
       id="view-log"
-      style={{}}
       className={
-        "container-box main-page " +"subpage transition"//        (activePage === "View Log" ? "subpage transition" : "inactive")
+        "container-box main-page " +"subpage transition"
       }
     >
       <CloseButton
