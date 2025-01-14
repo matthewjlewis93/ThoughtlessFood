@@ -9,12 +9,14 @@ import SeeWhatFits from "../../assets/seewhatfits.svg";
 import { AppContext } from "../../Providers/ContextProvider.jsx";
 import { useContext } from "react";
 import SquareButton from "../SquareButton.jsx";
+import Login from "./Login.jsx";
 
 export default function HomePage() {
   const { activePage, updateActivePage, setToastInfo } = useContext(AppContext);
 
   return (
     <div id="homepage" className={"container-box main-page " + "active-home"}>
+      {/* <Login /> */}
       <MacroHeadlines />
       <div
         className="container-box"

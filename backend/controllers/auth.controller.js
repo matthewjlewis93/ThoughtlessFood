@@ -41,3 +41,4 @@ export const registerUser = async (req, res) => {
     res.status(200).json({ existingUser: false, message: "User Registered" });
   }
 };
+

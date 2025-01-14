@@ -1,7 +1,7 @@
 import FoodItem from "../models/food.model.js";
 import MealItem from "../models/meal.model.js";
 
-export const getFoodsAndMeals = async (req, res) => {
+export default async function getFoodsAndMeals (req, res) {
   const { caloriesRemaining } = req.params;
   try {
     let foods = await FoodItem.find({});

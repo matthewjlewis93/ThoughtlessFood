@@ -243,6 +243,20 @@ h2 {
   opacity: 100% !important;
 }
 
+#login-page {
+  position: absolute;
+  width: 96vw;
+  height: 60vh;
+  right: calc(2vw - 1px);
+
+  background-color: #ffffffee;
+  z-index: 10;
+  border: 1px solid;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

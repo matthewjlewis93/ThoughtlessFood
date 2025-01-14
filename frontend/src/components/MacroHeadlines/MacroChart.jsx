@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
+import HChart from "../HChart";
 
 const goal = 1850;
 const bgColor = document.body.style.backgroundColor;
@@ -70,14 +71,15 @@ export default function MacroChart({ calorieValue }) {
   };
 
   return (
-    <div style={{minHeight: "100px"}}>
-      <Chart
+    <div style={{minHeight: "100px", width: "100%"}}>
+      {/* <Chart
         chartType="BarChart"
         diffdata={diffData}
         options={options}
         width="100%"
         height="100px"
-      />
+      /> */}
+      <HChart data={calorieValue} />
     </div>
   );
 }
