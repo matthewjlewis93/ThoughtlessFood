@@ -1,77 +1,77 @@
 import { useEffect, useState } from "react";
-import { Chart } from "react-google-charts";
+// import { Chart } from "react-google-charts";
 import HChart from "../HChart";
 
 const goal = 1850;
 const bgColor = document.body.style.backgroundColor;
 
 export default function MacroChart({ calorieValue }) {
-  const [calorieDifference, setCalorieDifference] = useState(0);
-  const [ticks, setTicks] = useState([]);
-  const [calorieLabel, setCalorieLabel] = useState("");
-  const [differenceLabel, setDifferenceLabel] = useState("");
+  // const [calorieDifference, setCalorieDifference] = useState(0);
+  // const [ticks, setTicks] = useState([]);
+  // const [calorieLabel, setCalorieLabel] = useState("");
+  // const [differenceLabel, setDifferenceLabel] = useState("");
 
-  const setLabels = () => {
-    setCalorieDifference(goal - calorieValue);
+  // const setLabels = () => {
+  //   setCalorieDifference(goal - calorieValue);
 
-    if (calorieDifference > 0) {
-      setCalorieLabel(`${calorieValue} Calories`);
-      setDifferenceLabel(`${calorieDifference} cals left`);
-    }
-  };
-  const createTicks = () => {
-    let ticklabels = [goal];
-    let tickMax = calorieValue > goal ? calorieValue : goal;
-    for (let i = 0; i < Math.floor(tickMax / 500) + 2; i++) {
-      ticklabels.push(i * 500);
-    }
-    setTicks(ticklabels);
-  };
+  //   if (calorieDifference > 0) {
+  //     setCalorieLabel(`${calorieValue} Calories`);
+  //     setDifferenceLabel(`${calorieDifference} cals left`);
+  //   }
+  // };
+  // const createTicks = () => {
+  //   let ticklabels = [goal];
+  //   let tickMax = calorieValue > goal ? calorieValue : goal;
+  //   for (let i = 0; i < Math.floor(tickMax / 500) + 2; i++) {
+  //     ticklabels.push(i * 500);
+  //   }
+  //   setTicks(ticklabels);
+  // };
 
-  useEffect(() => {
-    setLabels();
-    createTicks();
-  }, []);
+  // useEffect(() => {
+  //   setLabels();
+  //   createTicks();
+  // }, []);
 
-  const options = {
-    animation: {
-      duration: 150,
-      easing: "out",
-      startup: true,
-    },
-    backgroundColor: "none",
-    legend: "none",
-    tooltip: { trigger: "none" },
-    bar: { groupWidth: 35 },
-    chart: {
-      width: "100%",
-    },
-    hAxis: { ticks: ticks },
-    diff: {
-      newData: { widthFactor: 0.6 },
-      oldData: { color: "#eee" },
-    },
-    // title: `${goal - calorieValue} calories remaining`,
-    titlePosition: "out",
-    enableInteractivity: false,
-    colors: ["#38E5BA"],
-  };
-  const goalData = [
-    ["A", "Goal"],
-    ["Goal", goal],
-  ];
+  // const options = {
+  //   animation: {
+  //     duration: 150,
+  //     easing: "out",
+  //     startup: true,
+  //   },
+  //   backgroundColor: "none",
+  //   legend: "none",
+  //   tooltip: { trigger: "none" },
+  //   bar: { groupWidth: 35 },
+  //   chart: {
+  //     width: "100%",
+  //   },
+  //   hAxis: { ticks: ticks },
+  //   diff: {
+  //     newData: { widthFactor: 0.6 },
+  //     oldData: { color: "#eee" },
+  //   },
+  //   // title: `${goal - calorieValue} calories remaining`,
+  //   titlePosition: "out",
+  //   enableInteractivity: false,
+  //   colors: ["#38E5BA"],
+  // };
+  // const goalData = [
+  //   ["A", "Goal"],
+  //   ["Goal", goal],
+  // ];
 
-  const totalData = [
-    ["A", "Today"],
-    [`${calorieValue} / \n${goal} `, calorieValue],
-  ];
-  const diffData = {
-    old: goalData,
-    new: totalData,
-  };
+  // const totalData = [
+  //   ["A", "Today"],
+  //   [`${calorieValue} / \n${goal} `, calorieValue],
+  // ];
+  // const diffData = {
+  //   old: goalData,
+  //   new: totalData,
+  // };
 
   return (
-    <div style={{minHeight: "100px", width: "100%"}}>
+    <div style={{ minHeight: "100px", width: "100%", marginBottom: "5px" }}>
       {/* <Chart
         chartType="BarChart"
         diffdata={diffData}
@@ -79,7 +79,13 @@ export default function MacroChart({ calorieValue }) {
         width="100%"
         height="100px"
       /> */}
+      <h5
+        style={{ position: "relative",fontFamily:"sans-serif", left: "2.5%", margin: 0 }}
+      >{`${calorieValue} calories today`}</h5>
       <HChart data={calorieValue} />
+      <h5
+        style={{ position: "relative",fontFamily:"sans-serif", textAlign: "right", margin: 0, right: "2%" }}
+      >{ goal > calorieValue ? `${goal - calorieValue} calories remaining` : `${calorieValue - goal} calories over`}</h5>
     </div>
   );
 }

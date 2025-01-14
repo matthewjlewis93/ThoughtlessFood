@@ -11,7 +11,7 @@ export default function HChart({ data }) {
     6: [0, 0],
     7: [0, 0],
   });
-  const [labels, setLabels] = useState([0, 1, 2, 3, 4, 5, 6, 7]);
+
   const [labelOpacity, setLabelOpacity] = useState("0%");
 
   useEffect(() => {
@@ -37,15 +37,16 @@ export default function HChart({ data }) {
         height: "100px",
         width: "100%",
         position: "relative",
-        // border: "1px solid #ff0000",
+        margin: "5px 0px",
       }}
     >
       <div
         style={{
           height: "70px",
-          width: "95%",
+          width: "94%",
           margin: "0px auto",
           borderLeft: "1px solid",
+          borderRight: 1850 > data ?"none":"1px solid #777",
           position: "relative",
           top: "15px",
           left: "calc(10%-2px)",
@@ -54,18 +55,19 @@ export default function HChart({ data }) {
         <div
           style={{
             height: "36px",
-            width: "100%",
+            width: 1850 > data ? "100%" : `${100 * (1850 / data) > 35 ? 100 * (1850 / data) : 35}%`,
             backgroundColor: "#EEE",
             margin: "0px",
             position: "relative",
             top: "17px",
             zIndex: 2,
+            transitionDuration: "2000ms",
           }}
         >
           <span
             style={{
               position: "absolute",
-              top: "-15px",
+              top: "-17px",
               width: "25%",
               height: "70px",
               borderRight: "1px solid #777",
@@ -102,50 +104,12 @@ export default function HChart({ data }) {
           <span
             style={{
               position: "absolute",
-              top: "-15px",
+              top: "-17px",
               width: "25%",
               height: "70px",
               borderRight: "1px solid #777",
               zIndex: 0,
               left: "25%",
-            }}
-          >
-            <p
-              className="graph-percentage"
-              style={{
-                position: "absolute",
-                margin: 0,
-                top: percentagePositions[1][0],
-                right: percentagePositions[1][1],
-                opacity: labelOpacity,
-                fontSize: "12px",
-              }}
-            >
-              50%
-            </p>
-            <p
-              className="graph-percentage"
-              style={{
-                position: "absolute",
-                margin: 0,
-                bottom: percentagePositions[1][0],
-                right: percentagePositions[1][1],
-                opacity: labelOpacity,
-                fontSize: "12px",
-              }}
-            >
-              {Math.floor(1850 / 2)}
-            </p>
-          </span>
-          <span
-            style={{
-              position: "absolute",
-              top: "-15px",
-              width: "25%",
-              height: "70px",
-              borderRight: "1px solid #777",
-              zIndex: 0,
-              left: "50%",
             }}
           >
             <p
@@ -159,6 +123,44 @@ export default function HChart({ data }) {
                 fontSize: "12px",
               }}
             >
+              50%
+            </p>
+            <p
+              className="graph-percentage"
+              style={{
+                position: "absolute",
+                margin: 0,
+                bottom: percentagePositions[3][0],
+                right: percentagePositions[3][1],
+                opacity: labelOpacity,
+                fontSize: "12px",
+              }}
+            >
+              {Math.floor(1850 / 2)}
+            </p>
+          </span>
+          <span
+            style={{
+              position: "absolute",
+              top: "-17px",
+              width: "25%",
+              height: "70px",
+              borderRight: "1px solid #777",
+              zIndex: 0,
+              left: "50%",
+            }}
+          >
+            <p
+              className="graph-percentage"
+              style={{
+                position: "absolute",
+                margin: 0,
+                top: percentagePositions[4][0],
+                right: percentagePositions[4][1],
+                opacity: labelOpacity,
+                fontSize: "12px",
+              }}
+            >
               75%
             </p>
             <p
@@ -166,8 +168,8 @@ export default function HChart({ data }) {
               style={{
                 position: "absolute",
                 margin: 0,
-                bottom: percentagePositions[1][0],
-                right: percentagePositions[1][1],
+                bottom: percentagePositions[5][0],
+                right: percentagePositions[5][1],
                 opacity: labelOpacity,
                 fontSize: "12px",
               }}
@@ -178,7 +180,7 @@ export default function HChart({ data }) {
           <span
             style={{
               position: "absolute",
-              top: "-15px",
+              top: "-17px",
               width: "25%",
               height: "70px",
               borderRight: "1px solid #777",
@@ -191,8 +193,8 @@ export default function HChart({ data }) {
               style={{
                 position: "absolute",
                 margin: 0,
-                top: percentagePositions[3][0],
-                right: percentagePositions[3][1],
+                top: percentagePositions[6][0],
+                right: percentagePositions[6][1],
                 opacity: labelOpacity,
                 fontSize: "12px",
               }}
@@ -204,8 +206,8 @@ export default function HChart({ data }) {
               style={{
                 position: "absolute",
                 margin: 0,
-                bottom: percentagePositions[1][0],
-                right: percentagePositions[1][1],
+                bottom: percentagePositions[7][0],
+                right: percentagePositions[7][1],
                 opacity: labelOpacity,
                 fontSize: "12px",
               }}
@@ -213,19 +215,18 @@ export default function HChart({ data }) {
               {1850}
             </p>
           </span>
-          {/* <p style={{margin: 0, padding: "3px", fontSize:"12px"}}>{data}</p> */}
         </div>
         <div
           id="fill-bar"
           style={{
             height: "20px",
-            transitionDuration: "2000ms",
             backgroundColor: "#38E5BA",
             position: "relative",
             top: "-11px",
-            width: `${100 * (data / 1850)}%`,
+            width: 1850 > data ? `${100 * (data / 1850)}%` : "100%",
             textAlign: "center",
             zIndex: 5,
+            transitionDuration: "2000ms",
           }}
         ></div>
       </div>

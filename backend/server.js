@@ -31,31 +31,26 @@ app.use(
   })
 );
 app.use("/api/auth", passport.authenticate("local"), function (req, res) {
-  res.status(200).json({success: true, id: req.user._id});
+  res.status(200).json({ success: true, id: req.user._id });
 });
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(
   new Strategy(async function verify(username, password, cb) {
-    console.log("strategy activated")
     const userSearch = await userData.findOne({ username: username });
     if (userSearch) {
-      console.log("user found")
       // login
       bcrypt.compare(password, userSearch._doc.password, (err, result) => {
         if (err) {
           console.log("Error comparing passwords: ", err);
-          cb(err, false, {success: false, data: "login failed: "+err});
-          // res.status(500).json({ message: err });
+          cb(err, false, { success: false, data: "login failed: " + err });
         } else {
           if (result) {
-            console.log('user logged in')
-            // res.status(200).json({ existingUser: true, message: "Logged In" });
+            console.log("user logged in");
             cb(null, userSearch);
           } else {
-            console.log('log in failed')
-            cb(null, false, {success: false, data: "Incorrect password"});
-            // res.status(200).json({ existingUser: true, message: "Failed Log In" });
+            console.log("log in failed");
+            cb(null, false, { success: false, data: "Incorrect password" });
           }
         }
       });
