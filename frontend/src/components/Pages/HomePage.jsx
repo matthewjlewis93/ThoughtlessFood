@@ -7,16 +7,16 @@ import AddToLog from "../../assets/addlog.svg";
 import ViewLog from "../../assets/viewlog.svg";
 import SeeWhatFits from "../../assets/seewhatfits.svg";
 import { AppContext } from "../../Providers/ContextProvider.jsx";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import SquareButton from "../SquareButton.jsx";
 import Login from "./Login.jsx";
 
 export default function HomePage() {
   const { activePage, updateActivePage, setToastInfo } = useContext(AppContext);
-
+  const [logIn, setLogIn] = useState(true);
   return (
     <div id="homepage" className={"container-box main-page " + "active-home"}>
-      {/* <Login /> */}
+      {logIn && <Login setLogIn={setLogIn} />}
       <MacroHeadlines />
       <div
         className="container-box"

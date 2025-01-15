@@ -1,23 +1,25 @@
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../Providers/ContextProvider";
 
-export default function Login() {
+export default function Login({ setLogIn }) {
   const { APIUrl } = useContext(AppContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const submitLogin = async (e) => {
     e.preventDefault();
     let logData = await fetch(
-      `${APIUrl}auth?username=${username}&password=${password}`,
+      `${APIUrl}auth/login`,
       {
         method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({username: username, password: password})
       }
     );
     switch (logData.status) {
       case 200: // successful log in
         logData = await logData.json();
         console.dir(logData);
-        // document.cookie = `user=${logData.id}`;
+        setLogIn(false);
         break;
       case 401: // user found but password incorrect
         break;

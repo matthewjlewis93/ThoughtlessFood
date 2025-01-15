@@ -39,6 +39,7 @@ export const getRangedLogs = async (req, res) => { // get logs based on date and
 };
 
 export const addNewLog = async (req, res) => { // add new log
+    console.log(req.isAuthenticated())
     const newEntry = new FoodLog(req.body);
     try {
         await newEntry.save();
