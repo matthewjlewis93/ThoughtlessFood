@@ -2,7 +2,7 @@ import Meals from "../models/meal.model.js";
 
 export const getAllMeals = async (req, res) => {
   try {
-    const meals = await Meals.find({});
+    const meals = await Meals.find({userID: req.body.userID});
     res.status(200).json({ success: true, data: meals });
   } catch (error) {
     console.error(`Error fetching meals: ${error}`);
