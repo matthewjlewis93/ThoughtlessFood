@@ -2,7 +2,7 @@ import FoodItem from "../models/food.model.js";
 
 export const getAllFoods = async (req, res) => {
     try {
-        const foods = await FoodItem.find({});
+        const foods = await FoodItem.find({userID: req.body.userID});
         res.status(200).json({ success: true, data: foods});
     } catch (error) {
         console.log(error);

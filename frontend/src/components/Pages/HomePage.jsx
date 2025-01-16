@@ -7,16 +7,53 @@ import AddToLog from "../../assets/addlog.svg";
 import ViewLog from "../../assets/viewlog.svg";
 import SeeWhatFits from "../../assets/seewhatfits.svg";
 import { AppContext } from "../../Providers/ContextProvider.jsx";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SquareButton from "../SquareButton.jsx";
 import Login from "./Login.jsx";
+import transitionControl from "../../transitionControl.js";
 
-export default function HomePage() {
-  const { activePage, updateActivePage, setToastInfo } = useContext(AppContext);
-  const [logIn, setLogIn] = useState(true);
+export default function HomePage({setLogInConfirmed}) {
+  const { activePage, updateActivePage, setToastInfo, APIUrl } =
+    useContext(AppContext);
+  const [logIn, setLogIn] = useState(false);
+
+  const cookieReader = () => {
+    let cookies = document.cookie;
+    cookies = cookies.split(";");
+    let cookieObj = {};
+    for (let x of cookies) {
+      cookieObj[x.split("=")[0]] = x.split("=")[1];
+    }
+
+    return cookieObj;
+  };
+
+  const verifyLogin = async () => {
+    document.cookie = 'jwt=false'
+    if (cookieReader().jwt) {
+      let response = await fetch(`${APIUrl}auth/verify`);
+      response = await response.json();
+      if (response.data) {
+        setLogIn(false);
+        setLogInConfirmed(true);
+      } else {
+        setLogInConfirmed(false);
+        setLogIn(true);
+        transitionControl('homepage');
+      }
+    } else {
+      setLogIn(false);
+      setLogInConfirmed(true);
+    }
+  };
+
+  useEffect(() => verifyLogin, [activePage]);
+
   return (
     <div id="homepage" className={"container-box main-page " + "active-home"}>
-      {logIn && <Login setLogIn={setLogIn} />}
+      {logIn && (
+        <Login setLogIn={setLogIn} setLogInConfirmed={setLogInConfirmed} />
+      )}
       <MacroHeadlines />
       <div
         className="container-box"

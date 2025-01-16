@@ -7,8 +7,17 @@ const generateToken = (res, userID) => {
 
     res.cookie('jwt', token, {
         maxAge: 365 * 24 * 60 * 60 * 1000,
-        httpOnly: true
-    })
-}
+        httpOnly: true,
+        secure: false,
+        sameSite: "strict"
+    });
+
+    // res.cookie('id', userID, {
+    //     maxAge: 365 * 24 * 60 * 60 * 1000,
+    //     httpOnly: false,
+    //     secure: false,
+    //     sameSite: "strict"
+    // }
+  }
 
 export default generateToken;

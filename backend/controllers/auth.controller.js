@@ -20,7 +20,7 @@ export const logInUser = async (req, res) => {
         } else {
           if (result) {
             generateToken(res, userSearch._id);
-            res.status(200).json({ existingUser: true, message: "Logged In" });
+            res.status(200).json({ existingUser: true, id: userInfo._id });
           } else {
             res
               .status(401)
@@ -30,7 +30,7 @@ export const logInUser = async (req, res) => {
       }
     );
   } else {
-    res.status(200).json({ existingUser: false, message: "User not found" });
+    res.status(401).json({ existingUser: false, message: "User not found" });
   }
 };
 
@@ -40,6 +40,7 @@ export const checkLogIn = async (req, res) => {
     try {
       const decoded = jwt.verify(token, process.env.SESSIONSECRET);
       req.user = await userData.findById(decoded.userID).select("-password");
+      generateToken(res, req.user._id);
       res.status(200).json({success: true, data: req.user})
     } catch (error) {
       res

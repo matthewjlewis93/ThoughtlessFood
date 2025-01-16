@@ -10,17 +10,21 @@ import Meals from "./components/Pages/Meals";
 import ToastDisplay from "./components/ToastDisplay";
 
 function App() {
+  const [logInConfirmed, setLogInConfirmed] = useState(false)
 
   return (
     <div className="app-container">
       <ContextProvider>
-        <HomePage />
+        <HomePage setLogInConfirmed={setLogInConfirmed} />
+        {logInConfirmed && <>
         <LogFoodPage />
         <ViewLog />
         <Foods />
         <Meals />
         <SeeWhatFits />
         <ToastDisplay />
+        </>
+        }
       </ContextProvider>
     </div>
   );

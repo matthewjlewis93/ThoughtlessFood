@@ -8,7 +8,8 @@ const ContextProvider = ({ children }) => {
   const updateActivePage = (ActivePage) => setActivePage(ActivePage);
 
   // API link provider
-  const [APIUrl] = useState("https://4pm9081m-8080.usw3.devtunnels.ms/api/");
+  // const [APIUrl] = useState("https://4pm9081m-8080.usw3.devtunnels.ms/api/");
+  const [APIUrl] = useState("/api/");
   // const [APIUrl] = useState("http://192.168.1.110:8080/api/");
 
   //Today's Macro Info

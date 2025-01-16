@@ -1,8 +1,9 @@
 import FoodLog from "../models/log.model.js";
 
 export const getAllLogs = async (req, res) => { // fetch all logs
+    
     try {
-        const logs = await FoodLog.find({});
+        const logs = await FoodLog.find({userID: req.body.userID});
         res.status(200).json({ success: true,  data: logs });
     } catch (error) {
         console.error(`Error fetching logs: ${error}`);
@@ -18,7 +19,7 @@ export const getRangedLogs = async (req, res) => { // get logs based on date and
 
     switch (range) {
         case "day":
-            return res.status(200).json({ success: true, data: await FoodLog.find({ date: date }) });
+            return res.status(200).json({ success: true, data: await FoodLog.find({userID: req.body.userID, date: date }) });
         case "week":
             firstDay.setDate(firstDay.getDate() - (firstDay.getDay()-1));
             lastDay.setDate(firstDay.getDate() + 6 )
@@ -32,14 +33,14 @@ export const getRangedLogs = async (req, res) => { // get logs based on date and
         }    
     return res.status(200).json({ 
         success: true, 
-        data: await FoodLog.find({ 
+        data: await FoodLog.find({ userID: req.body.userID, 
             date: { 
                 $gte: `${firstDay.getFullYear()}-${firstDay.getMonth()+1}-${firstDay.getDate()}`, 
                 $lte: `${lastDay.getFullYear()}-${lastDay.getMonth()+1}-${lastDay.getDate()}` }}) });
 };
 
 export const addNewLog = async (req, res) => { // add new log
-    console.log(req.isAuthenticated())
+    console.log(req.cookies.id);
     const newEntry = new FoodLog(req.body);
     try {
         await newEntry.save();

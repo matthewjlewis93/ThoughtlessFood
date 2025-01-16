@@ -4,7 +4,7 @@ import MealItem from "../models/meal.model.js";
 export default async function getFoodsAndMeals (req, res) {
   const { caloriesRemaining } = req.params;
   try {
-    let foods = await FoodItem.find({});
+    let foods = await FoodItem.find({userID: req.body.userID});
     foods = foods.map((f, i) => {
       let newAmount = Math.floor(caloriesRemaining / (f.calories / f.amount));
       if (newAmount > 0) {
@@ -21,7 +21,7 @@ export default async function getFoodsAndMeals (req, res) {
       }
     });
     foods = foods.filter((f) => f !== undefined);
-    let meals = await MealItem.find({});
+    let meals = await MealItem.find({userID: req.body.userID});
     meals = meals.filter(
       (meal) =>
         meal.ingredients.reduce((p, c) => {
