@@ -129,6 +129,7 @@ export default function Foods() {
             onChange={handleFavorites}
           />
         </label>
+        <button style={{height: "18px",width: "18px",padding: "0"}} onClick={(e) => {e.preventDefault()}}>+</button>
       </form>
 
       <div

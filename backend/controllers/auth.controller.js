@@ -34,6 +34,42 @@ export const logInUser = async (req, res) => {
   }
 };
 
+export const registerUser = async (req, res) => {
+  const newUserInfo = req.body;
+  const newUserSearch = await userData.findOne({
+    username: newUserInfo.username,
+  });
+  if (newUserSearch) {
+    console.log("existing user: " + newUserSearch);
+    bcrypt.compare(
+      userInfo.password,
+      userSearch._doc.password,
+      (err, result) => {
+        if (err) {
+          console.log("Error comparing passwords: ", err);
+          res.status(500).json({ message: err });
+        } else {
+          if (result) {
+            generateToken(res, userSearch._id);
+            res.status(200).json({ existingUser: true, id: userInfo._id });
+          } else {
+            res
+              .status(401)
+              .json({ existingUser: true, message: "Failed Log In" });
+          }
+        }
+      }
+    );
+  } else {
+    console.log("new user: " + req.body.username);
+    newUserInfo.password = await bcrypt.hash(newUserInfo.password, saltRounds);
+    const newUser = new userData(newUserInfo);
+    newUser.save();
+    generateToken(res, newUser._id);
+    res.status(200).json({ success: true });
+  }
+};
+
 export const checkLogIn = async (req, res) => {
   let token = req.cookies.jwt;
   if (token) {
@@ -41,7 +77,7 @@ export const checkLogIn = async (req, res) => {
       const decoded = jwt.verify(token, process.env.SESSIONSECRET);
       req.user = await userData.findById(decoded.userID).select("-password");
       generateToken(res, req.user._id);
-      res.status(200).json({success: true, data: req.user})
+      res.status(200).json({ success: true, data: req.user });
     } catch (error) {
       res
         .status(500)

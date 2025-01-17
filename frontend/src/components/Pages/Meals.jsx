@@ -30,7 +30,8 @@ export default function Meals() {
 
   const handleAddMeal = (e) => {
     e.preventDefault();
-    if (meals[0]._id !== "new") {
+  
+    if (meals.length === 0 || meals[0]._id !== "new") {
       setMeals([
         {
           _id: "new",

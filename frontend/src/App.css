@@ -236,7 +236,6 @@ h2 {
   transition-duration: 200ms;
   transition-property: bottom, opacity;
   bottom: -5%;
-  /* opacity: 0%; */
 }
 #toast.activated {
   bottom: 5%;

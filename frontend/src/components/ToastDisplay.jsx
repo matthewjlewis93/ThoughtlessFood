@@ -29,6 +29,8 @@ export default function ToastDisplay() {
     <div
       id="toast"
       style={{
+        opacity: "0%",
+        display: "grid",
         position: "absolute",
         backgroundColor: "white",
         color: "black",
@@ -37,10 +39,8 @@ export default function ToastDisplay() {
         padding: "0px 5px 0px 5px",
         border: `4px solid ${positive ? "#38E5BA" : "#DD1D1D"}`,
         borderRadius: "30px",
-        display: "grid",
         gridTemplateColumns: "20px 1fr",
         textAlign: "right",
-        opacity: "0%",
       }}
     >
       <svg
@@ -58,7 +58,7 @@ export default function ToastDisplay() {
           }
         />
       </svg>
-      <p style={{ margin: "3px 10px" }}>{toastMessage}</p>
+      <p style={{ margin: "3px 10px", maxWidth:"300px" }}>{toastMessage}</p>
     </div>
   );
 }

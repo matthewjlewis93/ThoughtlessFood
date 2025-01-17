@@ -426,10 +426,12 @@ export default function MealDisplay({
                 />
               </div>
               <div className="grid-buttons" style={{ borderTop: "1px solid" }}>
-                <img src={Check} onClick={sendNewMeal} />
-                <img
-                  src={X}
-                  onClick={() => setMealStatus({ ...mealStatus, option: "" })}
+                <SquareButton icon="check" onClickFunction={sendNewMeal} />
+                <SquareButton
+                  icon="x"
+                  onClickFunction={() =>
+                    setMealStatus({ ...mealStatus, option: "" })
+                  }
                 />
               </div>
               {mealStatus.id === meal._id && mealStatus.expanded && (

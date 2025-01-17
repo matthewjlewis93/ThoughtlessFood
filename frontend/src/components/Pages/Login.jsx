@@ -17,8 +17,6 @@ export default function Login({ setLogIn, setLogInConfirmed }) {
     switch (logData.status) {
       case 200: // successful log in
         logData = await logData.json();
-        console.dir(logData);
-        // localStorage.setItem('userInfo',JSON.stringify(logData));
         setLogIn(false);
         setLogInConfirmed(true);
         break;
@@ -30,7 +28,20 @@ export default function Login({ setLogIn, setLogInConfirmed }) {
         break;
     }
   };
-
+  const submitRegister = async (e) => {
+    e.preventDefault();
+    let logData = await fetch(`${APIUrl}auth/register`, {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username: username, password: password }),
+    });
+    console.log(logData);
+    if (logData.status === 200) {
+      setLogIn(false);
+      setLogInConfirmed(true);
+    }
+  };
   return (
     <div id="login-page">
       <h1>Login</h1> <br />
@@ -57,7 +68,10 @@ export default function Login({ setLogIn, setLogInConfirmed }) {
         </label>
         <br />
         <br />
-        <button onClick={(e) => submitLogin(e)}>Login</button>
+        <div>
+          <button onClick={(e) => submitLogin(e)}>Login</button>{" "}
+          <button onClick={(e) => submitRegister(e)}>Register</button>
+        </div>
       </form>
     </div>
   );
