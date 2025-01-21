@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../Providers/ContextProvider";
 
-export default function Login({ setLogIn, setLogInConfirmed }) {
+export default function Login({ setLogIn, setLogInConfirmed, setDisplayName }) {
   const { APIUrl } = useContext(AppContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -19,6 +19,7 @@ export default function Login({ setLogIn, setLogInConfirmed }) {
         logData = await logData.json();
         setLogIn(false);
         setLogInConfirmed(true);
+        setDisplayName(username);
         break;
       case 401: // user found but password incorrect
         break;
@@ -36,7 +37,7 @@ export default function Login({ setLogIn, setLogInConfirmed }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username: username, password: password }),
     });
-    console.log(logData);
+    // console.log(logData);
     if (logData.status === 200) {
       setLogIn(false);
       setLogInConfirmed(true);

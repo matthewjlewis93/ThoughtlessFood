@@ -23,8 +23,8 @@ export const logInUser = async (req, res) => {
             res.status(200).json({ existingUser: true, id: userInfo._id });
           } else {
             res
-              .status(401)
-              .json({ existingUser: true, message: "Failed Log In" });
+              .status(200)
+              .json({ success: false, existingUser: true, message: "Failed Log In" });
           }
         }
       }
@@ -51,11 +51,11 @@ export const registerUser = async (req, res) => {
         } else {
           if (result) {
             generateToken(res, userSearch._id);
-            res.status(200).json({ existingUser: true, id: userInfo._id });
+            res.status(200).json({success: true, existingUser: true, id: userInfo._id });
           } else {
             res
-              .status(401)
-              .json({ existingUser: true, message: "Failed Log In" });
+              .status(200)
+              .json({ success: false, existingUser: true, message: "Failed Log In" });
           }
         }
       }
@@ -84,6 +84,11 @@ export const checkLogIn = async (req, res) => {
         .json({ success: false, message: "log in error: " + error });
     }
   } else {
-    res.status(401).json({ success: false, message: "not logged in" });
+    res.status(200).json({ success: false, message: "not logged in" });
   }
 };
+
+export const logOut = async (req, res) => {
+  res.cookie('jwt', '', {httpOnly: true, expires: new Date(0)});
+  res.status(200).json({success: true});
+}

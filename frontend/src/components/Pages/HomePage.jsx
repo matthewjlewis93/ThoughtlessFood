@@ -16,52 +16,78 @@ export default function HomePage({ setLogInConfirmed }) {
   const { activePage, updateActivePage, setToastInfo, APIUrl } =
     useContext(AppContext);
   const [logIn, setLogIn] = useState(false);
-  const [username, setUsername] = useState('');
-
-  const cookieReader = () => {
-    let cookies = document.cookie;
-    cookies = cookies.split(";");
-    let cookieObj = {};
-    for (let x of cookies) {
-      cookieObj[x.split("=")[0]] = x.split("=")[1];
-    }
-
-    return cookieObj;
-  };
+  const [displayName, setDisplayName] = useState("");
 
   const verifyLogin = async () => {
-    document.cookie = "jwt=false";
-    if (cookieReader().jwt) {
-      let response = await fetch(`${APIUrl}auth/verify`);
-      response = await response.json();
-      if (response.data) {
-        setLogIn(false);
-        setLogInConfirmed(true);
-      } else {
-        setLogInConfirmed(false);
-        setLogIn(true);
-        transitionControl("homepage");
-      }
-    } else {
+    let response = await fetch(`${APIUrl}auth/verify`);
+    response = await response.json();
+
+    if (response.success) {
       setLogIn(false);
       setLogInConfirmed(true);
+      setDisplayName(response.data.username);
+    } else {
+      setLogInConfirmed(false);
+      setLogIn(true);
+      transitionControl("homepage");
     }
   };
 
-  useEffect(() => verifyLogin, [activePage]);
+  useEffect(() => verifyLogin, []);
 
   return (
     <div id="homepage" className={"container-box main-page " + "active-home"}>
       {logIn && (
-        <Login setLogIn={setLogIn} setLogInConfirmed={setLogInConfirmed} setUsername={setUsername} />
+        <Login
+          setLogIn={setLogIn}
+          setLogInConfirmed={setLogInConfirmed}
+          setDisplayName={setDisplayName}
+        />
       )}
       <h1 style={{ fontFamily: "Arvo, serif" }}>Thoughtless Food</h1>
-      <div style={{ display: "flex", gap: "10px", height: "18px", justifyContent: "right", marginRight: "5px" }}>
-        {!logIn && <>
-        <p style={{ margin: 0, color: "#0C335A", fontFamily: "sans", fontSize: "15px" }}>User</p>
-        <p style={{ margin: 0, color: "#DD1D1D", fontFamily: "sans", fontSize: "15px" }}>Logout</p>
-        </>}
-        </div>
+      <div
+        style={{
+          display: "flex",
+          gap: "10px",
+          height: "18px",
+          justifyContent: "right",
+          marginRight: "5px",
+        }}
+      >
+        {!logIn && (
+          <>
+            <p
+              style={{
+                margin: 0,
+                color: "#0C335A",
+                fontFamily: "sans",
+                fontSize: "15px",
+              }}
+            >
+              {displayName}
+            </p>
+            <p
+              style={{
+                margin: 0,
+                color: "#DD1D1D",
+                fontFamily: "sans",
+                fontSize: "15px",
+              }}
+              onClick={() => {
+                fetch(`${APIUrl}auth/logout`, {
+                  method: "POST",
+                  credentials: "include",
+                });
+                setLogInConfirmed(false);
+                setLogIn(true);
+                setDisplayName('');
+              }}
+            >
+              Logout
+            </p>
+          </>
+        )}
+      </div>
       <MacroHeadlines />
       <div
         className="container-box"
