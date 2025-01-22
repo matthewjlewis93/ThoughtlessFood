@@ -5,6 +5,7 @@ export default function Login({ setLogIn, setLogInConfirmed, setDisplayName }) {
   const { APIUrl } = useContext(AppContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   const submitLogin = async (e) => {
     e.preventDefault();
     let logData = await fetch(`${APIUrl}auth/login`, {
@@ -29,6 +30,7 @@ export default function Login({ setLogIn, setLogInConfirmed, setDisplayName }) {
         break;
     }
   };
+
   const submitRegister = async (e) => {
     e.preventDefault();
     let logData = await fetch(`${APIUrl}auth/register`, {
@@ -41,12 +43,23 @@ export default function Login({ setLogIn, setLogInConfirmed, setDisplayName }) {
     if (logData.status === 200) {
       setLogIn(false);
       setLogInConfirmed(true);
+      setDisplayName(username);
     }
   };
+
+  const guestLogin = async (e) => {
+    e.preventDefault();
+    let res = await fetch(`${APIUrl}auth/guest`, { method: "POST" });
+    res = await res.json();
+    setDisplayName(res.username);
+    setLogIn(false);
+    setLogInConfirmed(true);
+  };
+
   return (
     <div id="login-page">
-      <h1>Login</h1> <br />
       <form>
+        <h1 style={{ margin: 0 }}>Login</h1> <br />
         <label htmlFor="username">
           Username:
           <br />
@@ -72,7 +85,10 @@ export default function Login({ setLogIn, setLogInConfirmed, setDisplayName }) {
         <div>
           <button onClick={(e) => submitLogin(e)}>Login</button>{" "}
           <button onClick={(e) => submitRegister(e)}>Register</button>
+          <br />
+          <hr />
         </div>
+        <button onClick={(e) => guestLogin(e)}>Log In as Guest</button>
       </form>
     </div>
   );

@@ -244,16 +244,24 @@ h2 {
 
 #login-page {
   position: absolute;
-  width: 96vw;
-  height: 60vh;
-  right: calc(2vw - 1px);
-
-  background-color: #ffffffee;
+  width: 100vw;
+  height: 101vh;
+  right: 0;
+  top: 0%;
+  background-color: #000000c0;
   z-index: 10;
-  border: 1px solid;
   text-align: center;
   display: flex;
   flex-direction: column;
+  color: white;
+}
+
+#login-page form {
+  margin: 25% auto 0 auto;
+  padding: 30px 50px;
+  background-color: #0C335A;
+  border-radius: 25px;
+  border: 2px solid #FCBA40;
 }
 
 /* Chrome, Safari, Edge, Opera */

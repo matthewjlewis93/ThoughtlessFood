@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import mongoose from "mongoose";
 import userData from "../models/users.model.js";
 import generateToken from "../config/generateToken.js";
 import jwt from "jsonwebtoken";
@@ -22,9 +23,11 @@ export const logInUser = async (req, res) => {
             generateToken(res, userSearch._id);
             res.status(200).json({ existingUser: true, id: userInfo._id });
           } else {
-            res
-              .status(200)
-              .json({ success: false, existingUser: true, message: "Failed Log In" });
+            res.status(200).json({
+              success: false,
+              existingUser: true,
+              message: "Failed Log In",
+            });
           }
         }
       }
@@ -51,11 +54,15 @@ export const registerUser = async (req, res) => {
         } else {
           if (result) {
             generateToken(res, userSearch._id);
-            res.status(200).json({success: true, existingUser: true, id: userInfo._id });
-          } else {
             res
               .status(200)
-              .json({ success: false, existingUser: true, message: "Failed Log In" });
+              .json({ success: true, existingUser: true, id: userInfo._id });
+          } else {
+            res.status(200).json({
+              success: false,
+              existingUser: true,
+              message: "Failed Log In",
+            });
           }
         }
       }
@@ -89,6 +96,22 @@ export const checkLogIn = async (req, res) => {
 };
 
 export const logOut = async (req, res) => {
-  res.cookie('jwt', '', {httpOnly: true, expires: new Date(0)});
-  res.status(200).json({success: true});
-}
+  res.cookie("jwt", "", { httpOnly: true, expires: new Date(0) });
+  res.status(200).json({ success: true });
+};
+
+export const createGuest = (req, res) => {
+  try {
+    let newGuest = {
+      username: `Guest${Math.floor(Math.random() * 9999999) + 1}`,
+      password: Math.floor(Math.random() * 99999999) + 1,
+      expireAt: new Date(Date.now() + 1000 * 30)
+    };
+    newGuest = userData(newGuest);
+    newGuest.save();
+    generateToken(res, newGuest._id, 30 * 1000 ); //24 * 60 * 60 * 1000);
+    res.status(200).json({success: true, username: newGuest.username});
+  } catch (e) {
+    res.status(500).json({ e: e });
+  }
+};
