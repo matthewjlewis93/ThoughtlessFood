@@ -1,53 +1,63 @@
 import mongoose from "mongoose";
 
-const foodSchema = new mongoose.Schema({
+const foodSchema = new mongoose.Schema(
+  {
     name: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
-    category: { //food item or meal item
-        type: String,
-        required: true
+    category: {
+      //food item or meal item
+      type: String,
+      required: true,
     },
     calories: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true,
     },
     protein: {
-        type: Number,
-        required: false
+      type: Number,
+      required: false,
     },
     carbs: {
-        type: Number,
-        required: false
+      type: Number,
+      required: false,
     },
     fat: {
-        type: Number,
-        required: false
+      type: Number,
+      required: false,
     },
     favorite: {
-        type: Boolean,
-        required: true
+      type: Boolean,
+      required: true,
     },
     amount: {
-        type: Number,
-        required: false
+      type: Number,
+      required: false,
     },
-    unit: { // oz, servings, bar, etc
-        type: String,
-        required: false
+    unit: {
+      // oz, servings, bar, etc
+      type: String,
+      required: false,
     },
     lastLogged: {
-        type: Date,
-        required: true
+      type: Date,
+      required: true,
     },
     userID: {
-        type: String,
-        required: true
-    }
-},{
-    timestamps: true
-});
+      type: String,
+      required: true,
+    },
+    expireAt: {
+      type: Date,
+      expires: 0,
+      required: false,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 const FoodItem = mongoose.model("Food", foodSchema); // = food collection
 

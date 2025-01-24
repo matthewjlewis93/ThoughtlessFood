@@ -26,6 +26,11 @@ const mealSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    expireAt: {
+      type: Date,
+      expires: 0,
+      required: false,
+    },
   },
   {
     timestamps: true,

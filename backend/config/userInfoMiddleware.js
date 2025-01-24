@@ -10,14 +10,19 @@ const userInfo = (req, res, next) => {
     try {
       const decoded = jwt.verify(token, process.env.SESSIONSECRET);
       req.body.userID = decoded.userID;
+      // req.body.guest = decoded.guest;
+      if (decoded.guest) {
+        req.body.expireAt = new Date(Date.now() + 1000 * 60) //24 * 60 * 60 * 1000;
+      }
       next();
     } catch (error) {
       res
-        .status(500)
+        .status(200)
         .json({ success: false, message: "log in error: " + error });
+        console.log(error);
     }
   } else {
-    res.status(401).json({ success: false, message: "not logged in" });
+    res.status(200).json({ success: false, message: "not logged in" });
   }
 };
 

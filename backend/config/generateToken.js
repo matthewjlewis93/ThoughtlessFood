@@ -1,10 +1,11 @@
 import jwt from 'jsonwebtoken';
 
 const generateToken = (res, userID, expireTime = 365 * 24 * 60 * 60 * 1000) => {
+  // console.log(userID);
+  const expireInStr = expireTime > 90000000 ? "365d" : "1d";
+  const guest = expireTime < 90000000;
   
-  const expireInStr = expireTime > 90000 ? "365d" : "1d";
-  
-  const token = jwt.sign({ userID }, process.env.SESSIONSECRET, {
+  const token = jwt.sign({ userID, guest }, process.env.SESSIONSECRET, {
     expiresIn: expireInStr,
   });
 
