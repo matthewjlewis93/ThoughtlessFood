@@ -40,7 +40,29 @@ export default function MealFood({
     setDeleteItem(false);
   };
 
+  const scaleFood = (e) => {
+    e.preventDefault();
+    const newAmount = e.target.form[0].value;
+    const oldAmount = mealEdits[mealIndex].ingredients[index].amount;
+    const thisIngredient = mealEdits[mealIndex].ingredients[index];
+
+    setMealEdits(
+      mealEdits.toSpliced(mealIndex, 1, {
+        ...mealEdits[mealIndex],
+        ingredients: mealEdits[mealIndex].ingredients.toSpliced(index, 1, {
+          ...mealEdits[mealIndex].ingredients[index],
+          amount: newAmount,
+          calories: (thisIngredient.calories / oldAmount) * newAmount,
+          fat: (thisIngredient.fat / oldAmount) * newAmount,
+          carbs: (thisIngredient.carbs / oldAmount) * newAmount,
+          protein: (thisIngredient.protein / oldAmount) * newAmount,
+        }),
+      })
+    );
+  };
+
   switch (status) {
+    case "new":
     case "edit":
       return deleteItem ? (
         <div
@@ -67,7 +89,10 @@ export default function MealFood({
             }}
           >
             <SquareButton icon="check" onClickFunction={deleteFood} />
-            <SquareButton icon='x' onClickFunction={() => setDeleteItem(false)} />
+            <SquareButton
+              icon="x"
+              onClickFunction={() => setDeleteItem(false)}
+            />
           </div>
         </div>
       ) : (
@@ -84,7 +109,6 @@ export default function MealFood({
               padding: "5px",
             }}
           >
-            <br />
             <input
               placeholder={food.name}
               onChange={(e) => editMeal("name", e.target.value)}
@@ -92,6 +116,14 @@ export default function MealFood({
             <div>
               <input
                 placeholder={food.amount}
+                value={
+                  mealEdits[mealIndex].ingredients[index]
+                    ? mealEdits[mealIndex].ingredients[index].amount ===
+                      food.amount
+                      ? ""
+                      : mealEdits[mealIndex].ingredients[index].amount
+                    : ""
+                }
                 style={{ width: "2.8em" }}
                 onChange={(e) => editMeal("amount", e.target.value)}
               />
@@ -106,9 +138,38 @@ export default function MealFood({
                 <option value="unit">Unit(s)</option>
               </select>
             </div>
-
-            <div style={{ display: "flex", justifyContent: "right" }}>
-              <SquareButton icon="trash" onClickFunction={() => setDeleteItem(true)} />
+            <br />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                margin: "-5px 0",
+              }}
+            >
+              <form autoComplete="off">
+                <label>
+                  Scale Amount:
+                  <br />
+                  <input
+                    id="scale"
+                    type="number"
+                    style={{ width: "3em" }}
+                  />{" "}
+                  <button
+                    onClick={(e) => {
+                      scaleFood(e);
+                    }}
+                  >
+                    Scale
+                  </button>
+                </label>
+              </form>
+              {
+                <SquareButton
+                  icon="trash"
+                  onClickFunction={() => setDeleteItem(true)}
+                />
+              }{" "}
             </div>
           </div>
 
@@ -123,6 +184,14 @@ export default function MealFood({
           >
             <input
               type="number"
+              value={
+                mealEdits[mealIndex].ingredients[index]
+                  ? mealEdits[mealIndex].ingredients[index].calories ===
+                    food.calories
+                    ? ""
+                    : mealEdits[mealIndex].ingredients[index].calories
+                  : ""
+              }
               onChange={(e) => editMeal("calories", e.target.value)}
               style={{
                 width: "2.5em",
@@ -143,6 +212,13 @@ export default function MealFood({
           >
             <input
               type="number"
+              value={
+                mealEdits[mealIndex].ingredients[index]
+                  ? mealEdits[mealIndex].ingredients[index].fat === food.fat
+                    ? ""
+                    : mealEdits[mealIndex].ingredients[index].fat
+                  : ""
+              }
               onChange={(e) => editMeal("fat", e.target.value)}
               style={{
                 width: "2.5em",
@@ -163,6 +239,13 @@ export default function MealFood({
           >
             <input
               type="number"
+              value={
+                mealEdits[mealIndex].ingredients[index]
+                  ? mealEdits[mealIndex].ingredients[index].carbs === food.carbs
+                    ? ""
+                    : mealEdits[mealIndex].ingredients[index].carbs
+                  : ""
+              }
               onChange={(e) => editMeal("carbs", e.target.value)}
               style={{
                 width: "2.5em",
@@ -182,127 +265,17 @@ export default function MealFood({
           >
             <input
               type="number"
+              value={
+                mealEdits[mealIndex].ingredients[index]
+                  ? mealEdits[mealIndex].ingredients[index].protein ===
+                    food.protein
+                    ? ""
+                    : mealEdits[mealIndex].ingredients[index].protein
+                  : ""
+              }
               onChange={(e) => editMeal("protein", e.target.value)}
               style={{
                 width: "2.5em",
-              }}
-              placeholder={food.protein}
-            />
-            g protein
-          </label>
-        </div>
-      );
-
-    case "new":
-      return (
-        <div className="item-container meal-food">
-          <div
-            style={{
-              gridRow: "span 4",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              padding: "5px",
-            }}
-          >
-            <br />
-            <input
-              placeholder={food.name}
-              onChange={(e) => editMeal("name", e.target.value)}
-            />
-            <br />
-            <div>
-              <input
-                placeholder={food.amount}
-                style={{ width: "2.8em" }}
-                onChange={(e) => editMeal("amount", e.target.value)}
-              />
-              <select
-                onChange={(e) => editMeal("unit", e.target.value)}
-                style={{ marginLeft: "3px", width: "5em" }}
-                defaultValue={food.unit}
-              >
-                <option value="gram">grams</option>
-                <option value="oz">oz</option>
-                <option value="mL">mL</option>
-                <option value="unit">Unit(s)</option>
-              </select>
-            </div>
-          </div>
-
-          <label
-            style={{
-              alignContent: "center",
-              paddingLeft: "2px",
-              borderLeft: "1px solid",
-              borderBottom: "1px solid",
-            }}
-          >
-            <input
-              type="number"
-              onChange={(e) => editMeal("calories", e.target.value)}
-              style={{
-                width: "2.2em",
-                fontSize: "12px",
-              }}
-              placeholder={food.calories}
-            />{" "}
-            calories
-          </label>
-
-          <label
-            style={{
-              alignContent: "center",
-              paddingLeft: "2px",
-              borderLeft: "1px solid",
-              borderBottom: "1px solid",
-            }}
-          >
-            <input
-              type="number"
-              onChange={(e) => editMeal("fat", e.target.value)}
-              style={{
-                width: "2.2em",
-                fontSize: "12px",
-              }}
-              placeholder={food.fat}
-            />
-            g fat
-          </label>
-
-          <label
-            style={{
-              alignContent: "center",
-              paddingLeft: "2px",
-              borderLeft: "1px solid",
-              borderBottom: "1px solid",
-            }}
-          >
-            <input
-              type="number"
-              onChange={(e) => editMeal("carbs", e.target.value)}
-              style={{
-                width: "2.2em",
-                fontSize: "12px",
-              }}
-              placeholder={food.carbs}
-            />
-            g carbs
-          </label>
-
-          <label
-            style={{
-              alignContent: "center",
-              paddingLeft: "2px",
-              borderLeft: "1px solid",
-            }}
-          >
-            <input
-              type="number"
-              onChange={(e) => editMeal("protein", e.target.value)}
-              style={{
-                width: "2.2em",
-                fontSize: "12px",
               }}
               placeholder={food.protein}
             />

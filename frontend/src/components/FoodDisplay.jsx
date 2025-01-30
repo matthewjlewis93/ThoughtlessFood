@@ -132,8 +132,8 @@ export default function displayFoods({
   };
   const cancelAddFood = () => {
     stateReset();
-    setAllFoods([...allFoods.splice(1)])
-  }
+    setAllFoods([...allFoods.splice(1)]);
+  };
 
   const scaleMacros = (e) => {
     e.preventDefault();
@@ -156,7 +156,7 @@ export default function displayFoods({
         ? (foodEdit.protein / oldAmount) * newAmount
         : (food.protein / oldAmount) * newAmount,
     });
-  }
+  };
 
   const updateFood = async () => {
     const res = await fetch(`${APIUrl}${link}/${foodEdit.id}`, {
