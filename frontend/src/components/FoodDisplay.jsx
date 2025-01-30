@@ -135,6 +135,29 @@ export default function displayFoods({
     setAllFoods([...allFoods.splice(1)])
   }
 
+  const scaleMacros = (e) => {
+    e.preventDefault();
+    const newAmount = e.target.form[0].value;
+    const oldAmount = foodEdit.amount || food.amount;
+
+    setFoodEdit({
+      ...foodEdit,
+      amount: newAmount,
+      calories: foodEdit.calories
+        ? (foodEdit.calories / oldAmount) * newAmount
+        : (food.calories / oldAmount) * newAmount,
+      fat: foodEdit.fat
+        ? (foodEdit.fat / oldAmount) * newAmount
+        : (food.fat / oldAmount) * newAmount,
+      carbs: foodEdit.carbs
+        ? (foodEdit.carbs / oldAmount) * newAmount
+        : (food.carbs / oldAmount) * newAmount,
+      protein: foodEdit.protein
+        ? (foodEdit.protein / oldAmount) * newAmount
+        : (food.protein / oldAmount) * newAmount,
+    });
+  }
+
   const updateFood = async () => {
     const res = await fetch(`${APIUrl}${link}/${foodEdit.id}`, {
       method: "PATCH",
@@ -252,6 +275,7 @@ export default function displayFoods({
                       type="number"
                       placeholder={food.amount}
                       style={{ width: "3em" }}
+                      value={foodEdit.amount || ""}
                       onChange={(e) =>
                         setFoodEdit({
                           ...foodEdit,
@@ -281,11 +305,30 @@ export default function displayFoods({
                   "1 Meal"
                 )}
               </p>
+              <form autoComplete="off" style={{ margin: "8px 3px" }}>
+                <label>
+                  Scale Amount:
+                  <br />
+                  <input
+                    id="scale"
+                    type="number"
+                    style={{ width: "3em" }}
+                  />{" "}
+                  <button
+                    onClick={(e) => {
+                      scaleMacros(e);
+                    }}
+                  >
+                    Scale
+                  </button>
+                </label>
+              </form>
             </div>
             <p>
               {" "}
               <input
                 type="number"
+                value={foodEdit.calories || ""}
                 onChange={(e) =>
                   setFoodEdit({
                     ...foodEdit,
@@ -305,11 +348,17 @@ export default function displayFoods({
                   itemState.option === "edit" ? updateFood : addFood
                 }
               />
-              <SquareButton icon="x" onClickFunction={itemState.option === "edit" ? stateReset : cancelAddFood} />
+              <SquareButton
+                icon="x"
+                onClickFunction={
+                  itemState.option === "edit" ? stateReset : cancelAddFood
+                }
+              />
             </div>
             <p>
               <input
                 type="number"
+                value={foodEdit.fat || ""}
                 onChange={(e) =>
                   setFoodEdit({
                     ...foodEdit,
@@ -325,6 +374,7 @@ export default function displayFoods({
             <p>
               <input
                 type="number"
+                value={foodEdit.carbs || ""}
                 onChange={(e) =>
                   setFoodEdit({
                     ...foodEdit,
@@ -341,6 +391,7 @@ export default function displayFoods({
               {" "}
               <input
                 type="number"
+                value={foodEdit.protein || ""}
                 onChange={(e) =>
                   setFoodEdit({
                     ...foodEdit,
