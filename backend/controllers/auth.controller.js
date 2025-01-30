@@ -68,7 +68,6 @@ export const registerUser = async (req, res) => {
       }
     );
   } else {
-    console.log("new user: " + req.body.username);
     newUserInfo.password = await bcrypt.hash(newUserInfo.password, saltRounds);
     const newUser = new userData(newUserInfo);
     newUser.save();

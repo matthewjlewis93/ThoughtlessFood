@@ -103,6 +103,38 @@ export default function displayFoods({
     });
   };
 
+  const addFood = async () => {
+    const foodObj = {
+      ...foodEdit,
+      lastLogged: createDateString(new Date(0)),
+      favorite: false,
+      category: "fooditem",
+      unit: foodEdit.unit ? foodEdit.unit : "gram",
+    };
+    delete foodObj._id;
+
+    const res = await fetch(`${APIUrl}foods`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(foodObj),
+    });
+    const resData = await res.json();
+    if (resData.success) {
+      foodObj._id = food._id;
+      setAllFoods([...allFoods.splice(1), foodObj]);
+      stateReset();
+      setToastInfo({
+        toastActivated: true,
+        toastMessage: `${foodObj.name} added!`,
+        positive: true,
+      });
+    }
+  };
+  const cancelAddFood = () => {
+    stateReset();
+    setAllFoods([...allFoods.splice(1)])
+  }
+
   const updateFood = async () => {
     const res = await fetch(`${APIUrl}${link}/${foodEdit.id}`, {
       method: "PATCH",
@@ -191,6 +223,7 @@ export default function displayFoods({
             </div>
           </div>
         );
+      case "new":
       case "edit":
         return (
           <div
@@ -266,8 +299,13 @@ export default function displayFoods({
               calories
             </p>
             <div className="grid-buttons">
-              <SquareButton icon="check" onClickFunction={updateFood} />
-              <SquareButton icon="x" onClickFunction={stateReset} />
+              <SquareButton
+                icon="check"
+                onClickFunction={
+                  itemState.option === "edit" ? updateFood : addFood
+                }
+              />
+              <SquareButton icon="x" onClickFunction={itemState.option === "edit" ? stateReset : cancelAddFood} />
             </div>
             <p>
               <input

@@ -40,11 +40,29 @@ export default function Foods() {
   };
 
   const fetchFoods = async () => {
+    setFilterFavorites(false);
     const res = await fetch(APIUrl + "foods");
     const data = await res.json();
     setFoods(data.data);
     setSearchedFoods(data.data);
     setFavoriteFoods(data.data);
+  };
+
+  const newFood = () => {
+    const addedFood = {
+      _id: document.querySelectorAll("#foods-div .item-container").length,
+      name: "",
+      lastLogged: createDateString(new Date()),
+      category: "fooditem",
+      favorite: false,
+    };
+    setFoods([addedFood, ...foods]);
+    setSearchedFoods([...searchedFoods, addedFood]);
+    setFavoriteFoods([...favoriteFoods, addedFood]);
+    setItemStates({
+      item: document.querySelectorAll("#foods-div .item-container").length,
+      option: "new",
+    });
   };
 
   const [currentlyActive, setCurrentlyActive] = useState(0);
@@ -129,12 +147,21 @@ export default function Foods() {
             onChange={handleFavorites}
           />
         </label>
-        <button style={{height: "18px",width: "18px",padding: "0"}} onClick={(e) => {e.preventDefault()}}>+</button>
       </form>
-
+      <button
+        style={{
+          height: "18px",
+          width: "100%",
+          padding: "0",
+          margin: "2px 0 4px 0",
+        }}
+        onClick={newFood}
+      >
+        +
+      </button>
       <div
         id="foods-div"
-        style={{ height: "calc(100% - 92px)", overflow: "auto" }}
+        style={{ height: "calc(100% - 115px)", overflow: "auto" }}
       >
         {displayedFoods.map((food, i) => (
           <div key={i}>

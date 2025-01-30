@@ -11,7 +11,6 @@ export const getAllFoods = async (req, res) => {
 };
 
 export const addNewFood = async (req, res) => {
-    
     try {
         const newFood = new FoodItem(req.body);
         await newFood.save();
