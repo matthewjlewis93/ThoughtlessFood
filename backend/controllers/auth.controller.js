@@ -104,11 +104,11 @@ export const createGuest = (req, res) => {
     let newGuest = {
       username: `Guest${Math.floor(Math.random() * 9999999) + 1}`,
       password: Math.floor(Math.random() * 99999999) + 1,
-      expireAt: new Date(Date.now() + 1000 * 60)
+      expireAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
     };
     newGuest = userData(newGuest);
     newGuest.save();
-    generateToken(res, newGuest._id, 60 * 1000 ); //24 * 60 * 60 * 1000);
+    generateToken(res, newGuest._id, 24 * 60 * 60 * 1000);
     res.status(200).json({success: true, username: newGuest.username});
   } catch (e) {
     res.status(500).json({ e: e });

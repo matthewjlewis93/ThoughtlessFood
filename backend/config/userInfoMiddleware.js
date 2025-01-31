@@ -12,7 +12,7 @@ const userInfo = (req, res, next) => {
       req.body.userID = decoded.userID;
       // req.body.guest = decoded.guest;
       if (decoded.guest) {
-        req.body.expireAt = new Date(Date.now() + 1000 * 60) //24 * 60 * 60 * 1000;
+        req.body.expireAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
       }
       next();
     } catch (error) {
