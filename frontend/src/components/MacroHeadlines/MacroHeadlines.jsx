@@ -45,7 +45,6 @@ export default function MacroHeadlines({logIn}) {
 
   return (
     <div className="container-box" style={{maxWidth:"950px", marginLeft:"auto", marginRight: "auto"}}>
-      {/* <h4 style={{margin:"0px 0px 0px 40px"}}>{1850 - macroTotals.calories} calories remaining</h4> */}
       <MacroChart calorieValue={macroTotals.calories} />
       <div
         style={{

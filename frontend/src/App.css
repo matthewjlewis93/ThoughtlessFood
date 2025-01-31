@@ -245,7 +245,7 @@ h2 {
 #login-page {
   position: absolute;
   width: 100vw;
-  height: 101vh;
+  height: 100vh;
   right: 0;
   top: 0%;
   background-color: #000000c0;
@@ -258,6 +258,7 @@ h2 {
 
 #login-page form {
   margin: 25% auto 0 auto;
+  width: 60%;
   padding: 30px 50px;
   background-color: #0C335A;
   border-radius: 25px;
