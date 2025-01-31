@@ -3,7 +3,7 @@ import MacroChart from "./MacroChart";
 import MacroLabel from "./MacroLabel";
 import { AppContext } from "../../Providers/ContextProvider";
 
-export default function MacroHeadlines() {
+export default function MacroHeadlines({logIn}) {
   const { macroTotals, updateMacros, APIUrl, activePage } = useContext(AppContext);
   const [currentlyActive, setCurrentlyActive] = useState(0);
 
@@ -36,7 +36,7 @@ export default function MacroHeadlines() {
 
   useEffect(() => {
     fetchDay(new Date());
-  }, [currentlyActive]);
+  }, [currentlyActive, logIn]);
   useEffect(() => {
     if (activePage === "HomePage") {
       setCurrentlyActive(currentlyActive+1);

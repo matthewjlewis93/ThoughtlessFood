@@ -88,7 +88,7 @@ export default function HomePage({ setLogInConfirmed }) {
           </>
         )}
       </div>
-      <MacroHeadlines />
+      <MacroHeadlines logIn={logIn} />
       <div
         className="container-box"
         style={{
