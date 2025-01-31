@@ -129,7 +129,7 @@ export default function ViewLog() {
         </div>
         <hr />
       </div>
-      <div style={{ height: "calc(100% - 160px)", overflow: "auto" }}>
+      <div id="log-div">
         {Object.values(mealLog).length ? (
           meals.map((m, index) => {
             let componentList = [];

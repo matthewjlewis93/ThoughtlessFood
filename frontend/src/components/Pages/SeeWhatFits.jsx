@@ -29,7 +29,6 @@ export default function SeeWhatFits() {
   return (
     <div
       id="see-what-fits"
-      style={{}}
       className={"container-box main-page " + "subpage transition"}
     >
       <CloseButton
@@ -93,7 +92,7 @@ export default function SeeWhatFits() {
             </h4>
           </div>
         </div>
-        <div style={{ overflow: "auto", height: "calc(100svh - 100px)" }}>
+        <div id="what-fits-div">
           {activeTab === "Foods"
             ? whatFits.foods.map((food) => (
                 <FoodDisplay

@@ -121,7 +121,6 @@ export default function Meals() {
       </form>
       <div
         id={"meal-div"}
-        style={{ overflow: "auto", height: "calc(100svh - 120px)" }}
       >
         {visibleMeals.map((e, i) => (
           <div key={e._id}>

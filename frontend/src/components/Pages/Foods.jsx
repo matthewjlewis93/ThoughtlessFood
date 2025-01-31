@@ -161,7 +161,6 @@ export default function Foods() {
       </button>
       <div
         id="foods-div"
-        style={{ height: "calc(100% - 115px)", overflow: "auto" }}
       >
         {displayedFoods.map((food, i) => (
           <div key={i}>
