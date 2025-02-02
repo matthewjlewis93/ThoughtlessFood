@@ -294,25 +294,25 @@ input::-webkit-inner-spin-button {
   -moz-appearance: textfield;
 } */
 
-@media (min-width: 1000px) {
+@media (min-width: 1200px) {
   .app-container {
     zoom: 2;
     width: calc(50svw - 10px);
-    height: calc(50svh - 10px);
+    height: calc(50vh - 10px);
   }
   #login-page {
     width: 50vw;
     height: 50vh;
   }
   #login-page form {
-    margin: 6% auto 0 auto;
+    margin: 10px auto 0 auto;
     width: 30%;
   }
   #foods-div {
     height: calc(50svh - 134px);
   }
   #meal-div {
-    height: calc(50svw - 115px);
+    height: calc(50svh - 115px);
   }
   #what-fits-div {
     height: calc(50svh - 100px);

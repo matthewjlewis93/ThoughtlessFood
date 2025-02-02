@@ -44,7 +44,6 @@ export default function HomePage({ setLogInConfirmed }) {
           setDisplayName={setDisplayName}
         />
       )}
-      <p></p>
       <h1 style={{ fontFamily: "Arvo, serif" }}>Thoughtless Food</h1>
       <div
         style={{
