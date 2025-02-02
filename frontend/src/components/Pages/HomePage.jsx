@@ -44,7 +44,7 @@ export default function HomePage({ setLogInConfirmed }) {
           setDisplayName={setDisplayName}
         />
       )}
-      <h1 style={{ fontFamily: "Arvo, serif" }}>Thoughtless Food</h1>
+      <h1>Thoughtless Food</h1>
       <div
         style={{
           display: "flex",
@@ -62,6 +62,8 @@ export default function HomePage({ setLogInConfirmed }) {
                 color: "#0C335A",
                 fontFamily: "sans",
                 fontSize: "15px",
+                cursor: "default"
+                // cursor: "pointer" uncomment for user settings
               }}
             >
               {displayName}
@@ -72,6 +74,7 @@ export default function HomePage({ setLogInConfirmed }) {
                 color: "#DD1D1D",
                 fontFamily: "sans",
                 fontSize: "15px",
+                cursor: "pointer"
               }}
               onClick={() => {
                 fetch(`${APIUrl}auth/logout`, {
