@@ -52,10 +52,10 @@ export default function MealFood({
         ingredients: mealEdits[mealIndex].ingredients.toSpliced(index, 1, {
           ...mealEdits[mealIndex].ingredients[index],
           amount: newAmount,
-          calories: (thisIngredient.calories / oldAmount) * newAmount,
-          fat: (thisIngredient.fat / oldAmount) * newAmount,
-          carbs: (thisIngredient.carbs / oldAmount) * newAmount,
-          protein: (thisIngredient.protein / oldAmount) * newAmount,
+          calories: Math.round( (thisIngredient.calories / oldAmount) * newAmount),
+          fat: Math.round( (thisIngredient.fat / oldAmount) * newAmount),
+          carbs: Math.round( (thisIngredient.carbs / oldAmount) * newAmount),
+          protein: Math.round( (thisIngredient.protein / oldAmount) * newAmount),
         }),
       })
     );

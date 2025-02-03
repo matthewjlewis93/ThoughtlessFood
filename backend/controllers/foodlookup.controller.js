@@ -5,13 +5,25 @@ export default async function foodLookup(req, res) {
       `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${process.env.FDAAPIKEY}&query=${searchParam}&dataType=Foundation`
     );
     searchResult = await searchResult.json();
-    
-    const formattedFood = searchResult.foods.map((food) => ({
+
+    let formattedFood = searchResult.foods.filter((food) =>
+      food.foodNutrients.find((n) => n["unitName"] === "KCAL")
+    );
+
+    formattedFood = formattedFood.map((food) => ({
       name: food.description,
-      calories: food.foodNutrients.find((n) => n["unitName"] === "KCAL").value ,
-      fat: food.foodNutrients.find((n) => n["nutrientId"] == 1004).value,
-      carbs: food.foodNutrients.find((n) => n["nutrientId"] == 1005).value,
-      protein: food.foodNutrients.find((n) => n["nutrientId"] == 1003).value,
+      calories: Math.round(
+        food.foodNutrients.find((n) => n["unitName"] === "KCAL").value
+      ),
+      fat: Math.round(
+        food.foodNutrients.find((n) => n["nutrientId"] == 1004).value
+      ),
+      carbs: Math.round(
+        food.foodNutrients.find((n) => n["nutrientId"] == 1005).value
+      ),
+      protein: Math.round(
+        food.foodNutrients.find((n) => n["nutrientId"] == 1003).value
+      ),
       amount: 100,
       unit: "gram",
     }));

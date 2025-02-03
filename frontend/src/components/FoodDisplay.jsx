@@ -149,17 +149,17 @@ export default function displayFoods({
       ...foodEdit,
       amount: newAmount,
       calories: foodEdit.calories
-        ? (foodEdit.calories / oldAmount) * newAmount
-        : (food.calories / oldAmount) * newAmount,
+        ? Math.round((foodEdit.calories / oldAmount) * newAmount)
+        : Math.round((food.calories / oldAmount) * newAmount),
       fat: foodEdit.fat
-        ? (foodEdit.fat / oldAmount) * newAmount
-        : (food.fat / oldAmount) * newAmount,
+        ? Math.round((foodEdit.fat / oldAmount) * newAmount)
+        : Math.round((food.fat / oldAmount) * newAmount),
       carbs: foodEdit.carbs
-        ? (foodEdit.carbs / oldAmount) * newAmount
-        : (food.carbs / oldAmount) * newAmount,
+        ? Math.round((foodEdit.carbs / oldAmount) * newAmount)
+        : Math.round((food.carbs / oldAmount) * newAmount),
       protein: foodEdit.protein
-        ? (foodEdit.protein / oldAmount) * newAmount
-        : (food.protein / oldAmount) * newAmount,
+        ? Math.round((foodEdit.protein / oldAmount) * newAmount)
+        : Math.round((food.protein / oldAmount) * newAmount),
     });
   };
 
