@@ -5,7 +5,7 @@ import CloseButton from "../CloseButton";
 import createDateString from "../../createDateString";
 import SearchBar from "../SearchBar";
 import favorite from "../../assets/favorite.svg";
-import FDALookup from "../FDALookup";
+import USDALookup from "../USDALookup";
 
 export default function Foods() {
   const { activePage, APIUrl } = useContext(AppContext);
@@ -201,7 +201,7 @@ export default function Foods() {
           </div>
         ))}
       </div>
-      {displayFoodLookup && <FDALookup setAddFood={addFoodFromLookup} setDisplay={setDisplayFoodLookup} />}
+      {displayFoodLookup && <USDALookup setAddFood={addFoodFromLookup} setDisplay={setDisplayFoodLookup} />}
     </div>
   );
 }

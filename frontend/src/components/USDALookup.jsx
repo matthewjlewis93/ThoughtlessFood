@@ -3,7 +3,7 @@ import FoodDisplay from "./FoodDisplay";
 import { AppContext } from "../Providers/ContextProvider";
 import CloseButton from "./CloseButton";
 
-export default function FDALookup({ setAddFood, setDisplay }) {
+export default function USDALookup({ setAddFood, setDisplay }) {
   const { APIUrl } = useContext(AppContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -82,6 +82,7 @@ export default function FDALookup({ setAddFood, setDisplay }) {
             </div>
           ))}
         </div>
+        <p style={{margin: 0, fontSize: "10px"}}>Search results provided by the USDA</p>
       </div>
     </div>
   );
