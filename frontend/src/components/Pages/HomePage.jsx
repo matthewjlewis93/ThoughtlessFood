@@ -11,6 +11,7 @@ import { useContext, useEffect, useState } from "react";
 import SquareButton from "../SquareButton.jsx";
 import Login from "./Login.jsx";
 import transitionControl from "../../transitionControl.js";
+import FDALookup from "../FDALookup.jsx";
 
 export default function HomePage({ setLogInConfirmed }) {
   const { activePage, updateActivePage, setToastInfo, APIUrl } =

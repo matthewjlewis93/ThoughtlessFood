@@ -105,11 +105,16 @@ export default function displayFoods({
 
   const addFood = async () => {
     const foodObj = {
-      ...foodEdit,
+      name: foodEdit.name || food.name,
+      amount: foodEdit.amount || food.amount,
+      calories: foodEdit.calories || food.calories,
+      fat: foodEdit.fat || food.fat,
+      carbs: foodEdit.carbs || food.carbs,
+      protein: foodEdit.protein || food.protein,
+      unit: foodEdit.unit || food.unit || 'gram',
       lastLogged: createDateString(new Date(0)),
       favorite: false,
       category: "fooditem",
-      unit: foodEdit.unit ? foodEdit.unit : "gram",
     };
     delete foodObj._id;
 
@@ -427,7 +432,7 @@ export default function displayFoods({
             </div>
           </div>
         );
-    }
+      }
   } else {
     return (
       <div key={food._id} className="grid-container item-container">
@@ -455,7 +460,7 @@ export default function displayFoods({
               <SquareButton
                 key={i}
                 icon={button}
-                onClickFunction={() =>
+                onClickFunction={itemState.item == "api" ? () => setAllFoods(food) :() =>
                   setItemState({
                     item: food._id,
                     option: button.includes("addtolog")

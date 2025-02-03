@@ -8,6 +8,7 @@ import authRouter from "./routes/auth.routes.js";
 import userData from "./models/users.model.js";
 import bcrypt from "bcrypt";
 import cookieParser from "cookie-parser";
+import foodLookupRouter from "./routes/foodlookup.routes.js";
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -20,6 +21,7 @@ app.use("/api/foods", foodRouter);
 app.use("/api/log", logRouter);
 app.use("/api/meals", mealRouter);
 app.use("/api/whatfits", whatFitsRouter);
+app.use("/api/foodlookup", foodLookupRouter);
 app.get("/", (req, res) => {
   res.json({ status: "live", loggedIn: req.sessionID });
 });

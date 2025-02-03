@@ -253,7 +253,7 @@ h2 {
   opacity: 100% !important;
 }
 
-#login-page {
+#login-page, #food-lookup {
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -301,7 +301,7 @@ input::-webkit-inner-spin-button {
     width: calc(50svw - 10px);
     height: calc(50vh - 10px);
   }
-  #login-page {
+  #login-page, #food-lookup {
     width: 50vw;
     height: 50vh;
   }

@@ -6,16 +6,18 @@ import transitionControl from "../transitionControl";
 export default function CloseButton({ functionList, pageID }) {
   const { updateActivePage } = useContext(AppContext);
   const handleClick = () => {
-    updateActivePage("HomePage");
-    transitionControl(pageID)
+    if (pageID) {
+      updateActivePage("HomePage");
+      transitionControl(pageID);
+    }
     functionList.forEach((func) => func());
   };
   return (
     <div
       style={{
         position: "absolute",
-        top: "5px",
-        right: "5px",
+        top: "6px",
+        right: "6px",
         width: "55px",
         height: "45px",
         justifyItems: "right",

@@ -5,6 +5,7 @@ import CloseButton from "../CloseButton";
 import createDateString from "../../createDateString";
 import SearchBar from "../SearchBar";
 import favorite from "../../assets/favorite.svg";
+import FDALookup from "../FDALookup";
 
 export default function Foods() {
   const { activePage, APIUrl } = useContext(AppContext);
@@ -16,6 +17,7 @@ export default function Foods() {
   const [foodEdit, setFoodEdit] = useState({});
   const [logDate, setLogDate] = useState(createDateString(new Date()));
   const [filterFavorites, setFilterFavorites] = useState(false);
+  const [displayFoodLookup, setDisplayFoodLookup] = useState(false);
   const [itemStates, setItemStates] = useState({
     item: "",
     option: "",
@@ -48,10 +50,21 @@ export default function Foods() {
     setFavoriteFoods(data.data);
   };
 
-  const newFood = () => {
+  const addFoodFromLookup = (food) => {
+    newFood(food);
+    setDisplayFoodLookup(false);
+  }
+
+  const newFood = (food) => {
     const addedFood = {
       _id: document.querySelectorAll("#foods-div .item-container").length,
-      name: "",
+      name: food.name || "",
+      fat: food.fat || "",
+      calories: food.calories || "",
+      carbs: food.carbs || "",
+      protein: food.protein || "",
+      amount: food.amount || "",
+      unit: food.unit || "",
       lastLogged: createDateString(new Date()),
       category: "fooditem",
       favorite: false,
@@ -151,17 +164,28 @@ export default function Foods() {
       <button
         style={{
           height: "18px",
-          width: "100%",
+          width: "49%",
           padding: "0",
-          margin: "2px 0 4px 0",
+          margin: "2px 1% 4px 0px",
         }}
         onClick={newFood}
       >
-        +
+        Create New Food
       </button>
-      <div
-        id="foods-div"
+      <button
+        style={{
+          height: "18px",
+          width: "49%",
+          padding: "0",
+          margin: "2px 0px 4px 1%",
+        }}
+        onClick={() => {
+          setDisplayFoodLookup(true);
+        }}
       >
+        Search Basic Foods
+      </button>
+      <div id="foods-div">
         {displayedFoods.map((food, i) => (
           <div key={i}>
             <FoodDisplay
@@ -177,6 +201,7 @@ export default function Foods() {
           </div>
         ))}
       </div>
+      {displayFoodLookup && <FDALookup setAddFood={addFoodFromLookup} setDisplay={setDisplayFoodLookup} />}
     </div>
   );
 }
