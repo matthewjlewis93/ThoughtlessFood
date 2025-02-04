@@ -107,10 +107,10 @@ export default function displayFoods({
     const foodObj = {
       name: foodEdit.name || food.name,
       amount: foodEdit.amount || food.amount,
-      calories: foodEdit.calories || food.calories,
-      fat: foodEdit.fat || food.fat,
-      carbs: foodEdit.carbs || food.carbs,
-      protein: foodEdit.protein || food.protein,
+      calories: foodEdit.calories || food.calories || 0,
+      fat: foodEdit.fat || food.fat || 0,
+      carbs: foodEdit.carbs || food.carbs || 0,
+      protein: foodEdit.protein || food.protein || 0,
       unit: foodEdit.unit || food.unit || 'gram',
       lastLogged: createDateString(new Date(0)),
       favorite: false,
@@ -270,7 +270,7 @@ export default function displayFoods({
                     })
                   }
                   style={{ width: "85%", padding: 0 }}
-                  placeholder={food.name}
+                  placeholder={food.placeholderName}
                 />
               </h4>
               <p className="food-amount">

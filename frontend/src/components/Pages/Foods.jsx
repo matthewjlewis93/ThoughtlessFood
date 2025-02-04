@@ -58,11 +58,12 @@ export default function Foods() {
   const newFood = (food) => {
     const addedFood = {
       _id: document.querySelectorAll("#foods-div .item-container").length,
-      name: food.name || "",
-      fat: food.fat || "",
-      calories: food.calories || "",
-      carbs: food.carbs || "",
-      protein: food.protein || "",
+      placeholderName: food.name || "",
+      name: '',
+      fat: food ? food.fat : "",
+      calories: food ? food.calories : "",
+      carbs: food ? food.carbs : "",
+      protein: food ? food.protein : "",
       amount: food.amount || "",
       unit: food.unit || "",
       lastLogged: createDateString(new Date()),

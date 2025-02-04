@@ -44,7 +44,7 @@ export default function USDALookup({ setAddFood, setDisplay }) {
       >
         <CloseButton functionList={[() => setDisplay(false)]} pageID={""} />
         <h1 style={{ flexGrow: 0 }}>Food Lookup</h1>
-        <form style={{ flexGrow: 0 }}>
+        <form autoComplete="off" style={{ flexGrow: 0 }}>
           <input
             id="api-search-bar"
             style={{ width: "50%" }}
