@@ -2,8 +2,9 @@ export default async function foodLookup(req, res) {
   const { searchParam } = req.params;
   try {
     let searchResult = await fetch(
-      `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${process.env.USDAAPIKEY}&query=${searchParam}&dataType=Foundation`
+      `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${process.env.USDAAPIKEY}&query=${searchParam}&dataType=Foundation&requireAllWords=true&pageSize=75`
     );
+    console.log("Rate limit remaining: "+searchResult.headers.get("x-ratelimit-remaining"));
     searchResult = await searchResult.json();
 
     let formattedFood = searchResult.foods.filter((food) =>

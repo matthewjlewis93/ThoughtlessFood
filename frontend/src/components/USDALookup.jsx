@@ -9,13 +9,49 @@ export default function USDALookup({ setAddFood, setDisplay }) {
   const [searchResults, setSearchResults] = useState([]);
   const [searching, setSearching] = useState(false);
 
+  const foodLookupProcessor = async () => {
+    let searchResult = await fetch(
+      `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${
+        // import.meta.env.VITE_USDAAPIKEY
+        "DEMO_KEY"
+      }&query=${searchTerm}&dataType=Foundation,Survey%20(FNDDS)&requireAllWords=true`
+    );
+
+    searchResult = await searchResult.json();
+
+    let formattedFood = searchResult.foods.filter((food) =>
+      food.foodNutrients.find((n) => n["unitName"] === "KCAL")
+    );
+
+    formattedFood = formattedFood.map((food) => ({
+      name: food.description,
+      calories: Math.round(
+        food.foodNutrients.find((n) => n["unitName"] === "KCAL").value
+      ),
+      fat: Math.round(
+        food.foodNutrients.find((n) => n["nutrientId"] == 1004).value
+      ),
+      carbs: Math.round(
+        food.foodNutrients.find((n) => n["nutrientId"] == 1005).value
+      ),
+      protein: Math.round(
+        food.foodNutrients.find((n) => n["nutrientId"] == 1003).value
+      ),
+      amount: 100,
+      unit: "gram",
+    }));
+    return formattedFood;
+  };
+
   const foodLookup = async (e) => {
     e.preventDefault();
     setSearchResults([]);
     setSearching(true);
-    let res = await fetch(`${APIUrl}foodlookup/${searchTerm}`);
-    res = await res.json();
-    const data = res.data;
+    let data = await foodLookupProcessor();
+    // let res = await fetch(`${APIUrl}foodlookup/${searchTerm}`);
+    // res = await res.json();
+    // console.dir(res.apiheaders);
+    // const data = res.data;
     setSearching(false);
     setSearchResults(data);
     setSearchTerm("");
@@ -82,7 +118,9 @@ export default function USDALookup({ setAddFood, setDisplay }) {
             </div>
           ))}
         </div>
-        <p style={{margin: 0, fontSize: "10px"}}>Search results provided by the USDA</p>
+        <p style={{ margin: 0, fontSize: "10px" }}>
+          Search results provided by the USDA
+        </p>
       </div>
     </div>
   );
