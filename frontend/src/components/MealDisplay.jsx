@@ -4,6 +4,7 @@ import { AppContext } from "../Providers/ContextProvider";
 import DatePicker from "./DatePicker";
 import createDateString from "../createDateString";
 import SquareButton from "./SquareButton";
+import USDALookup from "./USDALookup";
 
 export default function MealDisplay({
   meal,
@@ -182,10 +183,13 @@ export default function MealDisplay({
   };
 
   const getSavedFoods = async () => {
+    console.log('check')
+    if (savedFoods.length === 0) {
     let response = await fetch(APIUrl + "foods");
     response = await response.json();
     // console.log(response.data);
     setSavedFoods(response.data);
+    }
     setSelectSavedFoods(true);
   };
 
@@ -500,7 +504,7 @@ export default function MealDisplay({
                           margin: "2px 5px",
                           display: "flex",
                           alignItems: "center",
-                          gap: "6px",
+                          gap: "15px",
                         }}
                       >
                         <select
@@ -514,7 +518,7 @@ export default function MealDisplay({
                             Select a Saved Food
                           </option>
                           {savedFoods.map((foodOption) => (
-                            <option value={foodOption._id}>
+                            <option key={foodOption._id} value={foodOption._id}>
                               {foodOption.name}
                             </option>
                           ))}
@@ -537,7 +541,6 @@ export default function MealDisplay({
                     <button
                       onClick={handleAddIngredient}
                       style={{
-                        width: "calc(33% - 16px)",
                         fontSize: "11px",
                         width: "calc(34% - 16px)",
                         height: "28px",
@@ -586,6 +589,10 @@ export default function MealDisplay({
                 <h2 style={{ margin: 0 }}>{macros.protein}</h2>
                 <p style={{ margin: 0 }}>protein</p>
               </div>
+              <USDALookup
+                setAddFood={handleAddIngredient}
+                setDisplay={() => {}}
+              />
             </div>
           </div>
         );
