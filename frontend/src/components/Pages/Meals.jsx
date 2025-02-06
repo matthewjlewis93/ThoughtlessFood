@@ -39,7 +39,7 @@ export default function Meals() {
           complete: false,
           lastLogged: createDateString(new Date("1900-1-1")),
           ingredients: [
-            { calories: 0, fat: 0, carbs: 0, protein: 0, amount: 0, unit: "grams" },
+            // { calories: 0, fat: 0, carbs: 0, protein: 0, amount: 0, unit: "grams" },
           ],
         },
         ...meals,

@@ -78,7 +78,7 @@ export default function MealFood({
               padding: "5px",
             }}
           >
-            <h3>Delete {food.name}?</h3>
+            <h3>Delete?</h3>
           </div>
           <div
             className="grid-buttons"

@@ -20,18 +20,29 @@ export default function MealDisplay({
   const [mealDate, setMealDate] = useState(createDateString(new Date()));
   const { APIUrl, setToastInfo } = useContext(AppContext);
   const [mealFoodAmounts, setMealFoodAmounts] = useState({});
+  const [selectSavedFoods, setSelectSavedFoods] = useState(false);
+  const [savedFoods, setSavedFoods] = useState([]);
+  const [chosenSavedFood, setChosenSavedFood] = useState("");
 
   useEffect(() => {
     setMealDate(createDateString(new Date()));
   }, [mealStatus]);
 
-  const handleAddIngredient = () => {
+  const handleAddIngredient = (newFood) => {
     setMeals([
       {
         ...mealEdits[0],
         ingredients: [
           ...mealEdits[0].ingredients,
-          { calories: 0, fat: 0, carbs: 0, protein: 0, amount: 0, unit: "gram" },
+          {
+            name: newFood.name || "",
+            calories: newFood.calories || 0,
+            fat: newFood.fat || 0,
+            carbs: newFood.carbs || 0,
+            protein: newFood.protein || 0,
+            amount: newFood.amount || 0,
+            unit: "gram",
+          },
         ],
       },
       ...mealEdits.slice(1),
@@ -41,7 +52,15 @@ export default function MealDisplay({
         ...mealEdits[0],
         ingredients: [
           ...mealEdits[0].ingredients,
-          { calories: 0, fat: 0, carbs: 0, protein: 0, amount: 0, unit: "gram" },
+          {
+            name: newFood.name || "",
+            calories: newFood.calories || 0,
+            fat: newFood.fat || 0,
+            carbs: newFood.carbs || 0,
+            protein: newFood.protein || 0,
+            amount: newFood.amount || 0,
+            unit: "gram",
+          },
         ],
       },
       ...mealEdits.slice(1),
@@ -160,6 +179,14 @@ export default function MealDisplay({
       toastMessage: `${mealEdits[mealIndex].name} edited!`,
       positive: true,
     });
+  };
+
+  const getSavedFoods = async () => {
+    let response = await fetch(APIUrl + "foods");
+    response = await response.json();
+    // console.log(response.data);
+    setSavedFoods(response.data);
+    setSelectSavedFoods(true);
   };
 
   useEffect(() => {
@@ -455,33 +482,90 @@ export default function MealDisplay({
                       updateMeals={updateMeals}
                     />
                   ))}
+
                   <div
-                    onClick={handleAddIngredient}
                     style={{
-                      width: "calc(100% - 16px)",
-                      height: "22px",
-                      margin: "3px auto 3px auto",
                       display: "flex",
+                      flexWrap: "wrap",
                       justifyContent: "center",
                       alignItems: "center",
-                      backgroundColor: "#eee",
-                      borderRadius: "5px",
-                      border: "1px solid",
+                      margin: "3px 1px 3px 1px",
+                      gap: "10px",
                     }}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="#000"
-                      className="bi bi-plus-lg"
-                      viewBox="0 0 16 16"
+                    {selectSavedFoods && (
+                      <span
+                        style={{
+                          width: "100%",
+                          margin: "2px 5px",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "6px",
+                        }}
+                      >
+                        <select
+                          onChange={(e) => {
+                            setChosenSavedFood(e.target.value);
+                          }}
+                          defaultValue="select-food"
+                          style={{ height: "25px", flexGrow: "1" }}
+                        >
+                          <option disabled value="select-food">
+                            Select a Saved Food
+                          </option>
+                          {savedFoods.map((foodOption) => (
+                            <option value={foodOption._id}>
+                              {foodOption.name}
+                            </option>
+                          ))}
+                        </select>
+                        <SquareButton
+                          icon="check"
+                          onClickFunction={() => {
+                            handleAddIngredient(
+                              savedFoods.find((e) => e._id === chosenSavedFood)
+                            );
+                            setSelectSavedFoods(false);
+                          }}
+                        />
+                        <SquareButton
+                          icon="x"
+                          onClickFunction={() => setSelectSavedFoods(false)}
+                        />
+                      </span>
+                    )}
+                    <button
+                      onClick={handleAddIngredient}
+                      style={{
+                        width: "calc(33% - 16px)",
+                        fontSize: "11px",
+                        width: "calc(34% - 16px)",
+                        height: "28px",
+                      }}
                     >
-                      <path
-                        fillRule="evenodd"
-                        d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
-                      />
-                    </svg>
+                      Create New Food
+                    </button>
+                    <button
+                      onClick={getSavedFoods}
+                      style={{
+                        fontSize: "11px",
+                        width: "calc(34% - 16px)",
+                        height: "28px",
+                        // margin: "1px"
+                      }}
+                    >
+                      Add from Foods
+                    </button>
+                    <button
+                      style={{
+                        fontSize: "11px",
+                        width: "calc(34% - 16px)",
+                        height: "28px",
+                        // margin: "1px"
+                      }}
+                    >
+                      Search Basic Foods
+                    </button>
                   </div>
                 </div>
               )}
