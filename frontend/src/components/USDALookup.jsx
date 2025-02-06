@@ -12,7 +12,6 @@ export default function USDALookup({ setAddFood, setDisplay }) {
   const foodLookupProcessor = async () => {
     let searchResult = await fetch(
       `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${
-        // import.meta.env.VITE_USDAAPIKEY
         "DEMO_KEY"
       }&query=${searchTerm}&dataType=Foundation,Survey%20(FNDDS)&requireAllWords=true`
     );
