@@ -4,7 +4,6 @@ import { AppContext } from "../Providers/ContextProvider";
 import DatePicker from "./DatePicker";
 import createDateString from "../createDateString";
 import SquareButton from "./SquareButton";
-import USDALookup from "./USDALookup";
 
 export default function MealDisplay({
   meal,
@@ -15,6 +14,8 @@ export default function MealDisplay({
   mealIndex,
   setMealStatus,
   setMeals,
+  handleAddIngredient,
+  setUSDADisplay,
   buttons,
 }) {
   const [macros, setMacros] = useState({});
@@ -28,45 +29,6 @@ export default function MealDisplay({
   useEffect(() => {
     setMealDate(createDateString(new Date()));
   }, [mealStatus]);
-
-  const handleAddIngredient = (newFood) => {
-    setMeals([
-      {
-        ...mealEdits[0],
-        ingredients: [
-          ...mealEdits[0].ingredients,
-          {
-            name: newFood.name || "",
-            calories: newFood.calories || 0,
-            fat: newFood.fat || 0,
-            carbs: newFood.carbs || 0,
-            protein: newFood.protein || 0,
-            amount: newFood.amount || 0,
-            unit: "gram",
-          },
-        ],
-      },
-      ...mealEdits.slice(1),
-    ]);
-    setMealEdits([
-      {
-        ...mealEdits[0],
-        ingredients: [
-          ...mealEdits[0].ingredients,
-          {
-            name: newFood.name || "",
-            calories: newFood.calories || 0,
-            fat: newFood.fat || 0,
-            carbs: newFood.carbs || 0,
-            protein: newFood.protein || 0,
-            amount: newFood.amount || 0,
-            unit: "gram",
-          },
-        ],
-      },
-      ...mealEdits.slice(1),
-    ]);
-  };
 
   const deleteMeal = () => {
     fetch(`${APIUrl}meals/${meal._id}`, {
@@ -504,7 +466,7 @@ export default function MealDisplay({
                           margin: "2px 5px",
                           display: "flex",
                           alignItems: "center",
-                          gap: "15px",
+                          gap: "45px",
                         }}
                       >
                         <select
@@ -560,6 +522,7 @@ export default function MealDisplay({
                       Add from Foods
                     </button>
                     <button
+                      onClick={() => setUSDADisplay(true)}
                       style={{
                         fontSize: "11px",
                         width: "calc(34% - 16px)",
@@ -589,10 +552,6 @@ export default function MealDisplay({
                 <h2 style={{ margin: 0 }}>{macros.protein}</h2>
                 <p style={{ margin: 0 }}>protein</p>
               </div>
-              <USDALookup
-                setAddFood={handleAddIngredient}
-                setDisplay={() => {}}
-              />
             </div>
           </div>
         );

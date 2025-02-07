@@ -4,6 +4,7 @@ import CloseButton from "../CloseButton";
 import MealDisplay from "../MealDisplay";
 import SearchBar from "../SearchBar";
 import createDateString from "../../createDateString";
+import USDALookup from "../USDALookup";
 
 export default function Meals() {
   const { APIUrl } = useContext(AppContext);
@@ -11,6 +12,7 @@ export default function Meals() {
   const [visibleMeals, setVisibleMeals] = useState([]);
   const [mealEdits, setMealEdits] = useState({});
   const [sortBy, setSortBy] = useState("alpha");
+  const [USDADisplay, setUSDADisplay] = useState(false);
   const [mealStatus, setMealStatus] = useState({
     id: "",
     expanded: false,
@@ -46,6 +48,46 @@ export default function Meals() {
       ]);
       setMealStatus({ id: "new", expanded: true, option: "new" });
     }
+  };
+
+  const handleAddIngredient = (newFood) => {
+    setMeals([
+      {
+        ...mealEdits[0],
+        ingredients: [
+          ...mealEdits[0].ingredients,
+          {
+            name: newFood.name || "",
+            calories: newFood.calories || 0,
+            fat: newFood.fat || 0,
+            carbs: newFood.carbs || 0,
+            protein: newFood.protein || 0,
+            amount: newFood.amount || 0,
+            unit: "gram",
+          },
+        ],
+      },
+      ...mealEdits.slice(1),
+    ]);
+    setMealEdits([
+      {
+        ...mealEdits[0],
+        ingredients: [
+          ...mealEdits[0].ingredients,
+          {
+            name: newFood.name || "",
+            calories: newFood.calories || 0,
+            fat: newFood.fat || 0,
+            carbs: newFood.carbs || 0,
+            protein: newFood.protein || 0,
+            amount: newFood.amount || 0,
+            unit: "gram",
+          },
+        ],
+      },
+      ...mealEdits.slice(1),
+    ]);
+    setUSDADisplay(false);
   };
 
   const fetchMeals = async () => {
@@ -133,11 +175,14 @@ export default function Meals() {
               setMealStatus={setMealStatus}
               mealStatus={mealStatus}
               setMeals={setMeals}
+              handleAddIngredient={handleAddIngredient}
+              setUSDADisplay={setUSDADisplay}
               buttons={['addtolog', 'edit', 'trash']}
             />
           </div>
         ))}
       </div>
+      {USDADisplay && <USDALookup setAddFood={handleAddIngredient} setDisplay={setUSDADisplay} /> }
     </div>
   );
 }
