@@ -104,14 +104,22 @@ export default function displayFoods({
   };
 
   const addFood = async () => {
+    if (foodEdit.name && food.name && food.placeholderName) {
+      setToastInfo({
+        toastActivated: true,
+        toastMessage: "Please name your food",
+        positive: false,
+      });
+      return;
+    }
     const foodObj = {
-      name: foodEdit.name || food.name,
-      amount: foodEdit.amount || food.amount,
+      name: foodEdit.name || food.name || food.placeholderName,
+      amount: foodEdit.amount || food.amount || 1,
       calories: foodEdit.calories || food.calories || 0,
       fat: foodEdit.fat || food.fat || 0,
       carbs: foodEdit.carbs || food.carbs || 0,
       protein: foodEdit.protein || food.protein || 0,
-      unit: foodEdit.unit || food.unit || 'gram',
+      unit: foodEdit.unit || food.unit || "gram",
       lastLogged: createDateString(new Date(0)),
       favorite: false,
       category: "fooditem",
@@ -432,7 +440,7 @@ export default function displayFoods({
             </div>
           </div>
         );
-      }
+    }
   } else {
     return (
       <div key={food._id} className="grid-container item-container">
@@ -460,15 +468,18 @@ export default function displayFoods({
               <SquareButton
                 key={i}
                 icon={button}
-                onClickFunction={itemState.item == "api" ? () => setAllFoods(food) :() =>
-                  setItemState({
-                    item: food._id,
-                    option: button.includes("addtolog")
-                      ? "log"
-                      : button.includes("edit")
-                      ? "edit"
-                      : "delete",
-                  })
+                onClickFunction={
+                  itemState.item == "api"
+                    ? () => setAllFoods(food)
+                    : () =>
+                        setItemState({
+                          item: food._id,
+                          option: button.includes("addtolog")
+                            ? "log"
+                            : button.includes("edit")
+                            ? "edit"
+                            : "delete",
+                        })
                 }
               />
             );

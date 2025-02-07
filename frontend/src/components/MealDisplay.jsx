@@ -43,6 +43,14 @@ export default function MealDisplay({
   };
 
   const sendNewMeal = async () => {
+    if (mealEdits[0].name == "") {
+      setToastInfo({
+        toastActivated: true,
+        toastMessage: "Please name your meal",
+        positive: false,
+      });
+      return;
+    }
     setMealStatus({ id: "", expanded: false, option: "" });
     let mealToSend = structuredClone(mealEdits[0]);
     delete mealToSend.complete;
@@ -145,12 +153,12 @@ export default function MealDisplay({
   };
 
   const getSavedFoods = async () => {
-    console.log('check')
+    console.log("check");
     if (savedFoods.length === 0) {
-    let response = await fetch(APIUrl + "foods");
-    response = await response.json();
-    // console.log(response.data);
-    setSavedFoods(response.data);
+      let response = await fetch(APIUrl + "foods");
+      response = await response.json();
+      // console.log(response.data);
+      setSavedFoods(response.data);
     }
     setSelectSavedFoods(true);
   };
