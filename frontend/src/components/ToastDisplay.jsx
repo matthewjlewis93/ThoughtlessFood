@@ -4,6 +4,7 @@ import SquareButton from "./SquareButton";
 
 export default function ToastDisplay() {
   const [toastWidth, setToastWidth] = useState(0);
+  const [screenWidth, setScreenWidth] = useState(50);
   const { setToastInfo } = useContext(AppContext);
   const { toastActivated, toastMessage, positive } =
     useContext(AppContext).toastInfo;
@@ -23,6 +24,7 @@ export default function ToastDisplay() {
 
   useEffect(() => {
     setToastWidth(document.getElementById("toast").offsetWidth / 2);
+    setScreenWidth(document.body.offsetWidth > 1200 ? 25 : 50)
   }, [toastMessage]);
 
   return (
@@ -35,7 +37,7 @@ export default function ToastDisplay() {
         backgroundColor: "white",
         color: "black",
         zIndex: 5,
-        right: `calc(50vw - ${toastWidth}px)`,
+        right: `calc(${screenWidth}vw - ${toastWidth}px)`,
         padding: "0px 5px 0px 5px",
         border: `4px solid ${positive ? "#38E5BA" : "#DD1D1D"}`,
         borderRadius: "30px",
@@ -58,7 +60,7 @@ export default function ToastDisplay() {
           }
         />
       </svg>
-      <p style={{ margin: "3px 10px", maxWidth:"300px" }}>{toastMessage}</p>
+      <p style={{ margin: "3px 10px", maxWidth:"content" }}>{toastMessage}</p>
     </div>
   );
 }
