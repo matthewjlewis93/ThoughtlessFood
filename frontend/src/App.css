@@ -12,15 +12,11 @@
 [data-theme="dark"] {
   --page-background: #0c335a;
   --text-color: white;
-  /* --header: #eefded; */
   --header: white;
   --username-color: #eefded;
-  /* --food-label: #025; */
-  /* --food-label: #126082; */
-  --food-label: #0F486C;
+  --food-label: #0f486c;
   --square-button: #eefded;
   --transition-opacity: 100;
-
 }
 
 body {
@@ -28,7 +24,6 @@ body {
   background-color: var(--page-background);
   color: var(--text-color);
   margin: 0;
-
 }
 
 html * {
@@ -44,7 +39,6 @@ html * {
   height: calc(100svh - 12px);
   overflow: hidden;
   color: var(--text-color);
-
 }
 
 .container-box {
@@ -55,34 +49,36 @@ html * {
 
 .main-page {
   position: absolute;
+  transition-property: right, left, color, background-color, display ;
   transition-duration: 150ms;
-  transition-property: right, left, opacity, color, background-color;
+  transition-behavior: allow-discrete;
   height: calc(100svh - 12px);
   top: 0px;
 }
 
 #homepage {
+  display: block;
   right: 0vw;
   left: 0vw;
-  z-index: 1;
-  display: block;
+  z-index: 0;
 }
 #homepage.transition {
   right: 100vw;
   left: -100vw;
-  z-index: 0;
-  opacity: var(--transition-opacity);
+  z-index: 1;
+  display: none;
 }
 .subpage {
+  display: block;
   right: 0vw;
   left: 0vw;
-  z-index: 1;
+  z-index: 0;
 }
 .subpage.transition {
   right: -100vw;
   left: 100vw;
-  z-index: 0;
-  opacity: var(--transition-opacity);
+  display: none;
+  z-index: 1;
 }
 
 p {
@@ -95,7 +91,7 @@ p {
   border: 2px solid var(--button-text-color);
 }
 .bi-star {
-  fill: "black"
+  fill: "black";
 }
 
 hr {
@@ -295,7 +291,7 @@ h2 {
   color: white;
 }
 
-.popup-screen>form {
+.popup-screen > form {
   margin: 6vh auto 0 auto;
   width: 60%;
   padding: 30px 50px;
@@ -305,7 +301,7 @@ h2 {
 }
 #log-div {
   overflow: auto;
-  height: calc(100svh - 172px)
+  height: calc(100svh - 172px);
 }
 #what-fits-div {
   overflow: auto;

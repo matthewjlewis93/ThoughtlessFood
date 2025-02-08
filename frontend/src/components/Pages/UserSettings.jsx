@@ -12,8 +12,7 @@ export default function UserSettings({ username, setSettingsDisplay }) {
         <h1>{username}</h1>
         <br />
         <br />
-        <button onClick={(e) => { e.preventDefault();setTheme(theme === 'dark' ? 'light' : 'dark')}}>Change mode</button>
-        <input type="number" />
+        <button onClick={(e) => { e.preventDefault();setTheme(theme === 'dark' ? 'light' : 'dark')}}>Switch to {theme === 'light' ? "dark" : "light"} mode</button>
       </form>
     </div>
   );
