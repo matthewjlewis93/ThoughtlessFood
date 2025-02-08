@@ -11,12 +11,14 @@ import { useContext, useEffect, useState } from "react";
 import SquareButton from "../SquareButton.jsx";
 import Login from "./Login.jsx";
 import transitionControl from "../../transitionControl.js";
+import UserSettings from "./UserSettings.jsx";
 
 export default function HomePage({ setLogInConfirmed }) {
   const { activePage, updateActivePage, setToastInfo, APIUrl } =
     useContext(AppContext);
   const [logIn, setLogIn] = useState(false);
   const [displayName, setDisplayName] = useState("");
+  const [settingsDisplay, setSettingsDisplay] = useState(false);
 
   const verifyLogin = async () => {
     let response = await fetch(`${APIUrl}auth/verify`);
@@ -44,6 +46,7 @@ export default function HomePage({ setLogInConfirmed }) {
           setDisplayName={setDisplayName}
         />
       )}
+      {settingsDisplay && <UserSettings username={displayName} setSettingsDisplay={setSettingsDisplay} />}
       <h1>Thoughtless Food</h1>
       <div
         style={{
@@ -57,13 +60,13 @@ export default function HomePage({ setLogInConfirmed }) {
         {!logIn && (
           <>
             <p
+              onClick={() => setSettingsDisplay(true)}
               style={{
                 margin: 0,
-                color: "#0C335A",
+                color: "var(--username-color)",
                 fontFamily: "sans",
                 fontSize: "15px",
-                cursor: "default"
-                // cursor: "pointer" uncomment for user settings
+                cursor: "pointer",
               }}
             >
               {displayName}
@@ -74,7 +77,7 @@ export default function HomePage({ setLogInConfirmed }) {
                 color: "#DD1D1D",
                 fontFamily: "sans",
                 fontSize: "15px",
-                cursor: "pointer"
+                cursor: "pointer",
               }}
               onClick={() => {
                 fetch(`${APIUrl}auth/logout`, {
@@ -83,7 +86,7 @@ export default function HomePage({ setLogInConfirmed }) {
                 });
                 setLogInConfirmed(false);
                 setLogIn(true);
-                setDisplayName('');
+                setDisplayName("");
               }}
             >
               Logout

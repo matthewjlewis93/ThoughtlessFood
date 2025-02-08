@@ -57,7 +57,7 @@ export default function Login({ setLogIn, setLogInConfirmed, setDisplayName }) {
   };
 
   return (
-    <div id="login-page">
+    <div id="login-page" className="popup-screen">
       <form>
         <h1 style={{ margin: 0 }}>Login</h1> <br />
         <label htmlFor="username">

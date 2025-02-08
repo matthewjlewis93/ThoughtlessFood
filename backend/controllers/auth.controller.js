@@ -69,6 +69,7 @@ export const registerUser = async (req, res) => {
     );
   } else {
     newUserInfo.password = await bcrypt.hash(newUserInfo.password, saltRounds);
+    newUserInfo.goal = 1850;
     const newUser = new userData(newUserInfo);
     newUser.save();
     generateToken(res, newUser._id);
@@ -104,6 +105,7 @@ export const createGuest = (req, res) => {
     let newGuest = {
       username: `Guest${Math.floor(Math.random() * 9999999) + 1}`,
       password: Math.floor(Math.random() * 99999999) + 1,
+      goal: 1850,
       expireAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
     };
     newGuest = userData(newGuest);

@@ -5,7 +5,7 @@ import FoodDisplay from "../FoodDisplay";
 import MealDisplay from "../MealDisplay";
 
 export default function SeeWhatFits() {
-  const { activePage, macroTotals, APIUrl } = useContext(AppContext);
+  const { activePage, macroTotals, APIUrl, theme } = useContext(AppContext);
   const [activeTab, setActiveTab] = useState("Foods");
   const [whatFits, setWhatFits] = useState({ foods: [], meals: [] });
   const [itemState, setItemState] = useState({ id: "", option: "" });
@@ -58,6 +58,7 @@ export default function SeeWhatFits() {
               onClick={() => setActiveTab("Foods")}
               style={{
                 textAlign: "center",
+                color: theme==='light'? 'black' : activeTab == "Foods" ? "black":"white",
                 backgroundColor: activeTab == "Foods" ? "#ffffff" : "#00000030",
                 borderTopLeftRadius: "4px",
                 borderTopRightRadius: "4px",
@@ -77,6 +78,7 @@ export default function SeeWhatFits() {
               onClick={() => setActiveTab("Meals")}
               style={{
                 textAlign: "center",
+                color: theme==='light'? 'black' : activeTab == "Foods" ? "white":"black",
                 backgroundColor: activeTab == "Meals" ? "#ffffff" : "#00000030",
                 borderTopLeftRadius: "4px",
                 borderTopRightRadius: "4px",

@@ -10,6 +10,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    goal: {
+      type: Number,
+      required: true
+    },
     expireAt: {
       type: Date,
       expires: 0,

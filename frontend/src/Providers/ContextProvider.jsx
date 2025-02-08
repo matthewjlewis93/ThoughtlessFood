@@ -1,8 +1,9 @@
 import { createContext, useState } from "react";
+import useLocalStorage from "../useLocalStorage";
 
 const AppContext = createContext();
 
-const ContextProvider = ({ children }) => {
+const ContextProvider = ({ children, theme, setTheme }) => {
   // Active page
   const [activePage, setActivePage] = useState("HomePage");
   const updateActivePage = (ActivePage) => setActivePage(ActivePage);
@@ -35,10 +36,11 @@ const ContextProvider = ({ children }) => {
     }
   };
   const [toastInfo, setToastInfo] = useState({
-    toastActivated: true,
+    toastActivated: false,
     toastMessage: "",
     positive: false,
   });
+
 
   return (
     <AppContext.Provider
@@ -50,7 +52,9 @@ const ContextProvider = ({ children }) => {
         updateMacros,
         addToMacros,
         toastInfo,
-        setToastInfo
+        setToastInfo,
+        theme,
+        setTheme
       }}
     >
       {children}

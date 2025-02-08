@@ -62,7 +62,7 @@ export default function USDALookup({ setAddFood, setDisplay }) {
   }, []);
 
   return (
-    <div id="food-lookup">
+    <div id="food-lookup" className="popup-screen">
       <div
         style={{
           color: "#FCBA40",
@@ -93,7 +93,7 @@ export default function USDALookup({ setAddFood, setDisplay }) {
         <div
           style={{
             width: "calc(100% - 20px)",
-            backgroundColor: "white",
+            backgroundColor: "var(--page-background)",
             margin: "5px auto 5px auto",
             paddingTop: "8px",
             borderRadius: "2px",
@@ -102,7 +102,7 @@ export default function USDALookup({ setAddFood, setDisplay }) {
             overflow: "auto",
           }}
         >
-          {searching && <p>Searching...</p>}
+          {searching && <p style={{color:"var(--text-color)"}}>Searching...</p>}
           {searchResults.map((r, i) => (
             <div key={i} style={{ padding: "1px" }}>
               <FoodDisplay

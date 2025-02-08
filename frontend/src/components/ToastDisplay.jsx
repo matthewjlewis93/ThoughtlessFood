@@ -31,7 +31,6 @@ export default function ToastDisplay() {
     <div
       id="toast"
       style={{
-        opacity: "0%",
         display: "grid",
         position: "absolute",
         backgroundColor: "white",
