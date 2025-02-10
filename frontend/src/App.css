@@ -49,36 +49,47 @@ html * {
 
 .main-page {
   position: absolute;
-  transition-property: right, left, color, background-color, display ;
-  transition-duration: 150ms;
+  transition:visibility, right, left, color, background-color;
+  transition-duration: 200ms;
   transition-behavior: allow-discrete;
   height: calc(100svh - 12px);
   top: 0px;
 }
 
 #homepage {
-  display: block;
+  
   right: 0vw;
   left: 0vw;
+  display: block;
+  visibility: visible;
   z-index: 0;
+  /* opacity: 100%; */
 }
 #homepage.transition {
   right: 100vw;
   left: -100vw;
   z-index: 1;
-  display: none;
+  visibility: hidden;
+  /* display: none; */
+  /* opacity: 50%; */
 }
 .subpage {
-  display: block;
+  z-index: 0;
+  
   right: 0vw;
   left: 0vw;
-  z-index: 0;
+  display: block;
+  visibility: visible;
+  /* opacity: 100%; */
 }
 .subpage.transition {
+  z-index: 1;
   right: -100vw;
   left: 100vw;
-  display: none;
-  z-index: 1;
+  visibility: hidden;
+  /* display: none; */
+  
+  /* opacity: 0%; */
 }
 
 p {
