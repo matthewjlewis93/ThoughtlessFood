@@ -226,7 +226,8 @@ export default function HChart({ data }) {
             width: 1850 > data ? `${100 * (data / 1850)}%` : "100%",
             textAlign: "center",
             zIndex: 5,
-            transitionDuration: "2000ms",
+            transitionProperty: "width",
+            transitionDuration: "3000ms",
           }}
         ></div>
       </div>

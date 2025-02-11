@@ -63,15 +63,12 @@ html * {
   display: block;
   visibility: visible;
   z-index: 0;
-  /* opacity: 100%; */
 }
 #homepage.transition {
   right: 100vw;
   left: -100vw;
   z-index: 1;
   visibility: hidden;
-  /* display: none; */
-  /* opacity: 50%; */
 }
 .subpage {
   z-index: 0;
@@ -80,16 +77,12 @@ html * {
   left: 0vw;
   display: block;
   visibility: visible;
-  /* opacity: 100%; */
 }
 .subpage.transition {
   z-index: 1;
   right: -100vw;
   left: 100vw;
   visibility: hidden;
-  /* display: none; */
-  
-  /* opacity: 0%; */
 }
 
 p {
