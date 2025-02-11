@@ -90,11 +90,7 @@ p {
 }
 
 .appearence-svg {
-  transition: transform 150ms ease-in-out;
-  transform: rotate(-0.25turn);
-}
-
-.appearence-svg.spin {
+  transition: transform 500ms ease-in-out;
   transform: rotate(0turn);
 }
 

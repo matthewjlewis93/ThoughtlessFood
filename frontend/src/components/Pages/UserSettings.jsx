@@ -1,18 +1,17 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import CloseButton from "../CloseButton";
 import { AppContext } from "../../Providers/ContextProvider";
 
 export default function UserSettings({ username, setSettingsDisplay }) {
   const { theme, setTheme } = useContext(AppContext);
+  const [spinAmount, setSpinAmount] = useState(theme === 'light' ? 0.5 : 1)
 
   const changeIcons = (e) => {
     e.preventDefault();
-    document.querySelector(".appearence-svg").classList.toggle("spin");
-    setTheme(theme === "dark" ? "light" : "dark");
-    // document.querySelector(".appearence-svg").classList.toggle("")
+    document.querySelector(".appearence-svg").style.transform = `rotate(${spinAmount}turn)`;
+    setTimeout(() => setTheme(theme === "dark" ? "light" : "dark"), 250);
+    setSpinAmount(spinAmount + 0.5);
   };
-
-  // useEffect(() => {document.querySelector(".appearence-svg").classList.toggle("spin");}, [theme]);
 
   return (
     <div id="user-settings" className="popup-screen">
