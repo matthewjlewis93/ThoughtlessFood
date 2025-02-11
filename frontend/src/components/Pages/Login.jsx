@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../Providers/ContextProvider";
+import useLocalStorage from "../../useLocalStorage";
 
 export default function Login({ setLogIn, setLogInConfirmed, setDisplayName }) {
   const { APIUrl } = useContext(AppContext);
@@ -44,6 +45,7 @@ export default function Login({ setLogIn, setLogInConfirmed, setDisplayName }) {
       setLogIn(false);
       setLogInConfirmed(true);
       setDisplayName(username);
+      // useLocalStorage("username", username)
     }
   };
 

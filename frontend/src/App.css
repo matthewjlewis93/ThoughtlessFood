@@ -89,6 +89,15 @@ p {
   color: var(--p-color);
 }
 
+.appearence-svg {
+  transition: transform 150ms ease-in-out;
+  transform: rotate(-0.25turn);
+}
+
+.appearence-svg.spin {
+  transform: rotate(0turn);
+}
+
 .blue-button {
   background-color: var(--home-button);
   color: var(--button-text-color);
