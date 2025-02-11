@@ -4,11 +4,11 @@ import { AppContext } from "../../Providers/ContextProvider";
 
 export default function UserSettings({ username, setSettingsDisplay }) {
   const { theme, setTheme } = useContext(AppContext);
-  const [spinAmount, setSpinAmount] = useState(theme === 'light' ? 0.5 : 1)
+  const [spinAmount, setSpinAmount] = useState(theme === 'light' ? 0 : 0.5)
 
   const changeIcons = (e) => {
     e.preventDefault();
-    document.querySelector(".appearence-svg").style.transform = `rotate(${spinAmount}turn)`;
+    document.querySelector(".appearence-svg").style.transform = `rotate(${spinAmount + 0.5}turn)`;
     setTimeout(() => setTheme(theme === "dark" ? "light" : "dark"), 250);
     setSpinAmount(spinAmount + 0.5);
   };
@@ -37,17 +37,12 @@ export default function UserSettings({ username, setSettingsDisplay }) {
               borderRadius: "5px",
               height: "35px",
               transition: "transform 3000px",
-              // width: "35px"
             }}
-            // onClick={(e) => {
-            //   e.preventDefault();
-            //   setTheme(theme === "dark" ? "light" : "dark");
-            // }}
             onClick={(e) => changeIcons(e)}
           >
-            {" "}
             <svg
               className="appearence-svg"
+              style={{transform: `rotate(${spinAmount}turn)`}}
               xmlns="http://www.w3.org/2000/svg"
               height="24px"
               viewBox="0 -960 960 960"

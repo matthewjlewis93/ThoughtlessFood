@@ -45,7 +45,6 @@ export default function Login({ setLogIn, setLogInConfirmed, setDisplayName }) {
       setLogIn(false);
       setLogInConfirmed(true);
       setDisplayName(username);
-      // useLocalStorage("username", username)
     }
   };
 

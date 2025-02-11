@@ -12,12 +12,13 @@ import SquareButton from "../SquareButton.jsx";
 import Login from "./Login.jsx";
 import transitionControl from "../../transitionControl.js";
 import UserSettings from "./UserSettings.jsx";
+import useLocalStorage from "../../useLocalStorage.js";
 
 export default function HomePage({ setLogInConfirmed }) {
   const { activePage, updateActivePage, setToastInfo, APIUrl } =
     useContext(AppContext);
   const [logIn, setLogIn] = useState(false);
-  const [displayName, setDisplayName] = useState("");
+  const [displayName, setDisplayName] = useLocalStorage("username", '');
   const [settingsDisplay, setSettingsDisplay] = useState(false);
 
   const verifyLogin = async () => {
