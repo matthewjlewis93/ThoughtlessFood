@@ -7,7 +7,7 @@ export const getAllLogs = async (req, res) => { // fetch all logs
         res.status(200).json({ success: true,  data: logs });
     } catch (error) {
         console.error(`Error fetching logs: ${error}`);
-        res.status(500).json({ success: false, message: "Error fetchins logs." });
+        res.status(500).json({ success: false, message: "Error fetching logs." });
     }
 };
 

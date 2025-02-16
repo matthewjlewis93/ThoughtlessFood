@@ -20,7 +20,7 @@ export default function MealDisplay({
 }) {
   const [macros, setMacros] = useState({});
   const [mealDate, setMealDate] = useState(createDateString(new Date()));
-  const { APIUrl, setToastInfo } = useContext(AppContext);
+  const { APIUrl, setToastInfo, theme } = useContext(AppContext);
   const [mealFoodAmounts, setMealFoodAmounts] = useState({});
   const [selectSavedFoods, setSelectSavedFoods] = useState(false);
   const [savedFoods, setSavedFoods] = useState([]);
@@ -223,7 +223,7 @@ export default function MealDisplay({
                     display: "inline-block",
                     margin: "auto",
                     gridColumn: "span 4",
-                    width: "100%"
+                    width: "100%",
                   }}
                 >
                   {meal.ingredients.map((m, i) => (
@@ -587,7 +587,7 @@ export default function MealDisplay({
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
                   height="16"
-                  fill="#000"
+                  fill={theme === "light" ? "#000" : "#fff"}
                   className="bi bi-dash-lg"
                   viewBox="0 0 16 16"
                   style={{
@@ -693,7 +693,7 @@ export default function MealDisplay({
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
                 height="16"
-                fill="#000"
+                fill={theme === "light" ? "#000" : "#fff"}
                 className="bi bi-plus-lg"
                 viewBox="0 0 16 16"
                 style={{

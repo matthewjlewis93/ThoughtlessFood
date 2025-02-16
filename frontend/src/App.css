@@ -323,7 +323,7 @@ input::-webkit-inner-spin-button {
   -moz-appearance: textfield;
 } */
 
-@media (min-width: 1100px) and (min-height: 850px) {
+@media (min-width: 1000px) and (min-height: 800px) {
   .app-container {
     zoom: 2;
     width: calc(50svw - 10px);

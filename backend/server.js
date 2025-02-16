@@ -5,10 +5,11 @@ import logRouter from "./routes/log.routes.js";
 import mealRouter from "./routes/meal.routes.js";
 import whatFitsRouter from "./routes/whatfits.routes.js";
 import authRouter from "./routes/auth.routes.js";
-import userData from "./models/users.model.js";
-import bcrypt from "bcrypt";
+// import userData from "./models/users.model.js";
+// import bcrypt from "bcrypt";
 import cookieParser from "cookie-parser";
 import foodLookupRouter from "./routes/foodlookup.routes.js";
+import settingsRouter from "./routes/settings.routes.js";
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -22,6 +23,7 @@ app.use("/api/log", logRouter);
 app.use("/api/meals", mealRouter);
 app.use("/api/whatfits", whatFitsRouter);
 app.use("/api/foodlookup", foodLookupRouter);
+app.use("/api/settings", settingsRouter);
 app.get("/", (req, res) => {
   res.json({ status: "live", loggedIn: req.sessionID });
 });
