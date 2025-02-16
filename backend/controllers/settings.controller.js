@@ -1,8 +1,8 @@
-import userData from "../models/users.model";
+import userData from "../models/users.model.js";
 
 export const getSettings = async (req, res) => {
   try {
-    const settings = await userData.find({ userID: req.body.userID });
+    const settings = await userData.find({ _id: req.body.userID });
     res.status(200).json({ success: true, data: settings });
   } catch (error) {
     console.error(`Error fetching user settings: ${error}`);
@@ -13,13 +13,15 @@ export const getSettings = async (req, res) => {
 };
 
 export const updateSettings = async (req, res) => {
-  const { id } = req.params;
+  const { setting } = req.params;
   const newSetting = req.body;
 
   try {
-    const updatedSettings = await userData.findByIdAndUpdate(id, newSetting, {
-      new: true,
-    });
+    const updatedSettings = await userData.findByIdAndUpdate(
+      newSetting.userID,
+      newSetting,
+      { new: true }
+    );
     res.status(200).json({ success: true, data: updatedSettings });
   } catch (error) {
     res

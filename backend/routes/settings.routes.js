@@ -1,11 +1,12 @@
-import { userInfo } from "../config/userInfoMiddleware";
-import { getSettings, updateSettings } from "../controllers/settings.controller";
+import { userInfo } from "../config/userInfoMiddleware.js";
+import { getSettings, updateSettings } from "../controllers/settings.controller.js";
+import express from "express";
 
 const settingsRouter = express.Router();
 settingsRouter.use(userInfo);
 
 settingsRouter.get("/", getSettings);
 
-settingsRouter.patch("/:id", updateSettings);
+settingsRouter.patch("/", updateSettings);
 
 export default settingsRouter;
