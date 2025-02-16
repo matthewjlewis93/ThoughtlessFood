@@ -3,14 +3,27 @@ import CloseButton from "../CloseButton";
 import { AppContext } from "../../Providers/ContextProvider";
 
 export default function UserSettings({ username, setSettingsDisplay }) {
-  const { theme, setTheme } = useContext(AppContext);
-  const [spinAmount, setSpinAmount] = useState(theme === 'light' ? 0 : 0.5)
+  const { theme, setTheme, calorieGoal, setCalorieGoal, APIUrl } =
+    useContext(AppContext);
+  const [spinAmount, setSpinAmount] = useState(theme === "light" ? 0 : 0.5);
 
   const changeIcons = (e) => {
     e.preventDefault();
-    document.querySelector(".appearence-svg").style.transform = `rotate(${spinAmount + 0.5}turn)`;
+    document.querySelector(".appearence-svg").style.transform = `rotate(${
+      spinAmount + 0.5
+    }turn)`;
     setTimeout(() => setTheme(theme === "dark" ? "light" : "dark"), 250);
     setSpinAmount(spinAmount + 0.5);
+  };
+
+  const updateSettings = (e) => {
+    e.preventDefault();
+    fetch(APIUrl + "settings", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ goal: e.target.form[1].value || calorieGoal }),
+    });
+    setCalorieGoal(e.target.form[1].value || calorieGoal);
   };
 
   return (
@@ -42,7 +55,7 @@ export default function UserSettings({ username, setSettingsDisplay }) {
           >
             <svg
               className="appearence-svg"
-              style={{transform: `rotate(${spinAmount}turn)`}}
+              style={{ transform: `rotate(${spinAmount}turn)` }}
               xmlns="http://www.w3.org/2000/svg"
               height="24px"
               viewBox="0 -960 960 960"
@@ -57,6 +70,11 @@ export default function UserSettings({ username, setSettingsDisplay }) {
             </svg>
           </button>
         </div>
+        <br />
+        <label>
+          Daily Calorie goal: <input type="number" placeholder={calorieGoal} />
+        </label>
+        <button onClick={(e) => updateSettings(e)}>Update</button>
       </form>
     </div>
   );

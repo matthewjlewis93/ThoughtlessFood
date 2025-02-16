@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { AppContext } from "../Providers/ContextProvider";
 
 export default function HChart({ data }) {
+  const {calorieGoal} = useContext(AppContext);
   const [percentagePositions, setPercentagePositions] = useState({
     0: [0, 0],
     1: [0, 0],
@@ -46,7 +48,7 @@ export default function HChart({ data }) {
           width: "94%",
           margin: "0px auto",
           borderLeft: "1px solid",
-          borderRight: 1850 > data ?"none":"1px solid #777",
+          borderRight: calorieGoal > data ?"none":"1px solid #777",
           position: "relative",
           top: "15px",
           left: "calc(10%-2px)",
@@ -55,7 +57,7 @@ export default function HChart({ data }) {
         <div
           style={{
             height: "36px",
-            width: 1850 > data ? "100%" : `${100 * (1850 / data) > 35 ? 100 * (1850 / data) : 35}%`,
+            width: calorieGoal > data ? "100%" : `${100 * (calorieGoal / data) > 35 ? 100 * (calorieGoal / data) : 35}%`,
             backgroundColor: "#EEE",
             margin: "0px",
             position: "relative",
@@ -98,7 +100,7 @@ export default function HChart({ data }) {
                 fontSize: "12px",
               }}
             >
-              {Math.floor(1850 / 4)}
+              {Math.floor(calorieGoal / 4)}
             </p>
           </span>
           <span
@@ -136,7 +138,7 @@ export default function HChart({ data }) {
                 fontSize: "12px",
               }}
             >
-              {Math.floor(1850 / 2)}
+              {Math.floor(calorieGoal / 2)}
             </p>
           </span>
           <span
@@ -174,7 +176,7 @@ export default function HChart({ data }) {
                 fontSize: "12px",
               }}
             >
-              {Math.floor(1850 * 0.75)}
+              {Math.floor(calorieGoal * 0.75)}
             </p>
           </span>
           <span
@@ -212,7 +214,7 @@ export default function HChart({ data }) {
                 fontSize: "12px",
               }}
             >
-              {1850}
+              {calorieGoal}
             </p>
           </span>
         </div>
@@ -223,7 +225,7 @@ export default function HChart({ data }) {
             backgroundColor: "#38E5BA",
             position: "relative",
             top: "-11px",
-            width: 1850 > data ? `${100 * (data / 1850)}%` : "100%",
+            width: calorieGoal > data ? `${100 * (data / calorieGoal)}%` : "100%",
             textAlign: "center",
             zIndex: 5,
             transitionProperty: "width",

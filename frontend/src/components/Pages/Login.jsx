@@ -3,7 +3,7 @@ import { AppContext } from "../../Providers/ContextProvider";
 import useLocalStorage from "../../useLocalStorage";
 
 export default function Login({ setLogIn, setLogInConfirmed, setDisplayName }) {
-  const { APIUrl } = useContext(AppContext);
+  const { APIUrl, setCalorieGoal } = useContext(AppContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -22,6 +22,7 @@ export default function Login({ setLogIn, setLogInConfirmed, setDisplayName }) {
         setLogIn(false);
         setLogInConfirmed(true);
         setDisplayName(username);
+        setCalorieGoal(logData.goal);
         break;
       case 401: // user found but password incorrect
         break;

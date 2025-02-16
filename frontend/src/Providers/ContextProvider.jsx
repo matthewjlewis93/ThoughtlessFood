@@ -41,6 +41,8 @@ const ContextProvider = ({ children, theme, setTheme }) => {
     positive: false,
   });
 
+  const [calorieGoal, setCalorieGoal] = useLocalStorage("goal",1850);
+
 
   return (
     <AppContext.Provider
@@ -54,7 +56,9 @@ const ContextProvider = ({ children, theme, setTheme }) => {
         toastInfo,
         setToastInfo,
         theme,
-        setTheme
+        setTheme,
+        calorieGoal,
+        setCalorieGoal
       }}
     >
       {children}

@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import HChart from "../HChart";
-
-const goal = 1850;
+import { AppContext } from "../../Providers/ContextProvider";
 
 export default function MacroChart({ calorieValue }) {
+  const { calorieGoal } = useContext(AppContext);
   return (
     <div style={{ minHeight: "100px", width: "100%", marginBottom: "5px" }}>
       <h5
@@ -24,9 +24,9 @@ export default function MacroChart({ calorieValue }) {
           right: "2.5%",
         }}
       >
-        {goal > calorieValue
-          ? `${goal - calorieValue} calories remaining`
-          : `${calorieValue - goal} calories over`}
+        {calorieGoal > calorieValue
+          ? `${calorieGoal - calorieValue} calories remaining`
+          : `${calorieValue - calorieGoal} calories over`}
       </h5>
     </div>
   );

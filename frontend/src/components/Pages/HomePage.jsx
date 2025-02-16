@@ -15,7 +15,7 @@ import UserSettings from "./UserSettings.jsx";
 import useLocalStorage from "../../useLocalStorage.js";
 
 export default function HomePage({ setLogInConfirmed }) {
-  const { activePage, updateActivePage, setToastInfo, APIUrl } =
+  const { activePage, updateActivePage, setToastInfo, APIUrl, setCalorieGoal } =
     useContext(AppContext);
   const [logIn, setLogIn] = useState(false);
   const [displayName, setDisplayName] = useLocalStorage("username", '');
@@ -29,6 +29,7 @@ export default function HomePage({ setLogInConfirmed }) {
       setLogIn(false);
       setLogInConfirmed(true);
       setDisplayName(response.data.username);
+      setCalorieGoal(response.data.goal);
     } else {
       setLogInConfirmed(false);
       setLogIn(true);

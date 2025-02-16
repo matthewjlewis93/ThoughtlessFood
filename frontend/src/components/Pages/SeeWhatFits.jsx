@@ -5,7 +5,7 @@ import FoodDisplay from "../FoodDisplay";
 import MealDisplay from "../MealDisplay";
 
 export default function SeeWhatFits() {
-  const { activePage, macroTotals, APIUrl, theme } = useContext(AppContext);
+  const { activePage, macroTotals, APIUrl, theme, calorieGoal } = useContext(AppContext);
   const [activeTab, setActiveTab] = useState("Foods");
   const [whatFits, setWhatFits] = useState({ foods: [], meals: [] });
   const [itemState, setItemState] = useState({ id: "", option: "" });
@@ -16,7 +16,7 @@ export default function SeeWhatFits() {
   });
 
   const getWhatFits = async () => {
-    let res = await fetch(APIUrl + "whatfits/" + (1850 - macroTotals.calories));
+    let res = await fetch(APIUrl + "whatfits/" + (calorieGoal - macroTotals.calories));
     res = await res.json();
     const data = res.data;
     setWhatFits(data);
