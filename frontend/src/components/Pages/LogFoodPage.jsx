@@ -93,8 +93,8 @@ export default function LogFoodPage() {
     setToastInfo({
       toastActivated: true,
       toastMessage: `Logged and saved ${foodToLog.name} to Foods!`,
-      positive: true
-    })
+      positive: true,
+    });
   };
 
   const getDefaults = (date) => {
@@ -280,43 +280,32 @@ export default function LogFoodPage() {
         </div>
       </form>
       <br />
-      <br />
-      <label style={{ margin: "auto 0px" }}>
-        Save as food{" "}
-        <input
-          type="checkbox"
-          style={{ height: "14px" }}
-          value={saveAsFood}
-          onChange={(e) => {
-            setSaveAsFood(e.target.checked);
+      <div style={{display: "flex", gap: "20px"}}>
+        <button
+          onClick={() => {
+            recordLog(setupLog(log));
+            if (saveAsFood) {
+              saveFood(setupLog(log));
+            }
           }}
-        />
-      </label>
-      <br />
-      <br />
-      <button
-        onClick={() => {
-          recordLog(setupLog(log));
-          if (saveAsFood) {
-            saveFood(setupLog(log));
-          }
-        }}
-        className="blue-button"
-      >
-        Submit
-      </button>
-      {/* <button
-        onClick={() => {
-          saveFood(setupLog(log));
-          recordLog(setupLog(log));
-        }}
-      >
-        Submit and Save food
-      </button> */}
+          className="blue-button"
+        >
+          Submit
+        </button>
+        <label style={{ margin: "auto 0px" }}>
+          Save as food{" "}
+          <input
+            type="checkbox"
+            style={{ height: "14px" }}
+            value={saveAsFood}
+            onChange={(e) => {
+              setSaveAsFood(e.target.checked);
+            }}
+          />
+        </label>
 
-      <br />
-      <br />
-      <button onClick={handleClear}>Clear</button>
+        <button onClick={handleClear}>Clear</button>
+      </div>
     </div>
   );
 }

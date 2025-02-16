@@ -29,6 +29,7 @@ body {
 html * {
   transition-property: color, background-color;
   transition-duration: 150ms;
+  user-select: none;
 }
 
 .app-container {
@@ -49,7 +50,7 @@ html * {
 
 .main-page {
   position: absolute;
-  transition:visibility, right, left, color, background-color;
+  transition: visibility, right, left, color, background-color;
   transition-duration: 200ms;
   transition-behavior: allow-discrete;
   height: calc(100svh - 12px);
@@ -57,29 +58,23 @@ html * {
 }
 
 #homepage {
-  
   right: 0vw;
   left: 0vw;
   display: block;
   visibility: visible;
-  z-index: 0;
 }
 #homepage.transition {
   right: 100vw;
   left: -100vw;
-  z-index: 1;
   visibility: hidden;
 }
 .subpage {
-  z-index: 0;
-  
   right: 0vw;
   left: 0vw;
   display: block;
   visibility: visible;
 }
 .subpage.transition {
-  z-index: 1;
   right: -100vw;
   left: 100vw;
   visibility: hidden;
@@ -90,7 +85,7 @@ p {
 }
 
 .appearence-svg {
-  transition: transform 500ms ease-in-out;
+  transition: transform 550ms ease-in-out;
   transform: rotate(0turn);
 }
 
@@ -328,7 +323,7 @@ input::-webkit-inner-spin-button {
   -moz-appearance: textfield;
 } */
 
-@media (min-width: 1200px) {
+@media (min-width: 1100px) and (min-height: 850px) {
   .app-container {
     zoom: 2;
     width: calc(50svw - 10px);
@@ -343,15 +338,28 @@ input::-webkit-inner-spin-button {
     width: 30%;
   }
   #foods-div {
-    height: calc(50svh - 134px);
+    height: calc(50svh - 129px);
   }
   #meal-div {
-    height: calc(50svh - 115px);
+    height: calc(50svh - 108px);
   }
   #what-fits-div {
-    height: calc(50svh - 100px);
+    height: calc(50svh - 92px);
   }
   #log-div {
     height: calc(50svh - 172px);
+  }
+  #homepage.transition {
+    right: 50vw;
+    left: -50vw;
+    visibility: hidden;
+  }
+  .subpage.transition {
+    right: -50vw;
+    left: 50vw;
+    visibility: hidden;
+  }
+  h1 {
+    font-size: 25px;
   }
 }

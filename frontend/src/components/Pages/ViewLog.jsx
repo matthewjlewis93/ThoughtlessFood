@@ -6,8 +6,7 @@ import createDateString from "../../createDateString";
 import DatePicker from "../DatePicker";
 
 export default function ViewLog() {
-  const { activePage, APIUrl, macroTotals } =
-    useContext(AppContext);
+  const { activePage, APIUrl, macroTotals } = useContext(AppContext);
   const [daysMacros, setDaysMacros] = useState({});
   const [allFoods, setAllFoods] = useState([]);
   const [mealLog, setMealLog] = useState([]);
@@ -60,9 +59,7 @@ export default function ViewLog() {
   return (
     <div
       id="view-log"
-      className={
-        "container-box main-page " +"subpage transition"
-      }
+      className={"container-box main-page " + "subpage transition"}
     >
       <CloseButton
         pageID="view-log"
@@ -146,7 +143,7 @@ export default function ViewLog() {
                       food={food}
                       allFoods={allFoods}
                       setAllFoods={setAllFoods}
-                      buttons={['edit', 'trash']}
+                      buttons={["edit", "trash"]}
                       itemState={itemStates}
                       setItemState={setItemStates}
                       link={"log"}

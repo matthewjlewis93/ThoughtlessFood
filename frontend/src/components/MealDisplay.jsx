@@ -223,6 +223,7 @@ export default function MealDisplay({
                     display: "inline-block",
                     margin: "auto",
                     gridColumn: "span 4",
+                    width: "100%"
                   }}
                 >
                   {meal.ingredients.map((m, i) => (
