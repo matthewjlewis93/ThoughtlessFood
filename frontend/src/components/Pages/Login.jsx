@@ -19,6 +19,7 @@ export default function Login({ setLogIn, setLogInConfirmed, setDisplayName }) {
     switch (logData.status) {
       case 200: // successful log in
         logData = await logData.json();
+        console.dir(logData);
         setLogIn(false);
         setLogInConfirmed(true);
         setDisplayName(username);
@@ -60,7 +61,7 @@ export default function Login({ setLogIn, setLogInConfirmed, setDisplayName }) {
 
   return (
     <div id="login-page" className="popup-screen">
-      <form>
+      <form className="popup-box">
         <h1 style={{ margin: 0 }}>Login</h1> <br />
         <label htmlFor="username">
           Username:

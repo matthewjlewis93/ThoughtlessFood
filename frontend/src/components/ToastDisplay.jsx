@@ -35,7 +35,6 @@ export default function ToastDisplay() {
         position: "absolute",
         backgroundColor: "white",
         color: "black",
-        zIndex: 5,
         right: `calc(${screenWidth}vw - ${toastWidth}px)`,
         padding: "0px 5px 0px 5px",
         border: `4px solid ${positive ? "#38E5BA" : "#DD1D1D"}`,

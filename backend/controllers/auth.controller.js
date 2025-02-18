@@ -21,7 +21,7 @@ export const logInUser = async (req, res) => {
         } else {
           if (result) {
             generateToken(res, userSearch._id);
-            res.status(200).json({ existingUser: true, id: userInfo._id });
+            res.status(200).json({ existingUser: true, id: userInfo._id, goal: userSearch.goal });
           } else {
             res.status(200).json({
               success: false,

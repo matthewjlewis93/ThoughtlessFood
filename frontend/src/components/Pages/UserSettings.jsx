@@ -3,7 +3,7 @@ import CloseButton from "../CloseButton";
 import { AppContext } from "../../Providers/ContextProvider";
 
 export default function UserSettings({ username, setSettingsDisplay }) {
-  const { theme, setTheme, calorieGoal, setCalorieGoal, APIUrl } =
+  const { theme, setTheme, calorieGoal, setCalorieGoal, setToastInfo, APIUrl } =
     useContext(AppContext);
   const [spinAmount, setSpinAmount] = useState(theme === "light" ? 0 : 0.5);
 
@@ -21,14 +21,21 @@ export default function UserSettings({ username, setSettingsDisplay }) {
     fetch(APIUrl + "settings", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ goal: e.target.form[1].value || calorieGoal }),
+      body: JSON.stringify({ goal: e.target.form[0].value || calorieGoal }),
     });
-    setCalorieGoal(e.target.form[1].value || calorieGoal);
+    setCalorieGoal(e.target.form[0].value || calorieGoal);
+    setToastInfo({
+      toastActivated: true,
+      toastMessage: "Settings updated!",
+      positive: true,
+    });
+
+    e.target.form[0].value = "";
   };
 
   return (
     <div id="user-settings" className="popup-screen">
-      <form style={{ position: "relative" }}>
+      <div className="popup-box" style={{ position: "relative" }}>
         <CloseButton functionList={[() => setSettingsDisplay(false)]} />
         <h1>{username}</h1>
         <br />
@@ -39,6 +46,7 @@ export default function UserSettings({ username, setSettingsDisplay }) {
             height: "35px",
             alignItems: "center",
             gap: "4px",
+            justifyContent: "center",
           }}
         >
           <label htmlFor="appearance-button">Change appearance:{"  "}</label>
@@ -71,11 +79,24 @@ export default function UserSettings({ username, setSettingsDisplay }) {
           </button>
         </div>
         <br />
-        <label>
-          Daily Calorie goal: <input type="number" placeholder={calorieGoal} />
-        </label>
-        <button onClick={(e) => updateSettings(e)}>Update</button>
-      </form>
+        <form>
+          {" "}
+          <label>
+            Daily Calorie goal:{" "}
+            <input
+              type="number"
+              placeholder={calorieGoal}
+              style={{ width: "3em" }}
+            />
+          </label>
+          <br />
+          <input
+            type="submit"
+            onClick={(e) => updateSettings(e)}
+            value="Update"
+          />
+        </form>
+      </div>
     </div>
   );
 }
