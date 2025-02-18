@@ -277,6 +277,7 @@ h2 {
   transition-property: bottom, opacity;
   bottom: -10%;
   z-index: 200;
+  width: calc(100svw - 10px)
 }
 #toast.activated {
   bottom: 5%;
@@ -353,6 +354,9 @@ input::-webkit-inner-spin-button {
   #homepage.transition {
     right: 50vw;
     left: -50vw;
+  }
+  #toast {
+    width: calc(50svw - 10px);
   }
   .subpage.transition {
     right: -50vw;

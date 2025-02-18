@@ -22,43 +22,50 @@ export default function ToastDisplay() {
     }
   }, [toastActivated]);
 
-  useEffect(() => {
-    setToastWidth(document.getElementById("toast").offsetWidth / 2);
-    setScreenWidth(document.body.offsetWidth > 1200 ? 25 : 50)
-  }, [toastMessage]);
+  // useEffect(() => {
+  //   setToastWidth(document.getElementById("toast").offsetWidth / 2);
+  //   setScreenWidth(document.body.offsetWidth > 1200 ? 25 : 50);
+  // }, [toastMessage]);
 
   return (
     <div
       id="toast"
       style={{
-        display: "grid",
+        display: "flex",
+        justifyContent: "center",
         position: "absolute",
-        backgroundColor: "white",
-        color: "black",
-        right: `calc(${screenWidth}vw - ${toastWidth}px)`,
-        padding: "0px 5px 0px 5px",
-        border: `4px solid ${positive ? "#38E5BA" : "#DD1D1D"}`,
-        borderRadius: "30px",
-        gridTemplateColumns: "20px 1fr",
-        textAlign: "right",
       }}
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        height="24px"
-        viewBox="0 -960 960 960"
-        width="24px"
-        fill={positive ? "#38E5BA" : "#DD1D1D"}
+      <div
+        style={{
+          display: "flex",
+          backgroundColor: "white",
+          color: "black",
+          padding: "0px 5px",
+          border: `4px solid ${positive ? "#38E5BA" : "#DD1D1D"}`,
+          borderRadius: "30px",
+          alignItems: "center"
+        }}
       >
-        <path
-          d={
-            positive
-              ? "M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"
-              : "m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
-          }
-        />
-      </svg>
-      <p style={{ margin: "3px 10px", maxWidth:"content" }}>{toastMessage}</p>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24px"
+          viewBox="0 -960 960 960"
+          width="24px"
+          fill={positive ? "#38E5BA" : "#DD1D1D"}
+        >
+          <path
+            d={
+              positive
+                ? "M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"
+                : "m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
+            }
+          />
+        </svg>
+        <p style={{ margin: "3px 10px", maxWidth: "content" }}>
+          {toastMessage} 
+        </p>
+      </div>
     </div>
   );
 }
