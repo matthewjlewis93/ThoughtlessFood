@@ -3,14 +3,18 @@ import MacroChart from "./MacroChart";
 import MacroLabel from "./MacroLabel";
 import { AppContext } from "../../Providers/ContextProvider";
 
-export default function MacroHeadlines({logIn}) {
-  const { macroTotals, updateMacros, APIUrl, activePage } = useContext(AppContext);
+export default function MacroHeadlines({ logIn }) {
+  const { macroTotals, updateMacros, APIUrl, activePage } =
+    useContext(AppContext);
   const [currentlyActive, setCurrentlyActive] = useState(0);
 
   const fetchDay = async (searchedDay) => {
     let query = `${APIUrl}log?date=${searchedDay.getFullYear()}-${String(
       searchedDay.getMonth() + 1
-    ).padStart(2, "0")}-${String(searchedDay.getDate()).padStart(2,'0')}&range=day`;
+    ).padStart(2, "0")}-${String(searchedDay.getDate()).padStart(
+      2,
+      "0"
+    )}&range=day`;
     const res = await fetch(query);
     const data = await res.json();
 
@@ -18,11 +22,14 @@ export default function MacroHeadlines({logIn}) {
       daysProtein = 0,
       daysCarbs = 0,
       daysFat = 0;
-    for (const log of data.data) {
-      daysCalories += log.calories;
-      daysProtein += log.protein;
-      daysCarbs += log.carbs;
-      daysFat += log.fat;
+
+    if (data.data) {
+      for (const log of data.data) {
+        daysCalories += log.calories;
+        daysProtein += log.protein;
+        daysCarbs += log.carbs;
+        daysFat += log.fat;
+      }
     }
     // setCaloriesTotal(cal);
     updateMacros({
@@ -30,7 +37,7 @@ export default function MacroHeadlines({logIn}) {
       protein: daysProtein,
       carbs: daysCarbs,
       fat: daysFat,
-      date: searchedDay
+      date: searchedDay,
     });
   };
 
@@ -39,12 +46,15 @@ export default function MacroHeadlines({logIn}) {
   }, [currentlyActive, logIn]);
   useEffect(() => {
     if (activePage === "HomePage") {
-      setCurrentlyActive(currentlyActive+1);
+      setCurrentlyActive(currentlyActive + 1);
     }
-  },[activePage])
+  }, [activePage]);
 
   return (
-    <div className="container-box" style={{maxWidth:"950px", marginLeft:"auto", marginRight: "auto"}}>
+    <div
+      className="container-box"
+      style={{ maxWidth: "950px", marginLeft: "auto", marginRight: "auto" }}
+    >
       <MacroChart calorieValue={macroTotals.calories} />
       <div
         style={{

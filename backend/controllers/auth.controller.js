@@ -21,7 +21,14 @@ export const logInUser = async (req, res) => {
         } else {
           if (result) {
             generateToken(res, userSearch._id);
-            res.status(200).json({ existingUser: true, id: userInfo._id, goal: userSearch.goal });
+            res
+              .status(200)
+              .json({
+                success: true,
+                existingUser: true,
+                id: userInfo._id,
+                goal: userSearch.goal,
+              });
           } else {
             res.status(200).json({
               success: false,
@@ -33,7 +40,9 @@ export const logInUser = async (req, res) => {
       }
     );
   } else {
-    res.status(401).json({ existingUser: false, message: "User not found" });
+    res
+      .status(200)
+      .json({ success: false, existingUser: false, message: "User not found" });
   }
 };
 
@@ -111,7 +120,7 @@ export const createGuest = (req, res) => {
     newGuest = userData(newGuest);
     newGuest.save();
     generateToken(res, newGuest._id, 24 * 60 * 60 * 1000);
-    res.status(200).json({success: true, username: newGuest.username});
+    res.status(200).json({ success: true, username: newGuest.username });
   } catch (e) {
     res.status(500).json({ e: e });
   }

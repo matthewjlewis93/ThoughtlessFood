@@ -19,13 +19,14 @@ function App() {
     <div className="app-container" data-theme={theme}>
       <ContextProvider theme={theme} setTheme={setTheme}>
         <HomePage setLogInConfirmed={setLogInConfirmed} />
+        <ToastDisplay />
         {logInConfirmed && <>
         <LogFoodPage />
         <ViewLog />
         <Foods />
         <Meals />
         <SeeWhatFits />
-        <ToastDisplay />
+        
         </>
         }
       </ContextProvider>

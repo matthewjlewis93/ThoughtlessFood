@@ -3,7 +3,7 @@ import { AppContext } from "../../Providers/ContextProvider";
 import useLocalStorage from "../../useLocalStorage";
 
 export default function Login({ setLogIn, setLogInConfirmed, setDisplayName }) {
-  const { APIUrl, setCalorieGoal } = useContext(AppContext);
+  const { APIUrl, setCalorieGoal, setToastInfo } = useContext(AppContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -16,21 +16,33 @@ export default function Login({ setLogIn, setLogInConfirmed, setDisplayName }) {
       body: JSON.stringify({ username: username, password: password }),
     });
 
-    switch (logData.status) {
-      case 200: // successful log in
-        logData = await logData.json();
-        console.dir(logData);
-        setLogIn(false);
-        setLogInConfirmed(true);
-        setDisplayName(username);
-        setCalorieGoal(logData.goal);
-        break;
-      case 401: // user found but password incorrect
-        break;
-      case 500: // username not found
-        break;
-      default: // unknown error
-        break;
+    logData = await logData.json();
+
+    if (logData.success && logData.existingUser) {
+      // successful log in
+      setLogIn(false);
+      setLogInConfirmed(true);
+      setDisplayName(username);
+      setCalorieGoal(logData.goal);
+      setToastInfo({
+        toastActivated: true,
+        toastMessage: `Welcome back, ${username}!`,
+        positive: true,
+      });
+    } else if (logData.existingUser) {
+      // user found but password incorrect
+      setToastInfo({
+        toastActivated: true,
+        toastMessage: "Incorrect password.",
+        positive: false,
+      });
+    } else {
+      // username not found
+      setToastInfo({
+        toastActivated: true,
+        toastMessage: "User not found. Please register.",
+        positive: false,
+      });
     }
   };
 
@@ -47,6 +59,11 @@ export default function Login({ setLogIn, setLogInConfirmed, setDisplayName }) {
       setLogIn(false);
       setLogInConfirmed(true);
       setDisplayName(username);
+      setToastInfo({
+        toastActivated: true,
+        toastMessage: `Welcome, ${username}`,
+        positive: true,
+      });
     }
   };
 
@@ -57,6 +74,11 @@ export default function Login({ setLogIn, setLogInConfirmed, setDisplayName }) {
     setDisplayName(res.username);
     setLogIn(false);
     setLogInConfirmed(true);
+    setToastInfo({
+      toastActivated: true,
+      toastMessage: "Welcome! Feel free to play around!",
+      positive: true,
+    });
   };
 
   return (
