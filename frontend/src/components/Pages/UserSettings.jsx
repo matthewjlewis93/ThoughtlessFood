@@ -18,18 +18,25 @@ export default function UserSettings({ username, setSettingsDisplay }) {
 
   const updateSettings = (e) => {
     e.preventDefault();
-    fetch(APIUrl + "settings", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ goal: e.target.form[0].value || calorieGoal }),
-    });
-    setCalorieGoal(e.target.form[0].value || calorieGoal);
-    setToastInfo({
-      toastActivated: true,
-      toastMessage: "Settings updated!",
-      positive: true,
-    });
-
+    if (e.target.form[0].value >= 1200) {
+      fetch(APIUrl + "settings", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ goal: e.target.form[0].value || calorieGoal }),
+      });
+      setCalorieGoal(e.target.form[0].value || calorieGoal);
+      setToastInfo({
+        toastActivated: true,
+        toastMessage: "Settings updated!",
+        positive: true,
+      });
+    } else {
+      setToastInfo({
+        toastActivated: true,
+        toastMessage: "Calorie goal must be at least 1200.",
+        positive: false,
+      });
+    }
     e.target.form[0].value = "";
   };
 
