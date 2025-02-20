@@ -278,7 +278,7 @@ export default function displayFoods({
                     })
                   }
                   style={{ width: "85%", padding: 0 }}
-                  placeholder={food.placeholderName}
+                  placeholder={food.placeholderName || food.name}
                 />
               </h4>
               <p className="food-amount">
