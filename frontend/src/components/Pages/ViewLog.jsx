@@ -9,6 +9,7 @@ export default function ViewLog() {
   const { activePage, APIUrl, macroTotals } = useContext(AppContext);
   const [daysMacros, setDaysMacros] = useState({});
   const [allFoods, setAllFoods] = useState([]);
+  const [displayFoods, setDisplayFoods] = useState([]);
   const [mealLog, setMealLog] = useState([]);
   const [viewingDate, setViewingDate] = useState(createDateString(new Date()));
   const [itemStates, setItemStates] = useState({
@@ -43,18 +44,39 @@ export default function ViewLog() {
   };
 
   const fetchLog = async (date) => {
-    const res = await fetch(`${APIUrl}log/?date=${date}&range=day`);
+    const res = await fetch(`${APIUrl}log/?date=${date}&range=month`);
     const data = await res.json();
     setAllFoods(data.data);
-    formatDaysMacros(data.data);
   };
 
   useEffect(() => {
     fetchLog(viewingDate);
-  }, [macroTotals, viewingDate]);
+    setDisplayFoods(
+      allFoods.filter((food) => {
+        return (
+          new Date(food.date).getDate() === new Date(viewingDate).getDate()
+        );
+      })
+    );    
+  }, [macroTotals])
+
   useEffect(() => {
-    formatDaysMacros(allFoods);
-  }, [allFoods]);
+    if (
+      allFoods.length === 0 ||
+      new Date(viewingDate).getMonth() !== new Date(allFoods[0].date).getMonth()
+    ) {
+      fetchLog(viewingDate);
+    }
+    setDisplayFoods(
+      allFoods.filter((food) => {
+        return new Date(food.date).getDate() === new Date(viewingDate).getDate();
+      })
+    );
+  }, [viewingDate, allFoods]);
+
+  useEffect(() => {
+    formatDaysMacros(displayFoods);
+  }, [displayFoods]);
 
   return (
     <div

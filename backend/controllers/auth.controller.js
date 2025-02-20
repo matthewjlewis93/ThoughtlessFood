@@ -147,17 +147,16 @@ export const registerUser = async (req, res) => {
     const newUser = new userData(newUserInfo);
     await newUser.save();
 
-
     let newUserExampleMeal = structuredClone(exampleMeal);
     newUserExampleMeal.userID = newUser._id;
     newUserExampleMeal.expireAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
-    newUserExampleMeal = new Meals(guestExampleMeal);
+    newUserExampleMeal = new Meals(newUserExampleMeal);
     await newUserExampleMeal.save();
 
     let newUserExampleFood = structuredClone(exampleFood);
-    newUserExampleFood.userID = newGuest._id;
+    newUserExampleFood.userID = newUser._id;
     newUserExampleFood.expireAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
-    newUserExampleFood = new FoodItem(guestExampleFood);
+    newUserExampleFood = new FoodItem(newUserExampleFood);
     await newUserExampleFood.save();
 
     generateToken(res, newUser._id);

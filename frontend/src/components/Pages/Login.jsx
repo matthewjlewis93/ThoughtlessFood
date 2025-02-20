@@ -55,14 +55,13 @@ export default function Login({ setLogIn, setLogInConfirmed, setDisplayName }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username: username, password: password }),
     });
-    // console.log(logData);
     if (logData.status === 200) {
       setLogIn(false);
       setLogInConfirmed(true);
       setDisplayName(username);
       setToastInfo({
         toastActivated: true,
-        toastMessage: `Welcome, ${username}`,
+        toastMessage: `Welcome, ${username}!`,
         positive: true,
       });
     }
@@ -70,10 +69,11 @@ export default function Login({ setLogIn, setLogInConfirmed, setDisplayName }) {
 
   const guestLogin = async (e) => {
     e.preventDefault();
-    let res = await fetch(`${APIUrl}auth/guest`, { method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({date: createDateString(new Date())})
-     });
+    let res = await fetch(`${APIUrl}auth/guest`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ date: createDateString(new Date()) }),
+    });
     res = await res.json();
     setDisplayName(res.username);
     setLogIn(false);
