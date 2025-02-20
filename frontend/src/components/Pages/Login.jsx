@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../Providers/ContextProvider";
 import useLocalStorage from "../../useLocalStorage";
+import createDateString from "../../createDateString";
 
 export default function Login({ setLogIn, setLogInConfirmed, setDisplayName }) {
   const { APIUrl, setCalorieGoal, setToastInfo } = useContext(AppContext);
@@ -69,7 +70,10 @@ export default function Login({ setLogIn, setLogInConfirmed, setDisplayName }) {
 
   const guestLogin = async (e) => {
     e.preventDefault();
-    let res = await fetch(`${APIUrl}auth/guest`, { method: "POST" });
+    let res = await fetch(`${APIUrl}auth/guest`, { method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({date: createDateString(new Date())})
+     });
     res = await res.json();
     setDisplayName(res.username);
     setLogIn(false);

@@ -3,8 +3,75 @@ import mongoose from "mongoose";
 import userData from "../models/users.model.js";
 import generateToken from "../config/generateToken.js";
 import jwt from "jsonwebtoken";
+import FoodLog from "../models/log.model.js";
+import Meals from "../models/meal.model.js";
+import FoodItem from "../models/food.model.js";
 
 const saltRounds = 10;
+
+const exampleMeal = {
+  name: "Cream Cheese Bagel (example)",
+  ingredients: [
+    {
+      name: "Everything Bagel",
+      calories: 260,
+      fat: 2,
+      carbs: 48,
+      protein: 11,
+      amount: 1,
+      unit: "unit",
+      _id: 0,
+    },
+    {
+      name: "Cream Cheese",
+      calories: 179,
+      fat: 18,
+      carbs: 2,
+      protein: 4,
+      amount: "50",
+      unit: "gram",
+      _id: 1,
+    },
+  ],
+  lastLogged: "2024-09-10T00:00:00.000Z",
+  amount: 1,
+  unit: "Meal",
+};
+
+const exampleFood = {
+  name: "Chicken Noodle Soup (example)",
+  category: "fooditem",
+  calories: 130,
+  protein: 7,
+  carbs: 18,
+  fat: 3,
+  favorite: false,
+  amount: 1,
+  unit: "unit",
+  lastLogged: "2024-09-10T00:00:00.000Z",
+};
+
+const exampleBreakfast = {
+  name: "Vanilla Yogurt (example)",
+  meal: "Breakfast",
+  calories: 200,
+  protein: 6,
+  carbs: 39,
+  fat: 1,
+  amount: 200,
+  unit: "gram",
+};
+
+const exampleDinner = {
+  name: "Chicken Noodle Soup (example)",
+  meal: "Dinner",
+  calories: 130,
+  protein: 7,
+  carbs: 18,
+  fat: 3,
+  amount: 1,
+  unit: "unit",
+};
 
 export const logInUser = async (req, res) => {
   const userInfo = req.body;
@@ -21,14 +88,12 @@ export const logInUser = async (req, res) => {
         } else {
           if (result) {
             generateToken(res, userSearch._id);
-            res
-              .status(200)
-              .json({
-                success: true,
-                existingUser: true,
-                id: userInfo._id,
-                goal: userSearch.goal,
-              });
+            res.status(200).json({
+              success: true,
+              existingUser: true,
+              id: userInfo._id,
+              goal: userSearch.goal,
+            });
           } else {
             res.status(200).json({
               success: false,
@@ -80,7 +145,21 @@ export const registerUser = async (req, res) => {
     newUserInfo.password = await bcrypt.hash(newUserInfo.password, saltRounds);
     newUserInfo.goal = 1850;
     const newUser = new userData(newUserInfo);
-    newUser.save();
+    await newUser.save();
+
+
+    let newUserExampleMeal = structuredClone(exampleMeal);
+    newUserExampleMeal.userID = newUser._id;
+    newUserExampleMeal.expireAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+    newUserExampleMeal = new Meals(guestExampleMeal);
+    await newUserExampleMeal.save();
+
+    let newUserExampleFood = structuredClone(exampleFood);
+    newUserExampleFood.userID = newGuest._id;
+    newUserExampleFood.expireAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+    newUserExampleFood = new FoodItem(guestExampleFood);
+    await newUserExampleFood.save();
+
     generateToken(res, newUser._id);
     res.status(200).json({ success: true });
   }
@@ -109,7 +188,8 @@ export const logOut = async (req, res) => {
   res.status(200).json({ success: true });
 };
 
-export const createGuest = (req, res) => {
+export const createGuest = async (req, res) => {
+  const logDate = req.body.date;
   try {
     let newGuest = {
       username: `Guest${Math.floor(Math.random() * 9999999) + 1}`,
@@ -117,11 +197,42 @@ export const createGuest = (req, res) => {
       goal: 1850,
       expireAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
     };
-    newGuest = userData(newGuest);
-    newGuest.save();
+    newGuest = new userData(newGuest);
+    await newGuest.save();
+
+    let guestExampleMeal = structuredClone(exampleMeal);
+    guestExampleMeal.userID = newGuest._id;
+    guestExampleMeal.expireAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+    guestExampleMeal = new Meals(guestExampleMeal);
+    await guestExampleMeal.save();
+
+
+    let guestExampleFood = structuredClone(exampleFood);
+    guestExampleFood.userID = newGuest._id;
+    guestExampleFood.expireAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+    guestExampleFood = new FoodItem(guestExampleFood);
+    await guestExampleFood.save();
+
+    let guestExampleBreakfast = structuredClone(exampleBreakfast);
+    guestExampleBreakfast.userID = newGuest._id;
+    guestExampleBreakfast.expireAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+    guestExampleBreakfast.date = logDate;
+
+    let guestExampleDinner = structuredClone(exampleDinner);
+    guestExampleDinner.userID = newGuest._id;
+    guestExampleDinner.expireAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+    guestExampleDinner.date = logDate;
+
+    guestExampleBreakfast = new FoodLog(guestExampleBreakfast);
+    await guestExampleBreakfast.save();
+
+    guestExampleDinner = new FoodLog(guestExampleDinner);
+    await guestExampleDinner.save();
+
     generateToken(res, newGuest._id, 24 * 60 * 60 * 1000);
     res.status(200).json({ success: true, username: newGuest.username });
   } catch (e) {
+    console.log(e);
     res.status(500).json({ e: e });
   }
 };
