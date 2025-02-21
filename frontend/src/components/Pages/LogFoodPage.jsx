@@ -7,8 +7,14 @@ import CloseButton from "../CloseButton";
 import transitionControl from "../../transitionControl";
 
 export default function LogFoodPage() {
-  const { activePage, updateActivePage, addToMacros, APIUrl, setToastInfo } =
-    useContext(AppContext);
+  const {
+    activePage,
+    updateActivePage,
+    addToMacros,
+    APIUrl,
+    setToastInfo,
+    theme,
+  } = useContext(AppContext);
   const [selection, setSelection] = useState(0);
   const [defaultDate, setDefaultDate] = useState("");
   const [saveAsFood, setSaveAsFood] = useState(false);
@@ -163,29 +169,49 @@ export default function LogFoodPage() {
           ></input>
         </div>
 
-        <div className="form-div">
-          <label>Meal: </label>
-          <br />
-          <Select
-            id="meal"
-            isSearchable={false}
-            options={selectOptions}
-            value={selectOptions[selection]}
-            style={{ width: "50%", fontSize: "0.9em" }}
-            onChange={(e) => {
-              setLog({ ...log, meal: e.value });
-              setSelection(e.index);
-            }}
-          ></Select>
-        </div>
-
-        <div className="form-div">
-          <DatePicker
-            defaultDate={defaultDate}
-            setDefaultDate={setDefaultDate}
-            record={log}
-            setRecord={setLog}
-          />
+        <div
+          className="form-div"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            gap: "10px",
+          }}
+        >
+          <div style={{ flexGrow: 1 }}>
+            {" "}
+            <label>Meal: </label>
+            <br />
+            <Select
+              id="meal"
+              isSearchable={false}
+              options={selectOptions}
+              value={selectOptions[selection]}
+              styles={{
+                menu: (baseStyles, state) => ({
+                  ...baseStyles,
+                  color: "black",
+                }),
+                container: (baseStyles) => ({
+                  ...baseStyles,
+                  width: "100%",
+                  fontSize: "14px",
+                }),
+              }}
+              onChange={(e) => {
+                setLog({ ...log, meal: e.value });
+                setSelection(e.index);
+              }}
+            ></Select>
+          </div>
+          <div>
+            <DatePicker
+              label={true}
+              defaultDate={defaultDate}
+              setDefaultDate={setDefaultDate}
+              record={log}
+              setRecord={setLog}
+            />
+          </div>
         </div>
 
         <div
@@ -280,7 +306,7 @@ export default function LogFoodPage() {
         </div>
       </form>
       <br />
-      <div style={{display: "flex", gap: "20px"}}>
+      <div style={{ display: "flex", gap: "20px" }}>
         <button
           onClick={() => {
             recordLog(setupLog(log));

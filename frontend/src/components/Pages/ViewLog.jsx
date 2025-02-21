@@ -85,7 +85,10 @@ export default function ViewLog() {
     >
       <CloseButton
         pageID="view-log"
-        functionList={[() => setViewingDate(createDateString(new Date()))]}
+        functionList={[
+          () => setViewingDate(createDateString(new Date())),
+          () => document.getElementById("log-div").scroll(0, "smooth"),
+        ]}
       />
       <div style={{ height: "160px" }}>
         <h1 style={{ margin: "5px" }}>Food Log</h1>

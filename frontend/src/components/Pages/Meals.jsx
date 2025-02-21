@@ -116,9 +116,7 @@ export default function Meals() {
   return (
     <div
       id="meals"
-      className={
-        "container-box main-page " +"subpage transition"
-      }
+      className={"container-box main-page " + "subpage transition"}
     >
       <CloseButton
         pageID="meals"
@@ -126,6 +124,7 @@ export default function Meals() {
           () => {
             setMealStatus({ id: "", expanded: false, option: "" });
           },
+          () => document.getElementById("meal-div").scroll(0, "smooth"),
         ]}
       />
       <h1>
@@ -161,9 +160,7 @@ export default function Meals() {
         </label>
         <button onClick={(e) => handleAddMeal(e)}>Add Meal</button>
       </form>
-      <div
-        id={"meal-div"}
-      >
+      <div id={"meal-div"}>
         {visibleMeals.map((e, i) => (
           <div key={e._id}>
             <MealDisplay
@@ -177,12 +174,17 @@ export default function Meals() {
               setMeals={setMeals}
               handleAddIngredient={handleAddIngredient}
               setUSDADisplay={setUSDADisplay}
-              buttons={['addtolog', 'edit', 'trash']}
+              buttons={["addtolog", "edit", "trash"]}
             />
           </div>
         ))}
       </div>
-      {USDADisplay && <USDALookup setAddFood={handleAddIngredient} setDisplay={setUSDADisplay} /> }
+      {USDADisplay && (
+        <USDALookup
+          setAddFood={handleAddIngredient}
+          setDisplay={setUSDADisplay}
+        />
+      )}
     </div>
   );
 }

@@ -37,6 +37,7 @@ export default function SeeWhatFits() {
           () => {
             setItemState({ id: "", option: "" });
           },
+          () => document.getElementById("what-fits-div").scroll(0, "smooth"),
         ]}
       />
 
@@ -58,7 +59,12 @@ export default function SeeWhatFits() {
               onClick={() => setActiveTab("Foods")}
               style={{
                 textAlign: "center",
-                color: theme==='light'? 'black' : activeTab == "Foods" ? "black":"white",
+                color:
+                  theme === "light"
+                    ? "black"
+                    : activeTab == "Foods"
+                    ? "black"
+                    : "white",
                 backgroundColor: activeTab == "Foods" ? "#ffffff" : "#00000030",
                 borderTopLeftRadius: "4px",
                 borderTopRightRadius: "4px",
@@ -78,7 +84,12 @@ export default function SeeWhatFits() {
               onClick={() => setActiveTab("Meals")}
               style={{
                 textAlign: "center",
-                color: theme==='light'? 'black' : activeTab == "Foods" ? "white":"black",
+                color:
+                  theme === "light"
+                    ? "black"
+                    : activeTab == "Foods"
+                    ? "white"
+                    : "black",
                 backgroundColor: activeTab == "Meals" ? "#ffffff" : "#00000030",
                 borderTopLeftRadius: "4px",
                 borderTopRightRadius: "4px",
@@ -114,7 +125,7 @@ export default function SeeWhatFits() {
                   mealIndex={i}
                   mealStatus={mealStatus}
                   setMealStatus={setMealStatus}
-                  buttons={['addtolog']}
+                  buttons={["addtolog"]}
                 />
               ))}
         </div>

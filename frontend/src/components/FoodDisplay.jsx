@@ -427,7 +427,9 @@ export default function displayFoods({
             style={{ border: "1px solid #555" }}
           >
             <div style={{ gridColumn: "span 2" }}>
-              <h4 className="grid-header">Delete {food.name}?</h4>
+              <h4 className="grid-header" style={{ color: "#DD1D1D" }}>
+                Delete {food.name}?
+              </h4>
             </div>
             <div className="grid-buttons">
               <SquareButton
