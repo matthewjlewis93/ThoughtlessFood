@@ -6,7 +6,6 @@
   --text-color: black;
   --username-color: #0c335a;
   --square-button: #eefded;
-  --transition-opacity: 0;
   --food-label: white;
 }
 [data-theme="dark"] {
@@ -16,7 +15,6 @@
   --username-color: #eefded;
   --food-label: #0f486c;
   --square-button: #eefded;
-  --transition-opacity: 100;
 }
 
 body {

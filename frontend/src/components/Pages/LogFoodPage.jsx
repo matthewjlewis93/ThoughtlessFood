@@ -121,8 +121,9 @@ export default function LogFoodPage() {
 
   const convertMacros = (e) => {
     e.preventDefault();
-    const newAmount = Number(prompt("Enter new amount"));
-    // let newLog = structuredClone(log)
+    const newAmount = e.target.form[11].value;
+
+
     setLog({
       ...log,
       calories: Math.round(
@@ -135,6 +136,7 @@ export default function LogFoodPage() {
       fat: Math.round((Number(log.fat) / Number(log.amount)) * newAmount),
       amount: newAmount,
     });
+    e.target.form[11].value = '';
   };
 
   useEffect(() => {
@@ -274,39 +276,63 @@ export default function LogFoodPage() {
             ></input>
           </div>
         </div>
-        <div className="form-div">
-          <label>Amount: </label>
-          <br />
-          <div style={{ display: "flex" }}>
-            <input
-              type="number"
-              style={{ width: "5em" }}
-              value={log.amount}
-              onChange={(e) => setLog({ ...log, amount: e.target.value })}
-            ></input>
-            <select
-              style={{ marginLeft: "3px" }}
-              value={log.unit}
-              onChange={(e) => {
-                setLog({ ...log, unit: e.target.value });
-              }}
-            >
-              <option value="gram">gram(s)</option>
-              <option value="oz">oz</option>
-              <option value="mL">mL</option>
-              <option value="unit">Unit(s)</option>
-            </select>
-            <button
-              style={{ marginLeft: "15px", height: "25px", fontSize: "0.8em" }}
-              onClick={(e) => convertMacros(e)}
-            >
-              Scale Macros
-            </button>
+        <div className="form-div" style={{ display: "flex", justifyContent: "space-between" }}>
+          <div>
+            <label>Amount: </label>
+            <br />
+            <div style={{ display: "flex", gap: "3px" }}>
+              <input
+                type="number"
+                style={{ width: "60px" }}
+                value={log.amount}
+                onChange={(e) => setLog({ ...log, amount: e.target.value })}
+              ></input>
+              <select
+                value={log.unit}
+                onChange={(e) => {
+                  setLog({ ...log, unit: e.target.value });
+                }}
+              >
+                <option value="gram">gram(s)</option>
+                <option value="oz">oz</option>
+                <option value="mL">mL</option>
+                <option value="unit">Unit(s)</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label>Scale Macros:</label>
+            <br />
+            <div style={{ display: "flex", gap: "3px" }}>
+              <input style={{ width: "60px" }} type="number" />
+              <button
+                style={{
+                  fontSize: "0.8em",
+                }}
+                onClick={(e) => convertMacros(e)}
+              >
+                Scale
+              </button>
+            </div>
           </div>
         </div>
       </form>
       <br />
-      <div style={{ display: "flex", gap: "20px" }}>
+      <label style={{ margin: "auto 0px" }}>
+        Save as food{" "}
+        <input
+          type="checkbox"
+          style={{ height: "14px" }}
+          value={saveAsFood}
+          onChange={(e) => {
+            setSaveAsFood(e.target.checked);
+          }}
+        />
+      </label>
+      <br />
+      <br />
+
+      <div style={{ display: "flex", gap: "30px" }}>
         <button
           onClick={() => {
             recordLog(setupLog(log));
@@ -314,23 +340,26 @@ export default function LogFoodPage() {
               saveFood(setupLog(log));
             }
           }}
-          className="blue-button"
+          style={{
+            backgroundColor: "#fcba40",
+            borderRadius: "5px",
+            height: "30px",
+            fontSize: "20px",
+          }}
         >
           Submit
         </button>
-        <label style={{ margin: "auto 0px" }}>
-          Save as food{" "}
-          <input
-            type="checkbox"
-            style={{ height: "14px" }}
-            value={saveAsFood}
-            onChange={(e) => {
-              setSaveAsFood(e.target.checked);
-            }}
-          />
-        </label>
 
-        <button onClick={handleClear}>Clear</button>
+        <button
+          onClick={handleClear}
+          style={{
+            backgroundColor: "#DD1D1D",
+            borderRadius: "5px",
+            color: "white",
+          }}
+        >
+          Clear
+        </button>
       </div>
     </div>
   );
