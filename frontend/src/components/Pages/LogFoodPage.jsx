@@ -123,7 +123,6 @@ export default function LogFoodPage() {
     e.preventDefault();
     const newAmount = e.target.form[11].value;
 
-
     setLog({
       ...log,
       calories: Math.round(
@@ -196,7 +195,7 @@ export default function LogFoodPage() {
                 container: (baseStyles) => ({
                   ...baseStyles,
                   width: "100%",
-                  fontSize: "14px",
+                  fontSize: "16px",
                 }),
               }}
               onChange={(e) => {
