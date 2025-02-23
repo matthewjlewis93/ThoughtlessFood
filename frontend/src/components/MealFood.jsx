@@ -294,9 +294,10 @@ export default function MealFood({
               flexDirection: "column",
               justifyContent: "center",
               padding: "5px",
+              gap: "2px"
             }}
           >
-            <h1>{food.name}</h1>
+            <h2>{food.name}</h2>
             <label>
               Amount to log: <br />
               <input
@@ -363,7 +364,7 @@ export default function MealFood({
               padding: "5px",
             }}
           >
-            <h1>{food.name}</h1>
+            <h2>{food.name}</h2>
             <p>
               {food.amount} {food.unit}
               {food.amount != 1 &&

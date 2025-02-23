@@ -24,7 +24,7 @@ export default function DatePicker({
           Date: <br />
         </label>
       )}
-      <div style={{display: "flex"}}>
+      <span style={{display: "flex"}}>
         <button
           style={{ height: "28px", width: "28px", marginRight: "5px" }}
           onClick={(e) => handleDateButton(e, -1)}
@@ -47,7 +47,7 @@ export default function DatePicker({
         >
           ►
         </button>
-      </div>
+      </span>
     </>
   );
 }

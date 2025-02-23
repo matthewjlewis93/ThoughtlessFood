@@ -203,10 +203,10 @@ h2 {
   margin: 0px;
 }
 .collapsed {
-  grid-template-rows: 115px 70px;
+  grid-template-rows: auto 70px;
 }
 .expanded {
-  grid-template-rows: 115px auto 70px;
+  grid-template-rows: auto auto 70px;
 }
 .meal-macro {
   display: flex;
@@ -236,8 +236,9 @@ h2 {
   width: calc(100% - 2px);
   margin: 0px auto 0px auto;
 }
-.meal-food h1 {
-  font-size: 20px;
+.meal-food h2 {
+  font-size: 22px;
+  margin: 5px 0px;
 }
 .meal-food p {
   margin: 0;
@@ -257,9 +258,8 @@ h2 {
   grid-column: span 3;
   align-content: center;
   gap: 0px;
-  padding-left: 2px;
+  padding: 5px 2px;
   margin: 0;
-  /* font-size: 20px; */
   border-top: 1px solid;
   border-right: 1px solid;
   border-bottom: 1px solid;
@@ -275,7 +275,7 @@ h2 {
   transition-property: bottom, opacity;
   bottom: -10%;
   z-index: 200;
-  width: calc(100svw - 10px)
+  width: calc(100svw - 10px);
 }
 #toast.activated {
   bottom: 5%;
