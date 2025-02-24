@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 
 export default function SquareButton({ icon, onClickFunction }) {
   const [image, setImage] = useState("");
+  const [active, setActive] = useState(false);
+
   useEffect(() => {
+    setTimeout(() => { // prevent misclicks
+      setActive(true);
+    }, 200);
+
     switch (icon) {
       case "check":
         setImage(
@@ -75,5 +81,5 @@ export default function SquareButton({ icon, onClickFunction }) {
         );
     }
   }, []);
-  return <span onClick={onClickFunction}>{image}</span>;
+  return <span onClick={active ? onClickFunction : ()=>{}}>{image}</span>;
 }
