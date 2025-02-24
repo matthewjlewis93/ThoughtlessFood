@@ -5,8 +5,6 @@ import logRouter from "./routes/log.routes.js";
 import mealRouter from "./routes/meal.routes.js";
 import whatFitsRouter from "./routes/whatfits.routes.js";
 import authRouter from "./routes/auth.routes.js";
-// import userData from "./models/users.model.js";
-// import bcrypt from "bcrypt";
 import cookieParser from "cookie-parser";
 import foodLookupRouter from "./routes/foodlookup.routes.js";
 import settingsRouter from "./routes/settings.routes.js";

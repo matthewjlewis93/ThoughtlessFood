@@ -8,14 +8,13 @@ import ViewLog from "../../assets/viewlog.svg";
 import SeeWhatFits from "../../assets/seewhatfits.svg";
 import { AppContext } from "../../Providers/ContextProvider.jsx";
 import { useContext, useEffect, useState } from "react";
-import SquareButton from "../SquareButton.jsx";
 import Login from "./Login.jsx";
 import transitionControl from "../../transitionControl.js";
 import UserSettings from "./UserSettings.jsx";
 import useLocalStorage from "../../useLocalStorage.js";
 
 export default function HomePage({ setLogInConfirmed }) {
-  const { activePage, updateActivePage, setToastInfo, APIUrl, setCalorieGoal } =
+  const { activePage, updateActivePage, setToastInfo, APIUrl, setCalorieGoal, theme } =
     useContext(AppContext);
   const [logIn, setLogIn] = useState(false);
   const [displayName, setDisplayName] = useLocalStorage("username", '');
@@ -49,7 +48,8 @@ export default function HomePage({ setLogInConfirmed }) {
         />
       )}
       {settingsDisplay && <UserSettings username={displayName} setSettingsDisplay={setSettingsDisplay} />}
-      <h1>Thoughtless Food</h1>
+      <h1>Thoughtless Food<p style={{margin: 0, fontSize: "8px", fontFamily: "sans", opacity: "75%" , marginLeft: "12px"}}>The no-thoughts-required macro tracker</p></h1>
+      
       <div
         style={{
           display: "flex",
@@ -71,7 +71,7 @@ export default function HomePage({ setLogInConfirmed }) {
                 cursor: "pointer",
               }}
             >
-              {displayName}
+              <u>{displayName}</u>
             </p>
             <p
               style={{
@@ -91,7 +91,7 @@ export default function HomePage({ setLogInConfirmed }) {
                 setDisplayName("");
               }}
             >
-              Logout
+              <u>Logout</u>
             </p>
           </>
         )}
