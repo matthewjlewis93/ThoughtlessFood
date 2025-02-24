@@ -130,7 +130,7 @@ h2 {
 .grid-container {
   display: grid;
   grid-template-rows: repeat(4, 1fr);
-  grid-template-columns: 1fr 130px 60px;
+  grid-template-columns: 1fr 115px 60px;
 }
 
 .grid-header {
@@ -138,8 +138,6 @@ h2 {
   align-content: center;
   gap: 0px;
   padding-left: 2px;
-  /* border: 1px solid; */
-  /* border-right: 1px solid; */
   margin: 0;
   font-size: 20px;
 }
@@ -157,6 +155,8 @@ h2 {
   margin: 0px;
   padding: 5px 0px 5px 8px;
   border: 1px solid;
+  text-align: left;
+  font-size: 14px;
 }
 .grid-container div {
   grid-row: span 4;
@@ -316,6 +316,10 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+#food-lookup h4 {
+  font-size: 18px;
 }
 
 /* Firefox */

@@ -13,7 +13,7 @@ export default function MacroChart({ calorieValue }) {
           left: "3%",
           margin: 0,
         }}
-      >{`${calorieValue} calories today`}</h5>
+      ><span style={{fontSize:"18px"}}>{calorieValue}</span> calories today</h5>
       <HChart data={calorieValue} />
       <h5
         style={{
@@ -24,9 +24,11 @@ export default function MacroChart({ calorieValue }) {
           right: "2.5%",
         }}
       >
+        <span style={{fontSize: "18px"}}>{calorieGoal > calorieValue
+          ? calorieGoal - calorieValue : calorieValue - calorieGoal}</span>
         {calorieGoal > calorieValue
-          ? `${calorieGoal - calorieValue} calories remaining`
-          : `${calorieValue - calorieGoal} calories over`}
+          ? " calories remaining"
+          : " calories over"}
       </h5>
     </div>
   );

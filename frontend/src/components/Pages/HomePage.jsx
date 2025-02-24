@@ -103,7 +103,7 @@ export default function HomePage({ setLogInConfirmed }) {
           display: "grid",
           gridTemplateColumns: "165px 165px",
           gap: "10px",
-          marginTop: "15px",
+          marginTop: "5px",
           justifyContent: "center",
         }}
       >
