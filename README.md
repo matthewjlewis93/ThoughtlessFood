@@ -25,3 +25,6 @@ Provide a simple and easy way to log food and keep track of daily macro nutrient
   <li>MongoDB</li>
   <li>JWT</li>
 </ul>
+
+<h2>Site</h2>
+The app is currently being hosted from my Rspberry Pi through a Microsoft Dev Tunnel at https://4pm9081m-5173.usw3.devtunnels.ms/
