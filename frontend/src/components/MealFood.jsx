@@ -16,9 +16,9 @@ export default function MealFood({
   const [visible, setVisible] = useState(true);
   const [deleteItem, setDeleteItem] = useState(false);
   const editMeal = (property, value) => {
-    if (Boolean(Number(value)) || value == 0) {
-      value = Number(value);
-    }
+    // if (Boolean(Number(value)) || value == 0) {
+    //   value = Number(value);
+    // }
     setMealEdits(
       mealEdits.toSpliced(mealIndex, 1, {
         ...mealEdits[mealIndex],
@@ -110,20 +110,12 @@ export default function MealFood({
             }}
           >
             <input
-              placeholder={food.name}
+              value={food.name}
               onChange={(e) => editMeal("name", e.target.value)}
             />
             <div>
               <input
-                placeholder={food.amount}
-                value={
-                  mealEdits[mealIndex].ingredients[index]
-                    ? mealEdits[mealIndex].ingredients[index].amount ===
-                      food.amount
-                      ? ""
-                      : mealEdits[mealIndex].ingredients[index].amount
-                    : ""
-                }
+                value={food.amount}
                 style={{ width: "2.8em" }}
                 onChange={(e) => editMeal("amount", e.target.value)}
               />
@@ -184,19 +176,11 @@ export default function MealFood({
           >
             <input
               type="number"
-              value={
-                mealEdits[mealIndex].ingredients[index]
-                  ? mealEdits[mealIndex].ingredients[index].calories ===
-                    food.calories
-                    ? ""
-                    : mealEdits[mealIndex].ingredients[index].calories
-                  : ""
-              }
               onChange={(e) => editMeal("calories", e.target.value)}
               style={{
                 width: "2.5em",
               }}
-              placeholder={food.calories}
+              value={food.calories}
             />{" "}
             calories
           </label>
@@ -212,18 +196,11 @@ export default function MealFood({
           >
             <input
               type="number"
-              value={
-                mealEdits[mealIndex].ingredients[index]
-                  ? mealEdits[mealIndex].ingredients[index].fat === food.fat
-                    ? ""
-                    : mealEdits[mealIndex].ingredients[index].fat
-                  : ""
-              }
               onChange={(e) => editMeal("fat", e.target.value)}
               style={{
                 width: "2.5em",
               }}
-              placeholder={food.fat}
+              value={food.fat}
             />
             g fat
           </label>
@@ -239,18 +216,11 @@ export default function MealFood({
           >
             <input
               type="number"
-              value={
-                mealEdits[mealIndex].ingredients[index]
-                  ? mealEdits[mealIndex].ingredients[index].carbs === food.carbs
-                    ? ""
-                    : mealEdits[mealIndex].ingredients[index].carbs
-                  : ""
-              }
               onChange={(e) => editMeal("carbs", e.target.value)}
               style={{
                 width: "2.5em",
               }}
-              placeholder={food.carbs}
+              value={food.carbs}
             />
             g carbs
           </label>
@@ -265,19 +235,11 @@ export default function MealFood({
           >
             <input
               type="number"
-              value={
-                mealEdits[mealIndex].ingredients[index]
-                  ? mealEdits[mealIndex].ingredients[index].protein ===
-                    food.protein
-                    ? ""
-                    : mealEdits[mealIndex].ingredients[index].protein
-                  : ""
-              }
               onChange={(e) => editMeal("protein", e.target.value)}
               style={{
                 width: "2.5em",
               }}
-              placeholder={food.protein}
+              value={food.protein}
             />
             g protein
           </label>

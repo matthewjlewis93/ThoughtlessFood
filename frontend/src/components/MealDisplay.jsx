@@ -291,7 +291,7 @@ export default function MealDisplay({
                     width: "100%",
                   }}
                 >
-                  {meal.ingredients.map((m, i) => (
+                  {mealEdits[mealIndex].ingredients.map((m, i) => (
                     <MealFood
                       meal={meal}
                       key={i}

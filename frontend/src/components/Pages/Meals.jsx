@@ -34,7 +34,7 @@ export default function Meals() {
     e.preventDefault();
   
     if (meals.length === 0 || meals[0]._id !== "new") {
-      setMeals([
+      setVisibleMeals([
         {
           _id: "new",
           name: "",
@@ -51,24 +51,24 @@ export default function Meals() {
   };
 
   const handleAddIngredient = (newFood) => {
-    setMeals([
-      {
-        ...mealEdits[0],
-        ingredients: [
-          ...mealEdits[0].ingredients,
-          {
-            name: newFood.name || "",
-            calories: newFood.calories || 0,
-            fat: newFood.fat || 0,
-            carbs: newFood.carbs || 0,
-            protein: newFood.protein || 0,
-            amount: newFood.amount || 0,
-            unit: "gram",
-          },
-        ],
-      },
-      ...mealEdits.slice(1),
-    ]);
+    // setMeals([
+    //   {
+    //     ...mealEdits[0],
+    //     ingredients: [
+    //       ...mealEdits[0].ingredients,
+    //       {
+    //         name: newFood.name || "",
+    //         calories: newFood.calories || 0,
+    //         fat: newFood.fat || 0,
+    //         carbs: newFood.carbs || 0,
+    //         protein: newFood.protein || 0,
+    //         amount: newFood.amount || 0,
+    //         unit: "gram",
+    //       },
+    //     ],
+    //   },
+    //   ...mealEdits.slice(1),
+    // ]);
     setMealEdits([
       {
         ...mealEdits[0],
