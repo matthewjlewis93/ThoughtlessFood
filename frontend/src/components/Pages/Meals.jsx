@@ -10,7 +10,7 @@ export default function Meals() {
   const { APIUrl } = useContext(AppContext);
   const [meals, setMeals] = useState([]);
   const [visibleMeals, setVisibleMeals] = useState([]);
-  const [mealEdits, setMealEdits] = useState({});
+  const [mealEdits, setMealEdits] = useState([]);
   const [sortBy, setSortBy] = useState("alpha");
   const [USDADisplay, setUSDADisplay] = useState(false);
   const [mealStatus, setMealStatus] = useState({
@@ -34,7 +34,7 @@ export default function Meals() {
     e.preventDefault();
   
     if (meals.length === 0 || meals[0]._id !== "new") {
-      setVisibleMeals([
+      setMeals([
         {
           _id: "new",
           name: "",
@@ -46,29 +46,23 @@ export default function Meals() {
         },
         ...meals,
       ]);
+      setVisibleMeals([
+        {
+          _id: "new",
+          name: "",
+          complete: false,
+          lastLogged: createDateString(new Date("1900-1-1")),
+          ingredients: [
+            // { calories: 0, fat: 0, carbs: 0, protein: 0, amount: 0, unit: "grams" },
+          ],
+        },
+        ...visibleMeals,
+      ]);
       setMealStatus({ id: "new", expanded: true, option: "new" });
     }
   };
 
   const handleAddIngredient = (newFood) => {
-    // setMeals([
-    //   {
-    //     ...mealEdits[0],
-    //     ingredients: [
-    //       ...mealEdits[0].ingredients,
-    //       {
-    //         name: newFood.name || "",
-    //         calories: newFood.calories || 0,
-    //         fat: newFood.fat || 0,
-    //         carbs: newFood.carbs || 0,
-    //         protein: newFood.protein || 0,
-    //         amount: newFood.amount || 0,
-    //         unit: "gram",
-    //       },
-    //     ],
-    //   },
-    //   ...mealEdits.slice(1),
-    // ]);
     setMealEdits([
       {
         ...mealEdits[0],
@@ -76,11 +70,11 @@ export default function Meals() {
           ...mealEdits[0].ingredients,
           {
             name: newFood.name || "",
-            calories: newFood.calories || 0,
-            fat: newFood.fat || 0,
-            carbs: newFood.carbs || 0,
-            protein: newFood.protein || 0,
-            amount: newFood.amount || 0,
+            calories: newFood.calories || '',
+            fat: newFood.fat || '',
+            carbs: newFood.carbs || '',
+            protein: newFood.protein || '',
+            amount: newFood.amount || '',
             unit: "gram",
           },
         ],

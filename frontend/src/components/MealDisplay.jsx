@@ -128,10 +128,10 @@ export default function MealDisplay({
 
   const sumTotals = () => {
     setMacros({
-      calories: meal.ingredients.reduce((a, b) => b.calories + a, 0),
-      fat: meal.ingredients.reduce((a, b) => b.fat + a, 0),
-      carbs: meal.ingredients.reduce((a, b) => b.carbs + a, 0),
-      protein: meal.ingredients.reduce((a, b) => b.protein + a, 0),
+      calories: meal.ingredients.reduce((a, b) => Number(b.calories) + a, 0),
+      fat: meal.ingredients.reduce((a, b) => Number(b.fat) + a, 0),
+      carbs: meal.ingredients.reduce((a, b) => Number(b.carbs) + a, 0),
+      protein: meal.ingredients.reduce((a, b) => Number(b.protein) + a, 0),
     });
   };
 
@@ -153,7 +153,6 @@ export default function MealDisplay({
   };
 
   const getSavedFoods = async () => {
-    console.log("check");
     if (savedFoods.length === 0) {
       let response = await fetch(APIUrl + "foods");
       response = await response.json();
@@ -445,7 +444,7 @@ export default function MealDisplay({
                     width: "100%",
                   }}
                 >
-                  {meal.ingredients.map((m, i) => (
+                  {mealEdits[mealIndex].ingredients.map((m, i) => (
                     <MealFood
                       key={i}
                       food={m}
@@ -475,7 +474,8 @@ export default function MealDisplay({
                           margin: "2px 5px",
                           display: "flex",
                           alignItems: "center",
-                          gap: "45px",
+                          justifyContent: "space-around"
+                          
                         }}
                       >
                         <select
@@ -483,7 +483,7 @@ export default function MealDisplay({
                             setChosenSavedFood(e.target.value);
                           }}
                           defaultValue="select-food"
-                          style={{ height: "25px", flexGrow: "1" }}
+                          style={{ height: "25px", flexGrow: "1", maxWidth:"240px" }}
                         >
                           <option disabled value="select-food">
                             Select a Saved Food
