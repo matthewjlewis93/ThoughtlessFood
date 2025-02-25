@@ -282,7 +282,7 @@ export default function LogFoodPage() {
             <div style={{ display: "flex", gap: "3px" }}>
               <input
                 type="number"
-                style={{ width: "60px" }}
+                style={{ width: "75px" }}
                 value={log.amount}
                 onChange={(e) => setLog({ ...log, amount: e.target.value })}
               ></input>
@@ -303,7 +303,7 @@ export default function LogFoodPage() {
             <label>Scale Macros:</label>
             <br />
             <div style={{ display: "flex", gap: "3px" }}>
-              <input style={{ width: "60px" }} type="number" />
+              <input style={{ width: "75px" }} type="number" placeholder="New amount" />
               <button
                 style={{
                   fontSize: "0.8em",
