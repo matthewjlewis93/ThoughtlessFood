@@ -63,7 +63,8 @@ export default function HChart({ data }) {
             position: "relative",
             top: "17px",
             zIndex: 2,
-            transitionDuration: "2000ms",
+            transitionProperty: "width",
+            transitionDuration: "1500ms",
           }}
         >
           <span
