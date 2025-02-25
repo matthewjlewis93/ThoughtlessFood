@@ -53,6 +53,7 @@ export default function MealDisplay({
     }
     setMealStatus({ id: "", expanded: false, option: "" });
     let mealToSend = structuredClone(mealEdits[0]);
+    mealToSend.lastLogged = createDateString(new Date("2024-9-10"))
     delete mealToSend.complete;
     delete mealToSend._id;
     let res = await fetch(`${APIUrl}meals`, {
@@ -91,10 +92,10 @@ export default function MealDisplay({
           };
         } else {
           return {
-            calories: acc.calories + curr.calories,
-            fat: acc.fat + curr.fat,
-            carbs: acc.carbs + curr.carbs,
-            protein: acc.protein + curr.protein,
+            calories: acc.calories + Number(curr.calories),
+            fat: acc.fat + Number(curr.fat),
+            carbs: acc.carbs + Number(curr.carbs),
+            protein: acc.protein + Number(curr.protein),
           };
         }
       },

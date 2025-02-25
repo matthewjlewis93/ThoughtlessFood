@@ -49,10 +49,12 @@ export default function MealFood({
         ingredients: mealEdits[mealIndex].ingredients.toSpliced(index, 1, {
           ...mealEdits[mealIndex].ingredients[index],
           amount: newAmount,
-          calories: Math.round( (thisIngredient.calories / oldAmount) * newAmount),
-          fat: Math.round( (thisIngredient.fat / oldAmount) * newAmount),
-          carbs: Math.round( (thisIngredient.carbs / oldAmount) * newAmount),
-          protein: Math.round( (thisIngredient.protein / oldAmount) * newAmount),
+          calories: Math.round(
+            (thisIngredient.calories / oldAmount) * newAmount
+          ),
+          fat: Math.round((thisIngredient.fat / oldAmount) * newAmount),
+          carbs: Math.round((thisIngredient.carbs / oldAmount) * newAmount),
+          protein: Math.round((thisIngredient.protein / oldAmount) * newAmount),
         }),
       })
     );
@@ -112,6 +114,7 @@ export default function MealFood({
             />
             <div>
               <input
+                type="number"
                 value={food.amount}
                 style={{ width: "2.8em" }}
                 onChange={(e) => editMeal("amount", e.target.value)}
@@ -253,7 +256,7 @@ export default function MealFood({
               flexDirection: "column",
               justifyContent: "center",
               padding: "5px",
-              gap: "2px"
+              gap: "2px",
             }}
           >
             <h2>{food.name}</h2>

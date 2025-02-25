@@ -10,6 +10,7 @@ export default function Meals() {
   const { APIUrl } = useContext(AppContext);
   const [meals, setMeals] = useState([]);
   const [visibleMeals, setVisibleMeals] = useState([]);
+  const [searchedMeals, setSearchedMeals] = useState([]);
   const [mealEdits, setMealEdits] = useState([]);
   const [sortBy, setSortBy] = useState("alpha");
   const [USDADisplay, setUSDADisplay] = useState(false);
@@ -26,23 +27,26 @@ export default function Meals() {
         ? (a, b) => a.name.localeCompare(b.name)
         : (a, b) => b.lastLogged.localeCompare(a.lastLogged)
     );
+    mealsToShow = mealsToShow.filter((meal) => 
+      searchedMeals.map((s) => s._id).includes(meal._id)
+    );
+
     setVisibleMeals(mealsToShow);
     setMealEdits(mealsToShow);
   };
 
   const handleAddMeal = (e) => {
     e.preventDefault();
-  
+
     if (meals.length === 0 || meals[0]._id !== "new") {
+      setMealStatus({ id: "new", expanded: true, option: "new" });
       setMeals([
         {
           _id: "new",
           name: "",
           complete: false,
-          lastLogged: createDateString(new Date("1900-1-1")),
-          ingredients: [
-            // { calories: 0, fat: 0, carbs: 0, protein: 0, amount: 0, unit: "grams" },
-          ],
+          lastLogged: createDateString(new Date(new Date().setDate(new Date().getDate() + 1))),
+          ingredients: [],
         },
         ...meals,
       ]);
@@ -51,36 +55,43 @@ export default function Meals() {
           _id: "new",
           name: "",
           complete: false,
-          lastLogged: createDateString(new Date("1900-1-1")),
-          ingredients: [
-            // { calories: 0, fat: 0, carbs: 0, protein: 0, amount: 0, unit: "grams" },
-          ],
+          lastLogged: createDateString(new Date(new Date().setDate(new Date().getDate() + 1))),
+          ingredients: [],
         },
         ...visibleMeals,
+      ])
+      setSearchedMeals([
+        {
+          _id: "new",
+          name: "",
+          complete: false,
+          lastLogged: createDateString(new Date(new Date().setDate(new Date().getDate() + 1))),
+          ingredients: [],
+        },
+        ...searchedMeals
       ]);
-      setMealStatus({ id: "new", expanded: true, option: "new" });
     }
   };
 
   const handleAddIngredient = (newFood) => {
-    setMealEdits([
-      {
-        ...mealEdits[0],
+    let editIndex = mealEdits.findIndex((meal) => meal._id === mealStatus.id);
+    setMealEdits(
+      mealEdits.toSpliced(editIndex, 1, {
+        ...mealEdits[editIndex],
         ingredients: [
-          ...mealEdits[0].ingredients,
+          ...mealEdits[editIndex].ingredients,
           {
             name: newFood.name || "",
-            calories: newFood.calories || '',
-            fat: newFood.fat || '',
-            carbs: newFood.carbs || '',
-            protein: newFood.protein || '',
-            amount: newFood.amount || '',
+            calories: newFood.calories || "",
+            fat: newFood.fat || "",
+            carbs: newFood.carbs || "",
+            protein: newFood.protein || "",
+            amount: newFood.amount || "",
             unit: "gram",
           },
         ],
-      },
-      ...mealEdits.slice(1),
-    ]);
+      })
+    );
     setUSDADisplay(false);
   };
 
@@ -88,6 +99,7 @@ export default function Meals() {
     const res = await fetch(APIUrl + "meals");
     const data = await res.json();
     setMeals(data.data);
+    setSearchedMeals(data.data);
   };
 
   useEffect(() => {
@@ -96,12 +108,13 @@ export default function Meals() {
 
   useEffect(() => {
     editVisibleMeals();
-  }, [meals, mealStatus, sortBy]);
+  }, [meals, mealStatus, sortBy, searchedMeals]);
 
   useEffect(() => {
     if (mealStatus.option !== "new") {
       setMeals(meals.filter((m) => m.complete !== false));
       setMealEdits(meals.filter((m) => m.complete !== false));
+      setSearchedMeals(searchedMeals.filter(m => m.complete !== false))
     } else {
       setMealEdits(meals);
     }
@@ -125,7 +138,7 @@ export default function Meals() {
         Saved Meals
         <hr />
       </h1>
-      <SearchBar itemList={mealEdits} setItemList={setVisibleMeals} />
+      <SearchBar itemList={meals} setItemList={setSearchedMeals} />
       <form
         style={{
           display: "flex",
