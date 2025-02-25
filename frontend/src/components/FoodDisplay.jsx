@@ -350,7 +350,7 @@ export default function displayFoods({
                   })
                 }
                 placeholder={food.calories}
-                style={{ width: "3em", padding: "0" }}
+                style={{ width: "2.6em", padding: "0" }}
               />{" "}
               calories
             </p>
@@ -380,7 +380,7 @@ export default function displayFoods({
                   })
                 }
                 placeholder={food.fat}
-                style={{ width: "3em", padding: "0" }}
+                style={{ width: "2.6em", padding: "0" }}
               />{" "}
               g fat
             </p>
@@ -396,7 +396,7 @@ export default function displayFoods({
                   })
                 }
                 placeholder={food.carbs}
-                style={{ width: "3em", padding: "0" }}
+                style={{ width: "2.6em", padding: "0" }}
               />{" "}
               g carbs
             </p>
@@ -413,7 +413,7 @@ export default function displayFoods({
                   })
                 }
                 placeholder={food.protein}
-                style={{ width: "3em", padding: "0" }}
+                style={{ width: "2.6em", padding: "0" }}
               />{" "}
               g protein
             </p>

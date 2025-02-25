@@ -16,9 +16,6 @@ export default function MealFood({
   const [visible, setVisible] = useState(true);
   const [deleteItem, setDeleteItem] = useState(false);
   const editMeal = (property, value) => {
-    // if (Boolean(Number(value)) || value == 0) {
-    //   value = Number(value);
-    // }
     setMealEdits(
       mealEdits.toSpliced(mealIndex, 1, {
         ...mealEdits[mealIndex],
