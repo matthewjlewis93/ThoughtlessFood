@@ -24,7 +24,7 @@ export default function MealFood({
         ...mealEdits[mealIndex],
         ingredients: mealEdits[mealIndex].ingredients.toSpliced(index, 1, {
           ...mealEdits[mealIndex].ingredients[index],
-          [property]: value !== "" ? value : meal[property],
+          [property]: value,
         }),
       })
     );
@@ -53,7 +53,6 @@ export default function MealFood({
       return;
     }
     const thisIngredient = mealEdits[mealIndex].ingredients[index];
-
     setMealEdits(
       mealEdits.toSpliced(mealIndex, 1, {
         ...mealEdits[mealIndex],
