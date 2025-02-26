@@ -40,6 +40,18 @@ export default function Meals() {
 
     if (meals.length === 0 || meals[0]._id !== "new") {
       setMealStatus({ id: "new", expanded: true, option: "new" });
+      setMealEdits([
+        {
+          _id: "new",
+          name: "",
+          complete: false,
+          lastLogged: createDateString(
+            new Date(new Date().setDate(new Date().getDate() + 1))
+          ),
+          ingredients: [],
+        },
+        ...meals,
+      ]);      
       setMeals([
         {
           _id: "new",

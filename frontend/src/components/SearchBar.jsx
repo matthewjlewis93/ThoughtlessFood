@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 export default function SearchBar({ itemList, setItemList }) {
+  const [searchTerm, setSearchTerm] = useState('');
   const handleSearch = (value) => {
+    setSearchTerm(value);
     if (value === "") return setItemList(itemList);
     let filteredList = [];
     filteredList = itemList.filter((item) =>
@@ -15,6 +17,8 @@ export default function SearchBar({ itemList, setItemList }) {
     );
     setItemList(filteredList);
   };
+
+  useEffect((() => {handleSearch(searchTerm)}),[itemList])
 
   return (
       <input
