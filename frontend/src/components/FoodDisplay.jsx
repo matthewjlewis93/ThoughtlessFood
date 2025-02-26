@@ -153,6 +153,23 @@ export default function displayFoods({
     const newAmount = e.target.form[0].value;
     const oldAmount = foodEdit.amount || food.amount;
 
+    if (newAmount === '') {
+      setToastInfo({
+        toastActivated: true,
+        toastMessage: "Please enter an amount to scale to",
+        positive: false
+      })
+      return;
+    }
+    if (oldAmount === '' || oldAmount === 0) {
+      setToastInfo({
+        toastActivated: true,
+        toastMessage: "Food amount can't be blank or 0",
+        positive: false
+      })
+      return;
+    }
+
     setFoodEdit({
       ...foodEdit,
       amount: newAmount,

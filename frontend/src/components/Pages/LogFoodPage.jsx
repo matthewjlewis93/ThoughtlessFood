@@ -122,6 +122,22 @@ export default function LogFoodPage() {
   const convertMacros = (e) => {
     e.preventDefault();
     const newAmount = e.target.form[11].value;
+    if (newAmount === "") {
+      setToastInfo({
+        toastActivated: true,
+        toastMessage: "Please enter an amount to scale to",
+        positive: false,
+      });
+      return;
+    }
+    if (log.amount === "" || log.amount === 0) {
+      setToastInfo({
+        toastActivated: true,
+        toastMessage: "Food amount can't be blank or 0",
+        positive: false
+      });
+      return;
+    }
 
     setLog({
       ...log,

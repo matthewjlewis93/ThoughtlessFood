@@ -16,7 +16,7 @@ export default function MealFood({
   const [visible, setVisible] = useState(true);
   const [deleteItem, setDeleteItem] = useState(false);
   const editMeal = (property, value) => {
-    if (property !== "name" && value !== '') {
+    if (property !== "name" && value !== "") {
       value = Number(value);
     }
     setMealEdits(
@@ -44,11 +44,19 @@ export default function MealFood({
     e.preventDefault();
     const newAmount = e.target.form[0].value;
     const oldAmount = mealEdits[mealIndex].ingredients[index].amount;
-    if (oldAmount === 0 || oldAmount === '') {
+    if (oldAmount === 0 || oldAmount === "") {
       setToastInfo({
         toastActivated: true,
         toastMessage: "Ingredient amount can't be blank or 0",
-        positive: false
+        positive: false,
+      });
+      return;
+    }
+    if (newAmount === "") {
+      setToastInfo({
+        toastActivated: true,
+        toastMessage: "Please set amount to scale to",
+        positive: false,
       });
       return;
     }
