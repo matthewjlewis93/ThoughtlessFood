@@ -53,7 +53,7 @@ export default function MealDisplay({
     }
     setMealStatus({ id: "", expanded: false, option: "" });
     let mealToSend = structuredClone(mealEdits[0]);
-    mealToSend.lastLogged = createDateString(new Date("2024-9-10"))
+    mealToSend.lastLogged = createDateString(new Date("2024-9-10"));
     delete mealToSend.complete;
     delete mealToSend._id;
     let res = await fetch(`${APIUrl}meals`, {
@@ -137,7 +137,29 @@ export default function MealDisplay({
   };
 
   const submitEdit = async () => {
+    
+    let mealToEdit = mealEdits[mealIndex];
+
+    if (!mealToEdit.ingredients.every((i) => i.name)) {
+      setToastInfo({
+        toastActivated: true,
+        toastMessage: "Please name all of your ingredients",
+        positive: false,
+      });
+      return;
+    }
+
+    mealToEdit.ingredients = mealToEdit.ingredients.map((ingredient) => ({
+      ...ingredient,
+      calories: ingredient.calories || 0,
+      fat: ingredient.fat || 0,
+      carbs: ingredient.carbs || 0,
+      protein: ingredient.protein || 0,
+      amount: ingredient.amount || 1,
+    }));
+
     setMealStatus({ id: meal._id, expanded: true, option: "" });
+
     await fetch(`${APIUrl}meals/${meal._id}`, {
       method: "PATCH",
       headers: {
@@ -475,8 +497,7 @@ export default function MealDisplay({
                           margin: "2px 5px",
                           display: "flex",
                           alignItems: "center",
-                          justifyContent: "space-around"
-                          
+                          justifyContent: "space-around",
                         }}
                       >
                         <select
@@ -484,7 +505,11 @@ export default function MealDisplay({
                             setChosenSavedFood(e.target.value);
                           }}
                           defaultValue="select-food"
-                          style={{ height: "25px", flexGrow: "1", maxWidth:"240px" }}
+                          style={{
+                            height: "25px",
+                            flexGrow: "1",
+                            maxWidth: "240px",
+                          }}
                         >
                           <option disabled value="select-food">
                             Select a Saved Food

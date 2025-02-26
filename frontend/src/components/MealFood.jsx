@@ -12,10 +12,15 @@ export default function MealFood({
   mealFoodAmount,
   setMealFoodAmount,
 }) {
-  const { APIUrl } = useContext(AppContext);
+  const { APIUrl, setToastInfo } = useContext(AppContext);
   const [visible, setVisible] = useState(true);
   const [deleteItem, setDeleteItem] = useState(false);
   const editMeal = (property, value) => {
+    console.log(value);
+    console.log(property);
+    if (property !== "name" && value !== '') {
+      value = Number(value);
+    }
     setMealEdits(
       mealEdits.toSpliced(mealIndex, 1, {
         ...mealEdits[mealIndex],
