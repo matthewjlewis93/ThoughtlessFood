@@ -27,7 +27,7 @@ export default function Meals() {
         ? (a, b) => a.name.localeCompare(b.name)
         : (a, b) => b.lastLogged.localeCompare(a.lastLogged)
     );
-    mealsToShow = mealsToShow.filter((meal) => 
+    mealsToShow = mealsToShow.filter((meal) =>
       searchedMeals.map((s) => s._id).includes(meal._id)
     );
 
@@ -51,13 +51,15 @@ export default function Meals() {
           ingredients: [],
         },
         ...meals,
-      ]);      
+      ]);
       setMeals([
         {
           _id: "new",
           name: "",
           complete: false,
-          lastLogged: createDateString(new Date(new Date().setDate(new Date().getDate() + 1))),
+          lastLogged: createDateString(
+            new Date(new Date().setDate(new Date().getDate() + 1))
+          ),
           ingredients: [],
         },
         ...meals,
@@ -67,20 +69,24 @@ export default function Meals() {
           _id: "new",
           name: "",
           complete: false,
-          lastLogged: createDateString(new Date(new Date().setDate(new Date().getDate() + 1))),
+          lastLogged: createDateString(
+            new Date(new Date().setDate(new Date().getDate() + 1))
+          ),
           ingredients: [],
         },
         ...visibleMeals,
-      ])
+      ]);
       setSearchedMeals([
         {
           _id: "new",
           name: "",
           complete: false,
-          lastLogged: createDateString(new Date(new Date().setDate(new Date().getDate() + 1))),
+          lastLogged: createDateString(
+            new Date(new Date().setDate(new Date().getDate() + 1))
+          ),
           ingredients: [],
         },
-        ...searchedMeals
+        ...searchedMeals,
       ]);
     }
   };
@@ -94,11 +100,11 @@ export default function Meals() {
           ...mealEdits[editIndex].ingredients,
           {
             name: newFood.name || "",
-            calories: newFood.calories || '',
-            fat: newFood.fat || '',
-            carbs: newFood.carbs || '',
-            protein: newFood.protein || '',
-            amount: newFood.amount || '',
+            calories: newFood.calories || "",
+            fat: newFood.fat || "",
+            carbs: newFood.carbs || "",
+            protein: newFood.protein || "",
+            amount: newFood.amount || "",
             unit: "gram",
           },
         ],
@@ -126,7 +132,7 @@ export default function Meals() {
     if (mealStatus.option !== "new") {
       setMeals(meals.filter((m) => m.complete !== false));
       setMealEdits(meals.filter((m) => m.complete !== false));
-      setSearchedMeals(searchedMeals.filter(m => m.complete !== false))
+      setSearchedMeals(searchedMeals.filter((m) => m.complete !== false));
     } else {
       setMealEdits(meals);
     }
@@ -150,35 +156,39 @@ export default function Meals() {
         Saved Meals
         <hr />
       </h1>
-      <SearchBar itemList={meals} setItemList={setSearchedMeals} />
-      <form
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          maxWidth: "425px",
-          margin: "0px auto 2px auto",
-        }}
-      >
-        <label>
-          Alphabetical
-          <input
-            name="sort"
-            type="radio"
-            defaultChecked={true}
-            onChange={() => setSortBy("alpha")}
-          />
-        </label>
+      <div className="search-filter-bar">
+        <SearchBar itemList={meals} setItemList={setSearchedMeals} />
+        <form
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+            maxWidth: "425px",
+            margin: "0px auto 2px auto",
+          }}
+        >
+          <label>
+            Alphabetical
+            <input
+              name="sort"
+              type="radio"
+              defaultChecked={true}
+              onChange={() => setSortBy("alpha")}
+            />
+          </label>
 
-        <label>
-          Recently Logged
-          <input
-            name="sort"
-            type="radio"
-            onChange={() => setSortBy("recent")}
-          />
-        </label>
-        <button onClick={(e) => handleAddMeal(e)}>Add Meal</button>
-      </form>
+          <label>
+            Recently Logged
+            <input
+              name="sort"
+              type="radio"
+              onChange={() => setSortBy("recent")}
+            />
+          </label>
+          <button onClick={(e) => handleAddMeal(e)}>Add Meal</button>
+        </form>
+      </div>
+
       <div id={"meal-div"}>
         {visibleMeals.map((e, i) => (
           <div key={e._id}>

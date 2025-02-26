@@ -323,6 +323,12 @@ input::-webkit-inner-spin-button {
   font-size: 18px;
 }
 
+.search-filter-bar {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: none;
+}
+
 /* Firefox */
 /* input[type=number] {
   -moz-appearance: textfield;
@@ -343,10 +349,10 @@ input::-webkit-inner-spin-button {
     /* width: 30%; */
   }
   #foods-div {
-    height: calc(50svh - 129px);
+    height: calc(50svh - 108px);
   }
   #meal-div {
-    height: calc(50svh - 108px);
+    height: calc(50svh - 84px);
   }
   #what-fits-div {
     height: calc(50svh - 92px);
@@ -364,6 +370,11 @@ input::-webkit-inner-spin-button {
   .subpage.transition {
     right: -50vw;
     left: 50vw;
+  }
+  .search-filter-bar{
+    grid-template-columns: 1fr 350px;
+    grid-template-rows: none;
+    gap: 15px
   }
   h1 {
     font-size: 25px;

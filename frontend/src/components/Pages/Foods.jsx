@@ -53,13 +53,13 @@ export default function Foods() {
   const addFoodFromLookup = (food) => {
     newFood(food);
     setDisplayFoodLookup(false);
-  }
+  };
 
   const newFood = (food) => {
     const addedFood = {
       _id: document.querySelectorAll("#foods-div .item-container").length,
       placeholderName: food.name || "",
-      name: '',
+      name: "",
       fat: food ? food.fat : "",
       calories: food ? food.calories : "",
       carbs: food ? food.carbs : "",
@@ -126,42 +126,46 @@ export default function Foods() {
         Saved Foods
         <hr />
       </h1>
-      <SearchBar itemList={foods} setItemList={setSearchedFoods} />
-      <form
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: "1px",
-        }}
-      >
-        <label>
-          Alphabetical
-          <input
-            name="sort"
-            type="radio"
-            defaultChecked={true}
-            onChange={() => setSortBy("alpha")}
-          />
-        </label>
+      <div className="search-filter-bar">
+        <SearchBar itemList={foods} setItemList={setSearchedFoods} />
+        <form
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+            marginBottom: "1px",
+          }}
+        >
+          <label>
+            Alphabetical
+            <input
+              name="sort"
+              type="radio"
+              defaultChecked={true}
+              onChange={() => setSortBy("alpha")}
+            />
+          </label>
 
-        <label>
-          Recently Logged
-          <input
-            name="sort"
-            type="radio"
-            onChange={() => setSortBy("recent")}
-          />
-        </label>
+          <label>
+            Recently Logged
+            <input
+              name="sort"
+              type="radio"
+              onChange={() => setSortBy("recent")}
+            />
+          </label>
 
-        <label>
-          <img src={favorite} />
-          <input
-            type="checkbox"
-            value={filterFavorites}
-            onChange={handleFavorites}
-          />
-        </label>
-      </form>
+          <label>
+            <img src={favorite} />
+            <input
+              type="checkbox"
+              value={filterFavorites}
+              onChange={handleFavorites}
+            />
+          </label>
+        </form>
+      </div>
+
       <button
         style={{
           height: "18px",
@@ -202,7 +206,12 @@ export default function Foods() {
           </div>
         ))}
       </div>
-      {displayFoodLookup && <USDALookup setAddFood={addFoodFromLookup} setDisplay={setDisplayFoodLookup} />}
+      {displayFoodLookup && (
+        <USDALookup
+          setAddFood={addFoodFromLookup}
+          setDisplay={setDisplayFoodLookup}
+        />
+      )}
     </div>
   );
 }
