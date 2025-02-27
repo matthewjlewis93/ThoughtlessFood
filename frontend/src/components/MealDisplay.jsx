@@ -51,6 +51,22 @@ export default function MealDisplay({
       });
       return;
     }
+    if (!mealEdits[0].ingredients.every((i) => i.name)) {
+      setToastInfo({
+        toastActivated: true,
+        toastMessage: "Please name all of your ingredients",
+        positive: false,
+      });
+      return;
+    }
+    if (mealEdits[0].ingredients.length === 0) {
+      setToastInfo({
+        toastActivated: true,
+        toastMessage: "Please add meal ingredients",
+        positive: false,
+      });
+      return;
+    }
     setMealStatus({ id: "", expanded: false, option: "" });
     let mealToSend = structuredClone(mealEdits[0]);
     mealToSend.lastLogged = createDateString(new Date("2024-9-10"));
@@ -137,13 +153,20 @@ export default function MealDisplay({
   };
 
   const submitEdit = async () => {
-    
     let mealToEdit = mealEdits[mealIndex];
 
     if (!mealToEdit.ingredients.every((i) => i.name)) {
       setToastInfo({
         toastActivated: true,
         toastMessage: "Please name all of your ingredients",
+        positive: false,
+      });
+      return;
+    }
+    if (mealToEdit.ingredients.length === 0) {
+      setToastInfo({
+        toastActivated: true,
+        toastMessage: "Please add meal ingredients",
         positive: false,
       });
       return;
