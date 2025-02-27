@@ -18,6 +18,7 @@ export default function UserSettings({ username, setSettingsDisplay }) {
 
   const updateSettings = (e) => {
     e.preventDefault();
+    e.target.form[0].blur();
     if (e.target.form[0].value >= 1200) {
       fetch(APIUrl + "settings", {
         method: "PATCH",
@@ -33,7 +34,7 @@ export default function UserSettings({ username, setSettingsDisplay }) {
     } else {
       setToastInfo({
         toastActivated: true,
-        toastMessage: "Calorie goal must be at least 1200.",
+        toastMessage: "Calorie goal must be at least 1200",
         positive: false,
       });
     }
