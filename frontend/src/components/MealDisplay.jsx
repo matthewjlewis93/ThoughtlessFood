@@ -144,15 +144,26 @@ export default function MealDisplay({
   };
 
   const sumTotals = () => {
-    // console.log(mealEdits[mealIndex]);
     if (mealEdits[mealIndex]) {
-    setMacros({
-      calories: mealEdits[mealIndex].ingredients.reduce((a, b) => Number(b.calories) + a, 0),
-      fat: mealEdits[mealIndex].ingredients.reduce((a, b) => Number(b.fat) + a, 0),
-      carbs: mealEdits[mealIndex].ingredients.reduce((a, b) => Number(b.carbs) + a, 0),
-      protein: mealEdits[mealIndex].ingredients.reduce((a, b) => Number(b.protein) + a, 0),
-    });
-  }
+      setMacros({
+        calories: mealEdits[mealIndex].ingredients.reduce(
+          (a, b) => Number(b.calories) + a,
+          0
+        ),
+        fat: mealEdits[mealIndex].ingredients.reduce(
+          (a, b) => Number(b.fat) + a,
+          0
+        ),
+        carbs: mealEdits[mealIndex].ingredients.reduce(
+          (a, b) => Number(b.carbs) + a,
+          0
+        ),
+        protein: mealEdits[mealIndex].ingredients.reduce(
+          (a, b) => Number(b.protein) + a,
+          0
+        ),
+      });
+    }
   };
 
   const submitEdit = async () => {

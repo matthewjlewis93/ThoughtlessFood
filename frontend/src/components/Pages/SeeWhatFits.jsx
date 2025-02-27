@@ -122,6 +122,7 @@ export default function SeeWhatFits() {
                 <MealDisplay
                   key={meal._id}
                   meal={meal}
+                  mealEdits={whatFits.meals}
                   mealIndex={i}
                   mealStatus={mealStatus}
                   setMealStatus={setMealStatus}
