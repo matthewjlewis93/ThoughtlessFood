@@ -144,12 +144,15 @@ export default function MealDisplay({
   };
 
   const sumTotals = () => {
+    // console.log(mealEdits[mealIndex]);
+    if (mealEdits[mealIndex]) {
     setMacros({
-      calories: meal.ingredients.reduce((a, b) => Number(b.calories) + a, 0),
-      fat: meal.ingredients.reduce((a, b) => Number(b.fat) + a, 0),
-      carbs: meal.ingredients.reduce((a, b) => Number(b.carbs) + a, 0),
-      protein: meal.ingredients.reduce((a, b) => Number(b.protein) + a, 0),
+      calories: mealEdits[mealIndex].ingredients.reduce((a, b) => Number(b.calories) + a, 0),
+      fat: mealEdits[mealIndex].ingredients.reduce((a, b) => Number(b.fat) + a, 0),
+      carbs: mealEdits[mealIndex].ingredients.reduce((a, b) => Number(b.carbs) + a, 0),
+      protein: mealEdits[mealIndex].ingredients.reduce((a, b) => Number(b.protein) + a, 0),
     });
+  }
   };
 
   const submitEdit = async () => {
@@ -210,7 +213,7 @@ export default function MealDisplay({
 
   useEffect(() => {
     sumTotals();
-  }, [mealStatus]);
+  }, [mealEdits]);
 
   if (mealStatus.id === meal._id) {
     switch (mealStatus.option) {
@@ -350,32 +353,92 @@ export default function MealDisplay({
                     />
                   ))}
                   <div
-                    onClick={handleAddIngredient}
                     style={{
-                      width: "calc(100% - 16px)",
-                      height: "22px",
-                      margin: "3px auto 3px auto",
                       display: "flex",
+                      flexWrap: "wrap",
                       justifyContent: "center",
                       alignItems: "center",
-                      backgroundColor: "#eee",
-                      borderRadius: "5px",
-                      border: "1px solid",
+                      margin: "3px 1px 3px 1px",
+                      gap: "10px",
                     }}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="#000"
-                      className="bi bi-plus-lg"
-                      viewBox="0 0 16 16"
+                    {selectSavedFoods && (
+                      <span
+                        style={{
+                          width: "100%",
+                          margin: "2px 5px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-around",
+                        }}
+                      >
+                        <select
+                          onChange={(e) => {
+                            setChosenSavedFood(e.target.value);
+                          }}
+                          defaultValue="select-food"
+                          style={{
+                            height: "25px",
+                            flexGrow: "1",
+                            maxWidth: "240px",
+                          }}
+                        >
+                          <option disabled value="select-food">
+                            Select a Saved Food
+                          </option>
+                          {savedFoods.map((foodOption) => (
+                            <option key={foodOption._id} value={foodOption._id}>
+                              {foodOption.name}
+                            </option>
+                          ))}
+                        </select>
+                        <SquareButton
+                          icon="check"
+                          onClickFunction={() => {
+                            handleAddIngredient(
+                              savedFoods.find((e) => e._id === chosenSavedFood)
+                            );
+                            setSelectSavedFoods(false);
+                          }}
+                        />
+                        <SquareButton
+                          icon="x"
+                          onClickFunction={() => setSelectSavedFoods(false)}
+                        />
+                      </span>
+                    )}
+                    <button
+                      onClick={handleAddIngredient}
+                      style={{
+                        fontSize: "11px",
+                        width: "calc(34% - 16px)",
+                        height: "28px",
+                      }}
                     >
-                      <path
-                        fillRule="evenodd"
-                        d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
-                      />
-                    </svg>
+                      Create New Food
+                    </button>
+                    <button
+                      onClick={getSavedFoods}
+                      style={{
+                        fontSize: "11px",
+                        width: "calc(34% - 16px)",
+                        height: "28px",
+                        // margin: "1px"
+                      }}
+                    >
+                      Add from Foods
+                    </button>
+                    <button
+                      onClick={() => setUSDADisplay(true)}
+                      style={{
+                        fontSize: "11px",
+                        width: "calc(34% - 16px)",
+                        height: "28px",
+                        // margin: "1px"
+                      }}
+                    >
+                      Search Basic Foods
+                    </button>
                   </div>
                 </div>
               )}
