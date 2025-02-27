@@ -65,6 +65,7 @@ export default function UserSettings({ username, setSettingsDisplay }) {
               borderRadius: "5px",
               height: "35px",
               transition: "transform 3000px",
+              padding: "4px 7px"
             }}
             onClick={(e) => changeIcons(e)}
           >
