@@ -216,7 +216,7 @@ export default function MealDisplay({
     if (savedFoods.length === 0) {
       let response = await fetch(APIUrl + "foods");
       response = await response.json();
-      // console.log(response.data);
+      console.log(response.data);
       setSavedFoods(response.data);
     }
     setSelectSavedFoods(true);
@@ -568,6 +568,7 @@ export default function MealDisplay({
                     <MealFood
                       key={i}
                       food={m}
+                      meal={meal}
                       mealIndex={mealIndex}
                       mealEdits={mealEdits}
                       status="new"

@@ -105,7 +105,7 @@ export default function Meals() {
             carbs: newFood.carbs || "",
             protein: newFood.protein || "",
             amount: newFood.amount || "",
-            unit: "gram",
+            unit: newFood.unit || "gram",
           },
         ],
       })

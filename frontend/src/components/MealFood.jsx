@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../Providers/ContextProvider";
 import SquareButton from "./SquareButton";
+import unitAutoConverter from "../unitAutoConverter";
 
 export default function MealFood({
   food,
+  meal,
   mealEdits,
   setMealEdits,
   status,
@@ -15,8 +17,13 @@ export default function MealFood({
   const { APIUrl, setToastInfo } = useContext(AppContext);
   const [visible, setVisible] = useState(true);
   const [deleteItem, setDeleteItem] = useState(false);
+  const [enteredAmount, setEnteredAmount] = useState({
+    unit: "gram",
+    amount: 0,
+  });
+
   const editMeal = (property, value) => {
-    if (property !== "name" && value !== "") {
+    if (property !== "name" && property !== "unit" && value !== "") {
       value = Number(value);
     }
     setMealEdits(
@@ -60,6 +67,7 @@ export default function MealFood({
       });
       return;
     }
+    setEnteredAmount({...enteredAmount, amount: newAmount});
     const thisIngredient = mealEdits[mealIndex].ingredients[index];
     setMealEdits(
       mealEdits.toSpliced(mealIndex, 1, {
@@ -77,6 +85,32 @@ export default function MealFood({
       })
     );
   };
+  const changeUnit = (newUnit) => {
+    const newAmount = unitAutoConverter(
+      enteredAmount.unit,
+      newUnit.target.value,
+      enteredAmount.amount
+    );
+    setMealEdits(
+      mealEdits.toSpliced(mealIndex, 1, {
+        ...mealEdits[mealIndex],
+        ingredients: mealEdits[mealIndex].ingredients.toSpliced(index, 1, {
+          ...mealEdits[mealIndex].ingredients[index],
+          unit: newUnit.target.value,
+          amount: newAmount,
+        }),
+      })
+    );
+  };
+
+  useEffect(() => {
+    if (food.amount) {
+      setEnteredAmount({
+        amount: food.amount,
+        unit: food.unit,
+      });
+    }
+  }, []);
 
   switch (status) {
     case "new":
@@ -135,10 +169,24 @@ export default function MealFood({
                 type="number"
                 value={food.amount}
                 style={{ width: "2.8em" }}
-                onChange={(e) => editMeal("amount", e.target.value)}
+                onChange={(e) => {
+                  editMeal("amount", e.target.value);
+                  setEnteredAmount({
+                    unit: food.unit,
+                    amount: e.target.value,
+                  });
+                }}
               />
               <select
-                onChange={(e) => editMeal("unit", e.target.value)}
+                onChange={(e) => {
+                  changeUnit(e);
+                  if (enteredAmount.amount === 0) {
+                    setEnteredAmount({
+                      ...enteredAmount,
+                      unit: e.target.value,
+                    });
+                  }
+                }}
                 style={{ marginLeft: "3px", width: "5em" }}
                 defaultValue={food.unit}
               >

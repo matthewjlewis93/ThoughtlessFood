@@ -14,7 +14,7 @@ export default function Foods() {
   const [favoriteFoods, setFavoriteFoods] = useState([]); //foods displayed
   const [displayedFoods, setDisplayedFoods] = useState([]);
   const [sortBy, setSortBy] = useState("alpha");
-  const [foodEdit, setFoodEdit] = useState({});
+  const [foodEdit, setFoodEdit] = useState({amount: 0, unit: ''});
   const [logDate, setLogDate] = useState(createDateString(new Date()));
   const [filterFavorites, setFilterFavorites] = useState(false);
   const [displayFoodLookup, setDisplayFoodLookup] = useState(false);
@@ -58,21 +58,21 @@ export default function Foods() {
   const newFood = (food) => {
     const addedFood = {
       _id: document.querySelectorAll("#foods-div .item-container").length,
-      placeholderName: food.name || "",
+      placeholderName: food ? food.name : "",
       name: "",
       fat: food ? food.fat : "",
       calories: food ? food.calories : "",
       carbs: food ? food.carbs : "",
       protein: food ? food.protein : "",
-      amount: food.amount || "",
-      unit: food.unit || "",
+      amount: food ? food.amount : "",
+      unit: food ? food.unit : "gram",
       lastLogged: createDateString(new Date()),
       category: "fooditem",
       favorite: false,
     };
     setFoods([addedFood, ...foods]);
-    setSearchedFoods([...searchedFoods, addedFood]);
-    setFavoriteFoods([...favoriteFoods, addedFood]);
+    setSearchedFoods([addedFood, ...searchedFoods]);
+    setFavoriteFoods([addedFood, ...favoriteFoods]);
     setItemStates({
       item: document.querySelectorAll("#foods-div .item-container").length,
       option: "new",
@@ -105,6 +105,16 @@ export default function Foods() {
         )
     );
   }, [favoriteFoods, searchedFoods, foods, sortBy]);
+
+  useEffect(() => {
+    if (itemStates.option === 'edit') {
+      setFoodEdit(foods.find(f => f._id === itemStates.item))
+    } else if (itemStates.option === 'new') {
+      setFoodEdit(foods[0]);
+    } else {
+      setFoodEdit({amount: 0, unit: 'gram'});
+    }
+  }, [itemStates])
 
   return (
     <div
@@ -199,6 +209,8 @@ export default function Foods() {
               setItemState={setItemStates}
               allFoods={foods}
               setAllFoods={setFoods}
+              foodEdit={foodEdit}
+              setFoodEdit={setFoodEdit}
               buttons={["addtolog", "edit", "trash"]}
               link="foods"
               favoritable={true}

@@ -1,14 +1,17 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import createDateString from "../createDateString";
 import DatePicker from "./DatePicker";
 import { AppContext } from "../Providers/ContextProvider";
 import FavoriteButton from "./FavoriteButton";
 import SquareButton from "./SquareButton";
+import unitAutoConverter from "../unitAutoConverter";
 
 export default function displayFoods({
   food,
   allFoods,
   setAllFoods,
+  foodEdit = {amount: 0, unit: 'gram'},
+  setFoodEdit,
   buttons,
   itemState,
   setItemState,
@@ -16,8 +19,11 @@ export default function displayFoods({
   favoritable = false,
 }) {
   const { APIUrl, setToastInfo } = useContext(AppContext);
-  const [foodEdit, setFoodEdit] = useState({});
   const [logDate, setLogDate] = useState(createDateString(new Date()));
+  const [enteredAmount, setEnteredAmount] = useState({
+    unit: "gram",
+    amount: 0,
+  });
 
   const stateReset = () => {
     setItemState({
@@ -153,25 +159,26 @@ export default function displayFoods({
     const newAmount = e.target.form[0].value;
     const oldAmount = foodEdit.amount || food.amount;
 
-    if (newAmount === '') {
+    if (newAmount === "") {
       setToastInfo({
         toastActivated: true,
         toastMessage: "Please enter an amount to scale to",
-        positive: false
-      })
+        positive: false,
+      });
       return;
     }
-    if (oldAmount === '' || oldAmount === 0) {
+    if (oldAmount === "" || oldAmount === 0) {
       setToastInfo({
         toastActivated: true,
         toastMessage: "Food amount can't be blank or 0",
-        positive: false
-      })
+        positive: false,
+      });
       return;
     }
-
+    setEnteredAmount({...enteredAmount, amount: newAmount})
     setFoodEdit({
       ...foodEdit,
+      id: food._id,
       amount: newAmount,
       calories: foodEdit.calories
         ? Math.round((foodEdit.calories / oldAmount) * newAmount)
@@ -189,7 +196,7 @@ export default function displayFoods({
   };
 
   const updateFood = async () => {
-    const res = await fetch(`${APIUrl}${link}/${foodEdit.id}`, {
+    const res = await fetch(`${APIUrl}${link}/${food._id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -212,6 +219,29 @@ export default function displayFoods({
       positive: true,
     });
   };
+
+  const changeUnit = (e) => {
+    const newAmount = unitAutoConverter(
+      enteredAmount.unit || 'gram',
+      e.target.value,
+      enteredAmount.amount
+    );
+    setFoodEdit({
+      ...foodEdit,
+      id: food._id,
+      unit: e.target.value,
+      amount: newAmount,
+    });
+  };
+
+  useEffect(() => {
+    if (food.amount) {
+      setEnteredAmount({
+        amount: food.amount,
+        unit: food.unit,
+      });
+    }
+  }, [food]);
 
   if (itemState.item === food._id) {
     switch (itemState.option) {
@@ -295,7 +325,8 @@ export default function displayFoods({
                     })
                   }
                   style={{ width: "85%", padding: 0 }}
-                  placeholder={food.placeholderName || food.name}
+                  value={foodEdit.placeholderName || foodEdit.name || ""}
+                  // placeholder={food.placeholderName || food.name}
                 />
               </h4>
               <p className="food-amount">
@@ -305,24 +336,30 @@ export default function displayFoods({
                       type="number"
                       placeholder={food.amount}
                       style={{ width: "3em" }}
-                      value={foodEdit.amount || ""}
-                      onChange={(e) =>
+                      value={foodEdit.amount + 1 ? foodEdit.amount : ""}
+                      onChange={(e) => {
                         setFoodEdit({
                           ...foodEdit,
                           id: food._id,
                           amount: e.target.value,
-                        })
-                      }
+                        });
+                        setEnteredAmount({
+                          unit: foodEdit.unit,
+                          amount: e.target.value,
+                        });
+                      }}
                     />
                     <select
                       style={{ marginLeft: "3px" }}
                       defaultValue={food.unit}
                       onChange={(e) => {
-                        setFoodEdit({
-                          ...foodEdit,
-                          id: food._id,
-                          unit: e.target.value,
-                        });
+                        changeUnit(e);
+                        if (enteredAmount.amount === 0) {
+                          setEnteredAmount({
+                            ...enteredAmount,
+                            unit: e.target.value,
+                          });
+                        }
                       }}
                     >
                       <option value="gram">grams</option>
@@ -358,7 +395,7 @@ export default function displayFoods({
               {" "}
               <input
                 type="number"
-                value={foodEdit.calories || ""}
+                value={foodEdit.calories + 1 ? foodEdit.calories : ""}
                 onChange={(e) =>
                   setFoodEdit({
                     ...foodEdit,
@@ -388,7 +425,7 @@ export default function displayFoods({
             <p>
               <input
                 type="number"
-                value={foodEdit.fat || ""}
+                value={foodEdit.fat + 1 ? foodEdit.fat : ""}
                 onChange={(e) =>
                   setFoodEdit({
                     ...foodEdit,
@@ -404,7 +441,7 @@ export default function displayFoods({
             <p>
               <input
                 type="number"
-                value={foodEdit.carbs || ""}
+                value={foodEdit.carbs + 1 ? foodEdit.carbs : ""}
                 onChange={(e) =>
                   setFoodEdit({
                     ...foodEdit,
@@ -421,7 +458,7 @@ export default function displayFoods({
               {" "}
               <input
                 type="number"
-                value={foodEdit.protein || ""}
+                value={foodEdit.protein + 1 ? foodEdit.protein : ""}
                 onChange={(e) =>
                   setFoodEdit({
                     ...foodEdit,
