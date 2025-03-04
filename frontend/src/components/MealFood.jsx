@@ -67,7 +67,7 @@ export default function MealFood({
       });
       return;
     }
-    setEnteredAmount({...enteredAmount, amount: newAmount});
+    setEnteredAmount({unit: food.unit, amount: newAmount});
     const thisIngredient = mealEdits[mealIndex].ingredients[index];
     setMealEdits(
       mealEdits.toSpliced(mealIndex, 1, {

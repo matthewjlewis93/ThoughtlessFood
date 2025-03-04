@@ -178,7 +178,7 @@ export default function displayFoods({
       });
       return;
     }
-    setEnteredAmount({ ...enteredAmount, amount: newAmount });
+    setEnteredAmount({ unit: foodEdit.unit, amount: newAmount });
     setFoodEdit({
       ...foodEdit,
       id: food._id,

@@ -5,6 +5,7 @@ import DatePicker from "../DatePicker";
 import createDateString from "../../createDateString";
 import CloseButton from "../CloseButton";
 import transitionControl from "../../transitionControl";
+import unitAutoConverter from "../../unitAutoConverter";
 
 export default function LogFoodPage() {
   const {
@@ -18,6 +19,10 @@ export default function LogFoodPage() {
   const [selection, setSelection] = useState(0);
   const [defaultDate, setDefaultDate] = useState("");
   const [saveAsFood, setSaveAsFood] = useState(false);
+  const [enteredAmount, setEnteredAmount] = useState({
+    amount: 0,
+    unit: "gram",
+  });
   const [log, setLog] = useState({
     name: "",
     meal: "",
@@ -134,7 +139,7 @@ export default function LogFoodPage() {
       setToastInfo({
         toastActivated: true,
         toastMessage: "Food amount can't be blank or 0",
-        positive: false
+        positive: false,
       });
       return;
     }
@@ -151,7 +156,17 @@ export default function LogFoodPage() {
       fat: Math.round((Number(log.fat) / Number(log.amount)) * newAmount),
       amount: newAmount,
     });
-    e.target.form[11].value = '';
+    e.target.form[11].value = "";
+    setEnteredAmount({ unit: log.unit, amount: newAmount });
+  };
+
+  const changeUnit = (e) => {
+    const newAmount = unitAutoConverter(
+      enteredAmount.unit || "gram",
+      e.target.value,
+      enteredAmount.amount
+    );
+    setLog({...log, amount: newAmount, unit: e.target.value});
   };
 
   useEffect(() => {
@@ -291,21 +306,34 @@ export default function LogFoodPage() {
             ></input>
           </div>
         </div>
-        <div className="form-div" style={{ display: "flex", justifyContent: "space-between" }}>
+        <div
+          className="form-div"
+          style={{ display: "flex", justifyContent: "space-between" }}
+        >
           <div>
-            <label>Amount: </label>
+            <label htmlFor="log-food-amount">Amount: </label>
             <br />
             <div style={{ display: "flex", gap: "3px" }}>
               <input
+                id="log-food-amount"
                 type="number"
                 style={{ width: "75px" }}
                 value={log.amount}
-                onChange={(e) => setLog({ ...log, amount: e.target.value })}
+                onChange={(e) => {
+                  setLog({ ...log, amount: e.target.value });
+                  setEnteredAmount({
+                    unit: log.unit || 'gram',
+                    amount: e.target.value,
+                  });
+                }}
               ></input>
               <select
                 value={log.unit}
                 onChange={(e) => {
-                  setLog({ ...log, unit: e.target.value });
+                  changeUnit(e);
+                  if (enteredAmount.amount === 0) {
+                    setEnteredAmount({...enteredAmount, unit: e.target.value})
+                  }
                 }}
               >
                 <option value="gram">gram(s)</option>
@@ -316,10 +344,15 @@ export default function LogFoodPage() {
             </div>
           </div>
           <div>
-            <label>Scale Macros:</label>
+            <label htmlFor="log-food-scale">Scale Macros:</label>
             <br />
             <div style={{ display: "flex", gap: "3px" }}>
-              <input style={{ width: "75px" }} type="number" placeholder="New amount" />
+              <input
+                id="log-food-scale"
+                style={{ width: "75px" }}
+                type="number"
+                placeholder="New amount"
+              />
               <button
                 style={{
                   fontSize: "0.8em",
