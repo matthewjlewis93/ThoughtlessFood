@@ -113,7 +113,7 @@ export default function displayFoods({
   };
 
   const addFood = async () => {
-    if (foodEdit.name && food.name && food.placeholderName) {
+    if (!foodEdit.name && !food.name && !food.placeholderName) {
       setToastInfo({
         toastActivated: true,
         toastMessage: "Please name your food",
@@ -143,7 +143,7 @@ export default function displayFoods({
     const resData = await res.json();
     if (resData.success) {
       foodObj._id = food._id;
-      setAllFoods([...allFoods.splice(1), foodObj]);
+      setAllFoods([...allFoods.splice(1), resData.data]);
       stateReset();
       setToastInfo({
         toastActivated: true,

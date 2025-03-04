@@ -130,7 +130,7 @@ h2 {
 .grid-container {
   display: grid;
   grid-template-rows: repeat(4, 1fr);
-  grid-template-columns: 1fr auto 60px;
+  grid-template-columns: 1fr 110px 60px;
 }
 
 .grid-header {

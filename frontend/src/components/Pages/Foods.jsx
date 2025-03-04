@@ -11,10 +11,9 @@ export default function Foods() {
   const { activePage, APIUrl } = useContext(AppContext);
   const [foods, setFoods] = useState([]);
   const [searchedFoods, setSearchedFoods] = useState([]);
-  const [favoriteFoods, setFavoriteFoods] = useState([]); //foods displayed
   const [displayedFoods, setDisplayedFoods] = useState([]);
   const [sortBy, setSortBy] = useState("alpha");
-  const [foodEdit, setFoodEdit] = useState({amount: 0, unit: ''});
+  const [foodEdit, setFoodEdit] = useState({ amount: 0, unit: "" });
   const [logDate, setLogDate] = useState(createDateString(new Date()));
   const [filterFavorites, setFilterFavorites] = useState(false);
   const [displayFoodLookup, setDisplayFoodLookup] = useState(false);
@@ -23,14 +22,11 @@ export default function Foods() {
     option: "",
   });
 
-  const handleFavorites = () => {
-    setFilterFavorites(!filterFavorites);
-    if (!filterFavorites === true) {
-      setFavoriteFoods(foods.filter((food) => food.favorite));
-    } else {
-      setFavoriteFoods(foods);
-    }
-  };
+  const futureDate = () => {
+    const dateToday = new Date();
+    dateToday.setDate(dateToday.getDate() + 2);
+    return dateToday;
+  }
 
   const stateReset = () => {
     setItemStates({
@@ -47,7 +43,6 @@ export default function Foods() {
     const data = await res.json();
     setFoods(data.data);
     setSearchedFoods(data.data);
-    setFavoriteFoods(data.data);
   };
 
   const addFoodFromLookup = (food) => {
@@ -66,13 +61,12 @@ export default function Foods() {
       protein: food ? food.protein : "",
       amount: food ? food.amount : "",
       unit: food ? food.unit : "gram",
-      lastLogged: createDateString(new Date()),
+      lastLogged: createDateString(futureDate()),
       category: "fooditem",
       favorite: false,
     };
     setFoods([addedFood, ...foods]);
     setSearchedFoods([addedFood, ...searchedFoods]);
-    setFavoriteFoods([addedFood, ...favoriteFoods]);
     setItemStates({
       item: document.querySelectorAll("#foods-div .item-container").length,
       option: "new",
@@ -91,12 +85,13 @@ export default function Foods() {
   }, [currentlyActive]);
 
   useEffect(() => {
+
     setDisplayedFoods(
       foods
         .filter(
           (eachFood) =>
             searchedFoods.map((f) => f._id).includes(eachFood._id) &&
-            favoriteFoods.map((f) => f._id).includes(eachFood._id)
+            (filterFavorites ? eachFood.favorite : true)
         )
         .sort(
           sortBy === "alpha"
@@ -104,17 +99,17 @@ export default function Foods() {
             : (a, b) => b.lastLogged.localeCompare(a.lastLogged)
         )
     );
-  }, [favoriteFoods, searchedFoods, foods, sortBy]);
+  }, [filterFavorites, searchedFoods, foods, sortBy]);
 
   useEffect(() => {
-    if (itemStates.option === 'edit') {
-      setFoodEdit(foods.find(f => f._id === itemStates.item))
-    } else if (itemStates.option === 'new') {
+    if (itemStates.option === "edit") {
+      setFoodEdit(foods.find((f) => f._id === itemStates.item));
+    } else if (itemStates.option === "new") {
       setFoodEdit(foods[0]);
     } else {
-      setFoodEdit({amount: 0, unit: 'gram'});
+      setFoodEdit({ amount: 0, unit: "gram" });
     }
-  }, [itemStates])
+  }, [itemStates]);
 
   return (
     <div
@@ -169,8 +164,8 @@ export default function Foods() {
             <img src={favorite} />
             <input
               type="checkbox"
-              value={filterFavorites}
-              onChange={handleFavorites}
+              checked={filterFavorites}
+              onChange={() => setFilterFavorites(!filterFavorites)}
             />
           </label>
         </form>

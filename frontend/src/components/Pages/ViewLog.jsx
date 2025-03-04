@@ -65,7 +65,6 @@ export default function ViewLog() {
       allFoods.length === 0 ||
       Number(viewingDate.split('-')[1]) - 1 !== new Date(allFoods[0].date).getMonth()
     ) {
-      console.log(allFoods);
         fetchLog(viewingDate);
     }
     setDisplayFoods(
