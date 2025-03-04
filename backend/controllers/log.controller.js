@@ -51,6 +51,9 @@ export const getRangedLogs = async (req, res) => {
 
 export const addNewLog = async (req, res) => {
   // add new log
+  if (!req.body.guest) {
+    req.body.expireAt = new Date(Date.now() + 1096 * 24 * 60 * 60 * 1000); //three year expiration
+  }
   const newEntry = new FoodLog(req.body);
   try {
     await newEntry.save();

@@ -13,6 +13,7 @@ const userInfo = (req, res, next) => {
       // req.body.guest = decoded.guest;
       if (decoded.guest) {
         req.body.expireAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+        req.body.guest = true;
       }
       next();
     } catch (error) {
