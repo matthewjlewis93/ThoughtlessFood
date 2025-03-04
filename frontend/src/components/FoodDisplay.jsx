@@ -10,7 +10,7 @@ export default function displayFoods({
   food,
   allFoods,
   setAllFoods,
-  foodEdit = {amount: 0, unit: 'gram'},
+  foodEdit = { amount: 0, unit: "gram" },
   setFoodEdit,
   buttons,
   itemState,
@@ -20,6 +20,8 @@ export default function displayFoods({
 }) {
   const { APIUrl, setToastInfo } = useContext(AppContext);
   const [logDate, setLogDate] = useState(createDateString(new Date()));
+  const [logQuantity, setLogQuantity] = useState(food.amount);
+  const [logMeal, setLogMeal] = useState("");
   const [enteredAmount, setEnteredAmount] = useState({
     unit: "gram",
     amount: 0,
@@ -45,6 +47,7 @@ export default function displayFoods({
   };
 
   const submitFoodLog = async (foodID, logQuantity, logMeal) => {
+    console.log(logQuantity);
     let foodToLog = structuredClone(allFoods);
     foodToLog = foodToLog.filter((food) => food._id === foodID)[0];
     delete foodToLog._id;
@@ -175,7 +178,7 @@ export default function displayFoods({
       });
       return;
     }
-    setEnteredAmount({...enteredAmount, amount: newAmount})
+    setEnteredAmount({ ...enteredAmount, amount: newAmount });
     setFoodEdit({
       ...foodEdit,
       id: food._id,
@@ -222,7 +225,7 @@ export default function displayFoods({
 
   const changeUnit = (e) => {
     const newAmount = unitAutoConverter(
-      enteredAmount.unit || 'gram',
+      enteredAmount.unit || "gram",
       e.target.value,
       enteredAmount.amount
     );
@@ -241,23 +244,22 @@ export default function displayFoods({
         unit: food.unit,
       });
     }
+    const date = new Date();
+    const dateString = createDateString(date);
+    const currentHour = date.getHours();
+    if (currentHour < 12) {
+      setLogMeal("Breakfast");
+    } else if (currentHour < 17) {
+      setLogMeal("Lunch");
+    } else {
+      setLogMeal("Dinner");
+    }
   }, [food]);
 
   if (itemState.item === food._id) {
     switch (itemState.option) {
       case "log":
-        let logQuantity = food.amount;
-        const date = new Date();
-        const dateString = createDateString(date);
-        const currentHour = date.getHours();
-        let logMeal;
-        if (currentHour < 12) {
-          logMeal = "Breakfast";
-        } else if (currentHour < 17) {
-          logMeal = "Lunch";
-        } else {
-          logMeal = "Dinner";
-        }
+        // setLogQuantity(food.amount);
 
         return (
           <div
@@ -271,7 +273,9 @@ export default function displayFoods({
                 Amount to log:
                 <input
                   id="amount"
-                  onChange={(e) => (logQuantity = e.target.value)}
+                  onChange={(e) =>
+                    setLogQuantity(Number(e.target.value || food.amount))
+                  }
                   placeholder={food.amount}
                   style={{ width: "3em" }}
                   type="number"
@@ -283,7 +287,7 @@ export default function displayFoods({
               <select
                 defaultValue={logMeal}
                 style={{ marginTop: "2px" }}
-                onChange={(e) => (logMeal = e.target.value)}
+                onChange={(e) => setLogMeal(e.target.value)}
               >
                 <option value="Breakfast">Breakfast</option>
                 <option value="Morning Snack">Morning Snack</option>

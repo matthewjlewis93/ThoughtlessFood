@@ -63,9 +63,10 @@ export default function ViewLog() {
   useEffect(() => {
     if (
       allFoods.length === 0 ||
-      new Date(viewingDate).getMonth() !== new Date(allFoods[0].date).getMonth()
+      Number(viewingDate.split('-')[1]) - 1 !== new Date(allFoods[0].date).getMonth()
     ) {
-      fetchLog(viewingDate);
+      console.log(allFoods);
+        fetchLog(viewingDate);
     }
     setDisplayFoods(
       allFoods.filter((food) => {
