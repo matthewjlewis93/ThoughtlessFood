@@ -65,6 +65,7 @@ export default function LogFoodPage() {
       amount: "",
       unit: "gram",
     });
+    setEnteredAmount({amount: '', unit: 'gram'});
   };
 
   const recordLog = async (logData) => {
