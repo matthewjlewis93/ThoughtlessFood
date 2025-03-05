@@ -7,9 +7,9 @@ Provide a simple and easy way to log food and keep track of daily macro nutrient
   <li>Log foods and meals to track calories and nutrients</li>
   <li>Save foods for easy logging</li>
   <li>Create multi-ingredient meals</li>
-  <li>Log in with a username and password</li>
-  <li>Passwords are salted and encrypted</li>
+  <li>Log in with a username and secure password</li>
   <li>Dark mode option</li>
+  <li>Easy unit conversion</li>
 </ul>
 
 <h2>Stack</h2>
