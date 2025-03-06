@@ -325,7 +325,8 @@ export default function displayFoods({
                     setFoodEdit({
                       ...foodEdit,
                       id: food._id,
-                      name: e.target.value,
+                      placeholderName: e.target.value,
+                      name: e.target.value
                     })
                   }
                   style={{ width: "85%", padding: 0 }}

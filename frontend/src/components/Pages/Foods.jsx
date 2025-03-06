@@ -54,7 +54,7 @@ export default function Foods() {
     const addedFood = {
       _id: document.querySelectorAll("#foods-div .item-container").length,
       placeholderName: food ? food.name : "",
-      name: "",
+      name: food ? food.name : "",
       fat: food ? food.fat : "",
       calories: food ? food.calories : "",
       carbs: food ? food.carbs : "",
