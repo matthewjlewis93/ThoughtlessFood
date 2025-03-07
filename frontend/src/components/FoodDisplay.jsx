@@ -47,7 +47,6 @@ export default function displayFoods({
   };
 
   const submitFoodLog = async (foodID, logQuantity, logMeal) => {
-    console.log(logQuantity);
     let foodToLog = structuredClone(allFoods);
     foodToLog = foodToLog.filter((food) => food._id === foodID)[0];
     delete foodToLog._id;
