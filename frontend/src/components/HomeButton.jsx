@@ -1,8 +1,8 @@
 import react, { useContext } from "react";
-import { AppContext } from "../Providers/ContextProvider";
+import { AppContext } from "../Providers/ContextProvider.jsx";
 import transitionControl from "../transitionControl.js";
 
-export default function AddButton({ title, icon, pageID }) {
+export default function HomeButton({ title, icon, pageID }) {
   const { updateActivePage } = useContext(AppContext);
 
   return (
@@ -12,7 +12,7 @@ export default function AddButton({ title, icon, pageID }) {
         borderRadius: "5px",
         display: "flex",
         alignItems: "center",
-        gap: "9px",
+        gap: "5px",
         maxWidth: "165px",
         fontSize: "18px",
       }}

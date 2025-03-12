@@ -1,5 +1,5 @@
 import MacroHeadlines from "../MacroHeadlines/MacroHeadlines";
-import AddButton from "../AddButton";
+import HomeButton from "../HomeButton";
 import SplitButton from "../SplitButton";
 import Food from "../../assets/food.svg";
 import Meal from "../../assets/meal.svg";
@@ -102,13 +102,13 @@ export default function HomePage({ setLogInConfirmed }) {
         style={{
           display: "grid",
           gridTemplateColumns: "165px 165px",
-          gap: "10px",
+          gap: "7px",
           marginTop: "5px",
           justifyContent: "center",
         }}
       >
-        <AddButton title={"Foods"} icon={Food} pageID="foods" />
-        <AddButton title={"Meals"} icon={Meal} pageID="meals" />
+        <HomeButton title={"Foods"} icon={Food} pageID="foods" />
+        <HomeButton title={"Meals"} icon={Meal} pageID="meals" />
         <SplitButton
           title1={"Log Food"}
           icon1={AddToLog}
@@ -117,7 +117,7 @@ export default function HomePage({ setLogInConfirmed }) {
           pageID1={"log-food"}
           pageID2={"view-log"}
         />
-        <AddButton
+        <HomeButton
           title={"See What Fits"}
           icon={SeeWhatFits}
           pageID="see-what-fits"
