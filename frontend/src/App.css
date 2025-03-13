@@ -19,7 +19,7 @@
 
 body {
   scale: 1;
-  background-color: var(--page-background);
+  background-color: #fcba40;
   color: var(--text-color);
   margin: 0;
 }
@@ -35,7 +35,7 @@ html * {
   padding: 5px;
   position: relative;
   width: calc(100svw - 10px);
-  height: calc(100svh - 12px);
+  height: calc(100svh - 10px);
   overflow: hidden;
   color: var(--text-color);
 }
