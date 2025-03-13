@@ -34,8 +34,9 @@ html * {
   margin: 0;
   padding: 5px;
   position: relative;
+  border-bottom: 2px solid var(--text-color);
   width: calc(100svw - 10px);
-  height: calc(100svh - 10px);
+  height: calc(100svh - 12px);
   overflow: hidden;
   color: var(--text-color);
 }
@@ -340,6 +341,7 @@ input::-webkit-inner-spin-button {
     zoom: 2;
     width: calc(50svw - 10px);
     height: calc(50vh - 10px);
+    border-bottom: none;
   }
   .popup-screen {
     width: 50vw;
