@@ -14,6 +14,11 @@ export default function ViewLog() {
   const [viewRange, setViewRange] = useState("daily");
   const [dateInterval, setDateInterval] = useState({ f: 1, b: 1 });
   const [viewingDate, setViewingDate] = useState(createDateString(new Date()));
+  const [touchScroll, setTouchScroll] = useState({
+    touchStart: 0,
+    touchEnd: 0,
+  });
+
   const [itemStates, setItemStates] = useState({
     item: "",
     option: "",
@@ -29,9 +34,11 @@ export default function ViewLog() {
   ];
 
   const formatTotalMacros = (data) => {
-    setMealLog(Object.groupBy(data, ({ meal }) => meal));
-    setDaysMacros(
-      data.reduce(
+    let groupedData;
+    let reducedData = {};
+    if (viewRange === "daily") {
+      groupedData = Object.groupBy(data, ({ meal }) => meal);
+      reducedData = data.reduce(
         (acc, cur) => {
           return {
             calories: acc.calories + cur.calories,
@@ -41,8 +48,54 @@ export default function ViewLog() {
           };
         },
         { calories: 0, fat: 0, carbs: 0, protein: 0 }
-      )
-    );
+      );
+    } else {
+      groupedData = Object.groupBy(data, ({ date }) => date);
+      Object.keys(groupedData).forEach(
+        (date) =>
+          (reducedData[date] = groupedData[date].reduce(
+            (acc, cur) => {
+              return {
+                calories: acc.calories + cur.calories,
+                fat: acc.fat + cur.fat,
+                carbs: acc.carbs + cur.carbs,
+                protein: acc.protein + cur.protein,
+              };
+            },
+            { calories: 0, fat: 0, carbs: 0, protein: 0 }
+          ))
+      );
+      reducedData = Object.keys(reducedData).reduce(
+        (acc, cur) => {
+          return {
+            calories:
+              acc.calories +
+              Math.round(
+                reducedData[cur].calories / Object.keys(reducedData).length
+              ),
+            fat:
+              acc.fat +
+              Math.round(
+                reducedData[cur].fat / Object.keys(reducedData).length
+              ),
+            carbs:
+              acc.carbs +
+              Math.round(
+                reducedData[cur].carbs / Object.keys(reducedData).length
+              ),
+            protein:
+              acc.protein +
+              Math.round(
+                reducedData[cur].protein / Object.keys(reducedData).length
+              ),
+          };
+        },
+        { calories: 0, fat: 0, carbs: 0, protein: 0 }
+      );
+    }
+    setMealLog(groupedData);
+    console.log(reducedData);
+    setDaysMacros(reducedData);
   };
 
   const fetchLog = async (date) => {
@@ -88,15 +141,15 @@ export default function ViewLog() {
   }, [viewRange]);
 
   useEffect(() => {
+    if (
+      allFoods.length === 0 ||
+      Number(viewingDate.split("-")[1]) - 1 !==
+        new Date(allFoods[0].date).getMonth()
+    ) {
+      fetchLog(viewingDate);
+    }
     switch (viewRange) {
       case "daily":
-        if (
-          allFoods.length === 0 ||
-          Number(viewingDate.split("-")[1]) - 1 !==
-            new Date(allFoods[0].date).getMonth()
-        ) {
-          fetchLog(viewingDate);
-        }
         setDisplayFoods(
           allFoods.filter((food) => {
             return (
@@ -106,21 +159,30 @@ export default function ViewLog() {
         );
         break;
       case "weekly":
+        const lastDate = new Date(viewingDate);
+        lastDate.setDate(lastDate.getDate() + dateInterval.f);
+        setDisplayFoods(
+          allFoods.filter((food) => {
+            return (
+              new Date(food.date).getDate() >=
+                new Date(viewingDate).getDate() &&
+              new Date(food.date).getDate() <= lastDate.getDate()
+            );
+          })
+        );
         break;
       case "monthly":
-        console.log(viewingDate);
         let monthLength = new Date(viewingDate);
-        monthLength.setDate(monthLength.getDate() + 1)
+        monthLength.setDate(monthLength.getDate() + 1);
         monthLength.setDate(32);
         monthLength.setDate(0);
         monthLength = monthLength.getDate();
-        console.log(monthLength);
         let prevMonthLength = new Date(viewingDate);
         prevMonthLength.setDate(prevMonthLength.getDate() + 1);
         prevMonthLength.setDate(0);
         prevMonthLength = prevMonthLength.getDate();
-        console.log(prevMonthLength);
         setDateInterval({ f: monthLength, b: prevMonthLength });
+        break;
     }
   }, [viewingDate, allFoods]);
 
@@ -176,8 +238,9 @@ export default function ViewLog() {
               padding: "5px",
             }}
           >
-            {Number(daysMacros.calories)}
-            <br /> calories
+            {Number(daysMacros.calories)} <br />
+            {viewRange !== "daily" && "daily avg \n"}
+            calories
           </p>
           <p
             style={{
@@ -187,7 +250,8 @@ export default function ViewLog() {
               padding: "5px",
             }}
           >
-            {Number(daysMacros.fat)}g<br /> fat
+            {Number(daysMacros.fat)}g<br />
+            {viewRange !== "daily" && "daily avg \n"} fat
           </p>
           <p
             style={{
@@ -197,7 +261,8 @@ export default function ViewLog() {
               padding: "5px",
             }}
           >
-            {Number(daysMacros.carbs)}g<br /> carbs
+            {Number(daysMacros.carbs)}g<br />
+            {viewRange !== "daily" && "daily avg \n"} carbs
           </p>
           <p
             style={{
@@ -207,41 +272,46 @@ export default function ViewLog() {
               padding: "5px",
             }}
           >
-            {Number(daysMacros.protein)}g<br /> protein
+            {Number(daysMacros.protein)}g<br />
+            {viewRange !== "daily" && "daily avg \n"} protein
           </p>
         </div>
         <hr />
       </div>
       <div id="log-div">
         {Object.values(mealLog).length ? (
-          meals.map((m, index) => {
-            let componentList = [];
-            if (mealLog[m]) {
-              componentList = componentList.concat(
-                <h3 style={{ margin: "5px 0px 5px 0px" }} key={m}>
-                  {m}
-                </h3>
-              );
-              componentList = componentList.concat(
-                mealLog[m].map((food, i) => (
-                  <div key={i}>
-                    <FoodDisplay
-                      food={food}
-                      allFoods={allFoods}
-                      setAllFoods={setAllFoods}
-                      buttons={["edit", "trash"]}
-                      itemState={itemStates}
-                      setItemState={setItemStates}
-                      link={"log"}
-                    />
-                  </div>
-                ))
-              );
-              return <div key={index}>{componentList}</div>;
-            }
-          })
+          viewRange === "daily" ? (
+            meals.map((m, index) => {
+              let componentList = [];
+              if (mealLog[m]) {
+                componentList = componentList.concat(
+                  <h3 style={{ margin: "5px 0px 5px 0px" }} key={m}>
+                    {m}
+                  </h3>
+                );
+                componentList = componentList.concat(
+                  mealLog[m].map((food, i) => (
+                    <div key={i}>
+                      <FoodDisplay
+                        food={food}
+                        allFoods={allFoods}
+                        setAllFoods={setAllFoods}
+                        buttons={["edit", "trash"]}
+                        itemState={itemStates}
+                        setItemState={setItemStates}
+                        link={"log"}
+                      />
+                    </div>
+                  ))
+                );
+                return <div key={index}>{componentList}</div>;
+              }
+            })
+          ) : (
+            ""
+          )
         ) : (
-          <p>No logs recorded.</p>
+          <p style={{ width: "1000px" }}>No logs recorded.</p>
         )}
       </div>
     </div>
