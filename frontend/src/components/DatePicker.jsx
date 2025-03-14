@@ -6,6 +6,7 @@ export default function DatePicker({
   setDefaultDate,
   record = { date: "" },
   setRecord = () => {},
+  interval = {f: 1, b: 1}
 }) {
   const handleDateButton = (e, number) => {
     e.preventDefault();
@@ -32,7 +33,7 @@ export default function DatePicker({
             marginRight: "5px",
             padding: 0,
           }}
-          onClick={(e) => handleDateButton(e, -1)}
+          onClick={(e) => handleDateButton(e, -interval.b)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -56,7 +57,7 @@ export default function DatePicker({
         ></input>
         <button
           style={{ height: "28px", width: "28px", marginLeft: "5px", padding: 0 }}
-          onClick={(e) => handleDateButton(e, 1)}
+          onClick={(e) => handleDateButton(e, interval.f)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

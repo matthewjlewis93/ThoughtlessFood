@@ -11,6 +11,8 @@ export default function ViewLog() {
   const [allFoods, setAllFoods] = useState([]);
   const [displayFoods, setDisplayFoods] = useState([]);
   const [mealLog, setMealLog] = useState([]);
+  const [viewRange, setViewRange] = useState("daily");
+  const [dateInterval, setDateInterval] = useState({ f: 1, b: 1 });
   const [viewingDate, setViewingDate] = useState(createDateString(new Date()));
   const [itemStates, setItemStates] = useState({
     item: "",
@@ -26,7 +28,7 @@ export default function ViewLog() {
     "Evening Snack",
   ];
 
-  const formatDaysMacros = (data) => {
+  const formatTotalMacros = (data) => {
     setMealLog(Object.groupBy(data, ({ meal }) => meal));
     setDaysMacros(
       data.reduce(
@@ -57,25 +59,73 @@ export default function ViewLog() {
           new Date(food.date).getDate() === new Date(viewingDate).getDate()
         );
       })
-    );    
-  }, [macroTotals])
+    );
+  }, [macroTotals]);
 
   useEffect(() => {
-    if (
-      allFoods.length === 0 ||
-      Number(viewingDate.split('-')[1]) - 1 !== new Date(allFoods[0].date).getMonth()
-    ) {
-        fetchLog(viewingDate);
+    switch (viewRange) {
+      case "daily":
+        setViewingDate(createDateString(new Date()));
+        setDateInterval({ f: 1, b: 1 });
+        break;
+      case "weekly":
+        const firstDayofWeek = new Date(viewingDate);
+        firstDayofWeek.setDate(firstDayofWeek.getDate() + 1);
+        firstDayofWeek.setDate(
+          firstDayofWeek.getDate() - firstDayofWeek.getDay()
+        );
+        setViewingDate(createDateString(firstDayofWeek));
+        setDateInterval({ f: 7, b: 7 });
+        break;
+      case "monthly":
+        const firstDayOfMonth = new Date(viewingDate);
+        firstDayOfMonth.setDate(firstDayOfMonth.getDate() + 1);
+        firstDayOfMonth.setDate(1);
+        setViewingDate(createDateString(firstDayOfMonth));
+
+        break;
     }
-    setDisplayFoods(
-      allFoods.filter((food) => {
-        return new Date(food.date).getDate() === new Date(viewingDate).getDate();
-      })
-    );
+  }, [viewRange]);
+
+  useEffect(() => {
+    switch (viewRange) {
+      case "daily":
+        if (
+          allFoods.length === 0 ||
+          Number(viewingDate.split("-")[1]) - 1 !==
+            new Date(allFoods[0].date).getMonth()
+        ) {
+          fetchLog(viewingDate);
+        }
+        setDisplayFoods(
+          allFoods.filter((food) => {
+            return (
+              new Date(food.date).getDate() === new Date(viewingDate).getDate()
+            );
+          })
+        );
+        break;
+      case "weekly":
+        break;
+      case "monthly":
+        console.log(viewingDate);
+        let monthLength = new Date(viewingDate);
+        monthLength.setDate(monthLength.getDate() + 1)
+        monthLength.setDate(32);
+        monthLength.setDate(0);
+        monthLength = monthLength.getDate();
+        console.log(monthLength);
+        let prevMonthLength = new Date(viewingDate);
+        prevMonthLength.setDate(prevMonthLength.getDate() + 1);
+        prevMonthLength.setDate(0);
+        prevMonthLength = prevMonthLength.getDate();
+        console.log(prevMonthLength);
+        setDateInterval({ f: monthLength, b: prevMonthLength });
+    }
   }, [viewingDate, allFoods]);
 
   useEffect(() => {
-    formatDaysMacros(displayFoods);
+    formatTotalMacros(displayFoods);
   }, [displayFoods]);
 
   return (
@@ -88,6 +138,7 @@ export default function ViewLog() {
         functionList={[
           () => setViewingDate(createDateString(new Date())),
           () => document.getElementById("log-div").scroll(0, "smooth"),
+          () => setViewRange("daily"),
         ]}
       />
       <div style={{ height: "160px" }}>
@@ -100,10 +151,20 @@ export default function ViewLog() {
             margin: "10px",
           }}
         >
+          <select
+            style={{ width: "75px" }}
+            onChange={(e) => setViewRange(e.target.value)}
+            value={viewRange}
+          >
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+          </select>
           <DatePicker
             label={false}
             defaultDate={viewingDate}
             setDefaultDate={setViewingDate}
+            interval={dateInterval}
           />
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}>

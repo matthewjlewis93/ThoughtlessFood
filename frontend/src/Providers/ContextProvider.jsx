@@ -5,7 +5,7 @@ const AppContext = createContext();
 
 const ContextProvider = ({ children, theme, setTheme }) => {
   // Active page
-  const [activePage, setActivePage] = useState("HomePage");
+  const [activePage, setActivePage] = useState("View Log");
   const updateActivePage = (ActivePage) => setActivePage(ActivePage);
 
   // API link provider

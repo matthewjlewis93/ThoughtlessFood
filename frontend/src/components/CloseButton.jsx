@@ -10,7 +10,10 @@ export default function CloseButton({ functionList, pageID }) {
       updateActivePage("HomePage");
       transitionControl(pageID);
     }
-    functionList.forEach((func) => func());
+    setTimeout(() =>
+      functionList.forEach((func) => func()),
+      300 // hide reset until after page change
+    );
   };
   return (
     <div
