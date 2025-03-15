@@ -94,7 +94,6 @@ export default function ViewLog() {
       );
     }
     setMealLog(groupedData);
-    console.log(reducedData);
     setDaysMacros(reducedData);
   };
 
@@ -118,10 +117,12 @@ export default function ViewLog() {
   useEffect(() => {
     switch (viewRange) {
       case "daily":
+        document.querySelector("#view-log input#date").readOnly = false;
         setViewingDate(createDateString(new Date()));
         setDateInterval({ f: 1, b: 1 });
         break;
       case "weekly":
+        document.querySelector("#view-log input#date").readOnly = true;
         const firstDayofWeek = new Date(viewingDate);
         firstDayofWeek.setDate(firstDayofWeek.getDate() + 1);
         firstDayofWeek.setDate(
@@ -131,6 +132,7 @@ export default function ViewLog() {
         setDateInterval({ f: 7, b: 7 });
         break;
       case "monthly":
+        document.querySelector("#view-log input#date").readOnly = true;
         const firstDayOfMonth = new Date(viewingDate);
         firstDayOfMonth.setDate(firstDayOfMonth.getDate() + 1);
         firstDayOfMonth.setDate(1);
