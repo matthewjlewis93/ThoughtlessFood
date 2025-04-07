@@ -8,6 +8,7 @@ import authRouter from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser";
 import foodLookupRouter from "./routes/foodlookup.routes.js";
 import settingsRouter from "./routes/settings.routes.js";
+import { userInfo } from "./config/userInfoMiddleware.js";
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/auth", authRouter);
+app.use(userInfo)
 app.use("/api/foods", foodRouter);
 app.use("/api/log", logRouter);
 app.use("/api/meals", mealRouter);

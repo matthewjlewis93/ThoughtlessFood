@@ -6,10 +6,8 @@ import {
   getRangedLogs,
   updateLogItem,
 } from "../controllers/log.controller.js";
-import { userInfo } from "../config/userInfoMiddleware.js";
 
 const logRouter = express.Router();
-logRouter.use(userInfo);
 
 logRouter.get("/all", getAllLogs);
 

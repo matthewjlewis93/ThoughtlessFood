@@ -3,7 +3,6 @@ import { addNewMeal, deleteMeal, getAllMeals, updateMeal } from "../controllers/
 import { userInfo } from "../config/userInfoMiddleware.js";
 
 const mealRouter = express.Router();
-mealRouter.use(userInfo);
 
 mealRouter.get('/', getAllMeals);
 
