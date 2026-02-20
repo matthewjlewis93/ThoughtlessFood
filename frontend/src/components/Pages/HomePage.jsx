@@ -22,7 +22,6 @@ export default function HomePage({ setLogInConfirmed }) {
 
   const verifyLogin = async () => {
     let response = await fetch(`${APIUrl}auth/verify`);
-    console.log(APIUrl)
     response = await response.json();
     if (response.success) {
       setLogIn(false);
@@ -36,7 +35,7 @@ export default function HomePage({ setLogInConfirmed }) {
     }
   };
 
-  useEffect(() => verifyLogin, []);
+  useEffect(() => {verifyLogin()}, []);
 
   return (
     <div id="homepage" className={"container-box main-page " + "active-home"}>
