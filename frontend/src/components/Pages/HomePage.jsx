@@ -22,8 +22,8 @@ export default function HomePage({ setLogInConfirmed }) {
 
   const verifyLogin = async () => {
     let response = await fetch(`${APIUrl}auth/verify`);
+    console.log(APIUrl)
     response = await response.json();
-
     if (response.success) {
       setLogIn(false);
       setLogInConfirmed(true);

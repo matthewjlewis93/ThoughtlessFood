@@ -7,11 +7,11 @@ export default defineConfig({
   plugins: [react(), netlify()],
   server: {
     port: 5173,
-    // proxy: {
-    //   "/api": {
-    //     target: "https://57h4xgtj-8080.usw3.devtunnels.ms",
-    //     changeOrigin: true,
-    //   },
-    // },
+    proxy: {
+      "/api": {
+        target: "https://thoughtlessfood.netlify.app",
+        changeOrigin: true,
+      },
+    },
   },
 });
