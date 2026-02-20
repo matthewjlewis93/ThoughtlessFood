@@ -65,7 +65,7 @@ export default function UserSettings({ username, setSettingsDisplay }) {
               border: theme === "light" ? "1px solid #fff" : "1px solid #000",
               borderRadius: "5px",
               height: "35px",
-              transition: "transform 3000px",
+              // transition: "transform 3000px",
               padding: "4px 7px"
             }}
             onClick={(e) => changeIcons(e)}

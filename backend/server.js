@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/auth", authRouter);
-app.use(userInfo)
+app.use(userInfo);
 app.use("/api/foods", foodRouter);
 app.use("/api/log", logRouter);
 app.use("/api/meals", mealRouter);
@@ -25,7 +25,7 @@ app.use("/api/whatfits", whatFitsRouter);
 app.use("/api/foodlookup", foodLookupRouter);
 app.use("/api/settings", settingsRouter);
 app.get("/", (req, res) => {
-  res.json({ status: "live", loggedIn: req.sessionID });
+  res.status(200).json({ status: "live", loggedIn: req.sessionID });
 });
 
 app.listen(PORT, () => {

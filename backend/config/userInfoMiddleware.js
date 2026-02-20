@@ -8,6 +8,7 @@ const userInfo = (req, res, next) => {
 
   if (token) {
     try {
+      // console.log(req.body)
       const decoded = jwt.verify(token, process.env.SESSIONSECRET);
       req.body.userID = decoded.userID;
       if (decoded.guest) {

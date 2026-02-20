@@ -216,7 +216,6 @@ export default function MealDisplay({
     if (savedFoods.length === 0) {
       let response = await fetch(APIUrl + "foods");
       response = await response.json();
-      console.log(response.data);
       setSavedFoods(response.data);
     }
     setSelectSavedFoods(true);
