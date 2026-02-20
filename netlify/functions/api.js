@@ -27,8 +27,8 @@ app.use("/api/meals", mealRouter);
 app.use("/api/whatfits", whatFitsRouter);
 app.use("/api/foodlookup", foodLookupRouter);
 app.use("/api/settings", settingsRouter);
-app.get("/", (req, res) => {
-  res.status(200).json({ status: "live", loggedIn: req.sessionID });
+app.get("/api/status", (req, res) => {
+  res.status(200).json({ status: "live on netlify", loggedIn: req.sessionID });
 });
 
 
