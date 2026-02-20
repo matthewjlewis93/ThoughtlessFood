@@ -14,6 +14,8 @@ import { userInfo } from "../../backend/config/userInfoMiddleware";
 const PORT = process.env.PORT || 8080;
 const app = express();
 
+connectDB();
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -29,6 +31,5 @@ app.get("/", (req, res) => {
   res.status(200).json({ status: "live", loggedIn: req.sessionID });
 });
 
-connectDB();
 
 export const handler = serverless(app);
