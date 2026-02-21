@@ -24,7 +24,6 @@ export default function ToastDisplay() {
     <div
       id="toast"
       style={{
-        display: "flex",
         justifyContent: "center",
         position: "absolute",
       }}

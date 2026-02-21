@@ -276,9 +276,11 @@ h2 {
 #toast {
   transition-duration: 200ms;
   transition-property: bottom, opacity;
-  bottom: -10%;
+  transition-timing-function: ease-in-out;
+  bottom: calc(-10% - 15px);
   z-index: 200;
   width: calc(100svw - 10px);
+  display: flex;
 }
 #toast.activated {
   bottom: 5%;
