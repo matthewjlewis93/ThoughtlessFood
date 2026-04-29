@@ -9,7 +9,7 @@ lerna-debug.log*
 
 node_modules
 frontend/node_modules
-frontend/vite.config.js
+
 dist
 dist-ssr
 *.local
@@ -25,3 +25,5 @@ dist-ssr
 *.sln
 *.sw?
 .env
+# Local Netlify folder
+.netlify
