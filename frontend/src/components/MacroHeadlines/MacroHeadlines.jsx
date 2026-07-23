@@ -1,6 +1,7 @@
 import react, { useEffect, useContext, useState } from "react";
 import MacroChart from "./MacroChart";
 import MacroLabel from "./MacroLabel";
+import CalorieAvg from "./CalorieAvg";
 import { AppContext } from "../../Providers/ContextProvider";
 
 export default function MacroHeadlines({ logIn }) {
@@ -10,10 +11,10 @@ export default function MacroHeadlines({ logIn }) {
 
   const fetchDay = async (searchedDay) => {
     let query = `${APIUrl}log?date=${searchedDay.getFullYear()}-${String(
-      searchedDay.getMonth() + 1
+      searchedDay.getMonth() + 1,
     ).padStart(2, "0")}-${String(searchedDay.getDate()).padStart(
       2,
-      "0"
+      "0",
     )}&range=day`;
     const res = await fetch(query);
     const data = await res.json();
@@ -51,21 +52,28 @@ export default function MacroHeadlines({ logIn }) {
   }, [activePage]);
 
   return (
-    <div
-      className="container-box"
-      style={{ maxWidth: "950px", marginLeft: "auto", marginRight: "auto" }}
-    >
-      <MacroChart calorieValue={macroTotals.calories} />
+    <div style={{display: "flex", alignItems: "center", width: "100%", justifyContent: "space-between", gap: "10px", marginTop: "8px"}}>
       <div
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          borderTop: "1px solid #aaa",
-        }}
+        className="container-box"
+        style={{flexGrow: 1 }}
       >
-        <MacroLabel macro="fat" macroValue={macroTotals.fat} />
-        <MacroLabel macro="carbs" macroValue={macroTotals.carbs} />
-        <MacroLabel macro="protein" macroValue={macroTotals.protein} />
+        <MacroChart calorieValue={macroTotals.calories} />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            borderTop: "1px solid #aaa",
+            width: "100%",
+          }}
+        >
+          <MacroLabel macro="fat" macroValue={macroTotals.fat} />
+          <MacroLabel macro="carbs" macroValue={macroTotals.carbs} />
+          <MacroLabel macro="protein" macroValue={macroTotals.protein} />
+        </div>
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", justifyContent: "center", width: "fit-content", alignItems: "stretch" }}>
+        <CalorieAvg days="7" />
+        <CalorieAvg days="30" />
       </div>
     </div>
   );

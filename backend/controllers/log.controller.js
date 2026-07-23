@@ -41,11 +41,27 @@ export const getRangedLogs = async (req, res) => {
         },
       });
       break;
+    default:
+      firstDay.setDate(firstDay.getDate() - Number(range));
+      returnedFoods = await FoodLog.find({
+        userID: req.body.userID,
+        date: {
+          $gt: firstDay,
+          $lte: lastDay,
+        },
+      });
+      const calorieTotal = returnedFoods.reduce((acc, cur) => cur.calories + acc, 0)
+      const numberOfDays = Object.keys(Object.groupBy(returnedFoods, ({ date }) => date )).length;
+      const returnedAvg = Math.round(calorieTotal / numberOfDays);
+      return res.status(200).json({success: true, data: {calorieAverage: returnedAvg}})
   }
 
   return res.status(200).json({
     success: true,
-    data: returnedFoods.length !== 0 ? returnedFoods : [{message: "no foods found for month", date: lastDay}],
+    data:
+      returnedFoods.length !== 0
+        ? returnedFoods
+        : [{ message: "no foods found for month", date: lastDay }],
   });
 };
 
