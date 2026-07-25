@@ -10,6 +10,20 @@ export const getAllFoods = async (req, res) => {
     }
 };
 
+export const getOneFood = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const food = await FoodItem.findOne({ userID: req.body.userID, _id: id });
+        if (!food) {
+            return res.status(200).json({ success: false, message: "Food not found" });
+        }
+        res.status(200).json({ success: true, data: food });
+    } catch (error) {
+        console.error(`Error fetching food: ${error}`);
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+}
+
 export const addNewFood = async (req, res) => {
     try {
         const newFood = new FoodItem(req.body);
