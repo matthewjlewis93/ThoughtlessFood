@@ -24,6 +24,7 @@ export default function ViewLog() {
     "Afternoon Snack",
     "Dinner",
     "Evening Snack",
+    "Snack"
   ];
 
   const formatDaysMacros = (data) => {
